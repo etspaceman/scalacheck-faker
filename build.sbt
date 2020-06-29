@@ -4,7 +4,8 @@ version := "0.1"
 
 scalaVersion := "2.13.3"
 
+crossScalaVersions ++= Seq("2.12.12")
+
 libraryDependencies ++= Seq(
-  "org.scalacheck" %% "scalacheck" % "1.14.3",
-  "org.typelevel" %% "cats-core" % "2.1.1"
+  "org.scalacheck" %% "scalacheck" % "1.14.3"
 )
