@@ -7,11 +7,11 @@ import org.scalacheck.{Arbitrary, Gen}
 final case class FutureInstant private (value: Instant) extends AnyVal
 
 object FutureInstant {
-  implicit val futureInstantArbitrary: Arbitrary[FutureInstant] = Arbitrary(
-    Arbitrary
-      .arbitrary[NowInstant]
-      .flatMap(now => Gen.choose(now.value.plusMillis(1).toEpochMilli, Instant.MAX.toEpochMilli))
-      .map(Instant.ofEpochMilli)
-      .map(FutureInstant.apply)
-  )
+  implicit val futureInstantArbitrary: Arbitrary[FutureInstant] = Arbitrary {
+    for {
+      now <- Arbitrary.arbitrary[NowInstant].map(_.value.plusMillis(1L))
+      epochSecond <- Gen.choose(now.getEpochSecond, Instant.MAX.getEpochSecond)
+      nanoAdjustment <- Gen.choose(now.getNano, Instant.MAX.getNano)
+    } yield FutureInstant(Instant.ofEpochSecond(epochSecond, nanoAdjustment))
+  }
 }

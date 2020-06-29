@@ -1,10 +1,8 @@
 package faker.lorem
 
-import scala.io.Source
+import faker.ResourceLoader
 
 private[lorem] object Lorem {
-  val words: Seq[String] =
-    Source.fromInputStream(getClass.getResourceAsStream("/lorem-words.txt")).getLines.toSeq
-
+  val words: Seq[String] = ResourceLoader.loadLines("lorem-words.txt")
   val characters: Set[Char] = words.mkString.toSet
 }

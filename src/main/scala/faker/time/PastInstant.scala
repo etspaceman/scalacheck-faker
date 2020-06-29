@@ -7,11 +7,11 @@ import org.scalacheck.{Arbitrary, Gen}
 final case class PastInstant private (value: Instant) extends AnyVal
 
 object PastInstant {
-  implicit val pastInstantArbitrary: Arbitrary[PastInstant] = Arbitrary(
-    Arbitrary
-      .arbitrary[NowInstant]
-      .flatMap(now => Gen.choose(Instant.MIN.toEpochMilli, now.value.minusMillis(1L).toEpochMilli))
-      .map(Instant.ofEpochMilli)
-      .map(PastInstant.apply)
-  )
+  implicit val pastInstantArbitrary: Arbitrary[PastInstant] = Arbitrary {
+    for {
+      now <- Arbitrary.arbitrary[NowInstant].map(_.value)
+      epochSecond <- Gen.choose(Instant.MIN.getEpochSecond, now.getEpochSecond)
+      nanoAdjustment <- Gen.choose(Instant.MIN.getNano, now.getNano)
+    } yield PastInstant(Instant.ofEpochSecond(epochSecond, nanoAdjustment))
+  }
 }
