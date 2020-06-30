@@ -9,7 +9,8 @@ import scala.jdk.CollectionConverters._
 private[faker] object ResourceLoader {
 
   private val locale: Locale = Locale.getDefault()
-  private val defaultConfig: Config = ConfigFactory.parseResources("default.conf")
+  private val defaultConfig: Config =
+    ConfigFactory.parseResources("default.conf")
   private val languageConfig: Config =
     ConfigFactory.parseResources(s"${locale.getLanguage}.conf")
   private val localeConfig: Config =
