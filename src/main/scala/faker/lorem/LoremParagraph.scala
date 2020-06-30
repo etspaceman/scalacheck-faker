@@ -8,7 +8,8 @@ object LoremParagraph {
   implicit val loremParagraphArbitrary: Arbitrary[LoremParagraph] = Arbitrary {
     for {
       sentenceCount <- Gen.choose(3, 6)
-      sentences <- Gen.listOfN(sentenceCount, Arbitrary.arbitrary[LoremSentence])
+      sentences <-
+        Gen.listOfN(sentenceCount, Arbitrary.arbitrary[LoremSentence])
     } yield LoremParagraph(sentences.map(_.value).mkString(" "))
   }
 }

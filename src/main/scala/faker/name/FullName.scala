@@ -23,6 +23,10 @@ object FullName {
   } yield FullName(s"${firstName.value} ${lastName.value}")
 
   implicit val fullNameArbitrary: Arbitrary[FullName] = Arbitrary(
-    Gen.frequency(1 -> prefixFullNameGen, 1 -> suffixFullNameGen, 4 -> fullNameGen)
+    Gen.frequency(
+      1 -> prefixFullNameGen,
+      1 -> suffixFullNameGen,
+      4 -> fullNameGen
+    )
   )
 }
