@@ -12,6 +12,8 @@ object PastInstant {
       now <- Arbitrary.arbitrary[NowInstant].map(_.value)
       epochSecond <- Gen.choose(Instant.MIN.getEpochSecond, now.getEpochSecond)
       nanoAdjustment <- Gen.choose(Instant.MIN.getNano, now.getNano)
-    } yield PastInstant(Instant.ofEpochSecond(epochSecond, nanoAdjustment))
+    } yield PastInstant(
+      Instant.ofEpochSecond(epochSecond, nanoAdjustment.toLong)
+    )
   }
 }

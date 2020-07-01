@@ -12,6 +12,8 @@ object RandomInstant {
       epochSecond <-
         Gen.choose(Instant.MIN.getEpochSecond, Instant.MAX.getEpochSecond)
       nanoAdjustment <- Gen.choose(Instant.MIN.getNano, Instant.MAX.getNano)
-    } yield RandomInstant(Instant.ofEpochSecond(epochSecond, nanoAdjustment))
+    } yield RandomInstant(
+      Instant.ofEpochSecond(epochSecond, nanoAdjustment.toLong)
+    )
   }
 }
