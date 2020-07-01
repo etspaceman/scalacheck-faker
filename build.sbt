@@ -10,11 +10,20 @@ scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.3.1-RC
 semanticdbEnabled := true
 semanticdbVersion := "4.3.16"
 
-scalacOptions += "-Ywarn-unused"
+scalacOptions ++= Seq(
+  "-deprecation",
+  "-unchecked",
+  "-feature",
+  "-encoding",
+  "utf8",
+  "-Ywarn-unused",
+  "-Xfatal-warnings"
+)
 
 libraryDependencies ++= Seq(
   "org.scalacheck" %% "scalacheck" % "1.14.3",
   "com.typesafe" % "config" % "1.4.0",
+  "org.apache.commons" % "commons-lang3" % "3.10",
   "org.scalatest" %% "scalatest" % "3.2.0" % Test,
   "org.scalatestplus" %% "scalacheck-1-14" % "3.1.0.0" % Test
 )
