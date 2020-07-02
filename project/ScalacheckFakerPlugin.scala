@@ -60,7 +60,7 @@ object ScalacheckFakerPlugin extends AutoPlugin {
       scmInfo := Some(
         ScmInfo(
           url("https://github.com/etspaceman/scalacheck-faker"),
-          "scm:git:git@github.com:etspaceman/scalacheck-faker.git"
+          "https://github.com/etspaceman/scalacheck-faker.git"
         )
       ),
       developers := List(
