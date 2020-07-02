@@ -83,4 +83,7 @@ addCommandAlias(
   ";compile:scalafix --check ;test:scalafix --check"
 )
 addCommandAlias("fix", ";compile:scalafix ;test:scalafix")
-addCommandAlias("validate", ";+test;fixCheck;scalafmtCheckAll")
+addCommandAlias(
+  "validate",
+  ";+test;fixCheck;scalafmtCheckAll;mimaReportBinaryIssues"
+)
