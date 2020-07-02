@@ -4,7 +4,7 @@ import org.scalacheck.Gen
 
 import faker.compat.LazyListCompat
 
-object scalacheck
+object scalacheck extends ScalacheckSyntax
 
 trait ScalacheckSyntax {
   implicit def toScalacheckGenOps[A](
