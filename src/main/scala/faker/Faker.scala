@@ -34,5 +34,8 @@ final class Faker(private val locale: Locale) {
       .mkString("\n")
   def loremParagraphs(): String =
     Arbitrary.arbitrary[lorem.LoremParagraphs].one.value
+}
 
+object Faker {
+  val default = new Faker(Locale.getDefault)
 }
