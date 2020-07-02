@@ -1,6 +1,6 @@
 # scalacheck-faker
 ![](https://github.com/etspaceman/scalacheck-faker/workflows/Scala%20CI/badge.svg)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.etspaceman/scalacheck-faker/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/io.github.etspaceman/scalacheck-faker)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.etspaceman/scalacheck-faker_2.13.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.etspaceman/scalacheck-faker_2.13)
 
 Fake Data Generation using ScalaCheck
 
