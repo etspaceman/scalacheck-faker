@@ -1,7 +1,8 @@
 package faker.internet
 
-import faker.ResourceLoader
 import org.scalacheck.{Arbitrary, Gen}
+
+import faker.ResourceLoader
 
 /**
   * Generates a random image url based on the lorempixel service. All the images provided by this service are released
@@ -12,11 +13,13 @@ import org.scalacheck.{Arbitrary, Gen}
 final case class Image private (value: String) extends AnyVal
 
 object Image {
-  private val imageDimensions =
-    ResourceLoader.loadStringList("internet.image.dimensions")
-  private val imageCategories =
-    ResourceLoader.loadStringList("internet.image.categories")
-  implicit val imageArbitrary: Arbitrary[Image] =
+  def imageDimensions(implicit loader: ResourceLoader): Seq[String] =
+    loader.loadStringList("internet.image.dimensions")
+  def imageCategories(implicit loader: ResourceLoader): Seq[String] =
+    loader.loadStringList("internet.image.categories")
+  implicit def imageArbitrary(implicit
+      loader: ResourceLoader
+  ): Arbitrary[Image] =
     Arbitrary {
       for {
         dimension <- Gen.oneOf(imageDimensions)

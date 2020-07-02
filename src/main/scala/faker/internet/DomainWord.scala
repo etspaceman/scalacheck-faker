@@ -1,15 +1,20 @@
 package faker.internet
 
-import faker.name.LastName
 import org.scalacheck.Arbitrary
+
+import faker.ResourceLoader
+import faker.name.LastName
 
 final case class DomainWord private (value: String) extends AnyVal
 
 object DomainWord {
-  implicit val domainWordArbitrary: Arbitrary[DomainWord] = Arbitrary(
-    Arbitrary
-      .arbitrary[LastName]
-      .map(ln => FakerIDN.toASCII(ln.value.toLowerCase().replaceAll("'", "")))
-      .map(DomainWord.apply)
-  )
+  implicit def domainWordArbitrary(implicit
+      loader: ResourceLoader
+  ): Arbitrary[DomainWord] =
+    Arbitrary(
+      Arbitrary
+        .arbitrary[LastName]
+        .map(ln => FakerIDN.toASCII(ln.value.toLowerCase().replaceAll("'", "")))
+        .map(DomainWord.apply)
+    )
 }

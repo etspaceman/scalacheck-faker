@@ -1,6 +1,7 @@
 package faker
 
 import scala.reflect.ClassTag
+
 import org.scalacheck.Arbitrary
 import org.scalatest.freespec.AnyFreeSpecLike
 import org.scalatestplus.scalacheck.Checkers

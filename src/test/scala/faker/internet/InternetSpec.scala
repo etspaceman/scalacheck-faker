@@ -1,6 +1,7 @@
 package faker.internet
 
 import faker.FakerSpec
+import faker.ResourceLoader.Implicits._
 
 class InternetSpec extends FakerSpec {
   "Internet" - {

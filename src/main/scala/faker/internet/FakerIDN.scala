@@ -1,8 +1,8 @@
 package faker.internet
 
-import java.net.IDN
-
 import scala.util.Try
+
+import java.net.IDN
 
 object FakerIDN {
   def toASCII(in: String): String =

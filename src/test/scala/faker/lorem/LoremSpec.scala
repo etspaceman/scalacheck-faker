@@ -1,6 +1,7 @@
 package faker.lorem
 
 import faker.FakerSpec
+import faker.ResourceLoader.Implicits._
 
 class LoremSpec extends FakerSpec {
   "Lorem" - {

@@ -1,14 +1,13 @@
 package faker
 
+import scala.jdk.CollectionConverters._
+
 import java.util.Locale
 
 import com.typesafe.config._
 
-import scala.jdk.CollectionConverters._
+final class ResourceLoader(private val locale: Locale) {
 
-private[faker] object ResourceLoader {
-
-  private val locale: Locale = Locale.getDefault()
   private val defaultConfig: Config =
     ConfigFactory.parseResources("default.conf")
   private val languageConfig: Config =
@@ -25,4 +24,12 @@ private[faker] object ResourceLoader {
 
   def loadStringList(key: String): Seq[String] =
     conf.getStringList(key).asScala.toSeq
+}
+
+object ResourceLoader {
+  val default: ResourceLoader = new ResourceLoader(Locale.getDefault)
+
+  object Implicits {
+    implicit val defaultResourceLoader: ResourceLoader = default
+  }
 }
