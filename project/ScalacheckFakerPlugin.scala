@@ -73,6 +73,7 @@ object ScalacheckFakerPlugin extends AutoPlugin {
       ),
       releaseTagName := s"${version.value}",
       releaseVcsSign := true,
+      releasePublishArtifactsAction := PgpKeys.publishSigned.value,
       releaseCrossBuild := true,
       publishMavenStyle := true,
       publishArtifact in Test := false,
