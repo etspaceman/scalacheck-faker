@@ -7,4 +7,6 @@ object LibraryDependencies {
   val ScalaTest = "org.scalatest" %% "scalatest" % "3.2.0"
   val ScalaTestPlusScalaCheck =
     "org.scalatestplus" %% "scalacheck-1-14" % "3.1.0.0"
+  val KindProjector = "org.typelevel" % "kind-projector" % "0.11.0"
+  val OrganizeImports = "com.github.liancheng" %% "organize-imports" % "0.3.1-RC3"
 }
