@@ -1,3 +1,9 @@
+name: Release Drafter
+
+on:
+  push:
+    branches: [ master ]
+
 categories:
   - title: '🚀 Features'
     label: 'feature'
