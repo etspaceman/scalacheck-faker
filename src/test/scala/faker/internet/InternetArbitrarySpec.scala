@@ -1,8 +1,9 @@
 package faker.internet
 
-import faker.FakerSpec
+import faker.FakerArbitrarySpec
+import faker.ResourceLoader.Implicits._
 
-class InternetSpec extends FakerSpec {
+class InternetArbitrarySpec extends FakerArbitrarySpec {
   "Internet" - {
     testCanGen[Avatar]
     testCanGen[DomainName]

@@ -1,8 +1,8 @@
 package faker.time
 
-import faker.FakerSpec
+import faker.FakerArbitrarySpec
 
-class TimeSpec extends FakerSpec {
+class TimeArbitrarySpec extends FakerArbitrarySpec {
   testCanGen[CurrentEraInstant]
   testCanGen[CurrentEraLocalDateTime]
   testCanGen[CurrentEraOffsetDateTime]

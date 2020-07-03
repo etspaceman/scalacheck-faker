@@ -1,7 +1,8 @@
 package faker.internet
 
-import faker.ResourceLoader
 import org.scalacheck.{Arbitrary, Gen}
+
+import faker.ResourceLoader
 
 /**
   * Generates a random avatar url based on a collection of profile pictures of real people. All this avatar have been
@@ -13,10 +14,15 @@ import org.scalacheck.{Arbitrary, Gen}
 final case class Avatar private (value: String) extends AnyVal
 
 object Avatar {
-  private val avatars = ResourceLoader.loadStringList("internet.avatars")
-  implicit val avatarArbitrary: Arbitrary[Avatar] = Arbitrary(
-    Gen
-      .oneOf(avatars)
-      .map(x => Avatar(s"https://s3.amazonaws.com/uifaces/faces/twitter/$x"))
-  )
+  def avatars(implicit loader: ResourceLoader): Seq[String] =
+    loader.loadStringList("internet.avatars")
+
+  implicit def avatarArbitrary(implicit
+      loader: ResourceLoader
+  ): Arbitrary[Avatar] =
+    Arbitrary(
+      Gen
+        .oneOf(avatars)
+        .map(x => Avatar(s"https://s3.amazonaws.com/uifaces/faces/twitter/$x"))
+    )
 }

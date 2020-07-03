@@ -5,7 +5,7 @@ organization := "io.github.etspaceman"
 description := "Fake data generation using ScalaCheck Arbitrary instances"
 scalaVersion := "2.13.3"
 crossScalaVersions ++= Seq(scalaVersion.value, "2.12.11", "2.11.12")
-scalafixDependencies += OrganizeImports
+ThisBuild / scalafixDependencies += OrganizeImports
 addCompilerPlugin(KindProjector cross CrossVersion.full)
 semanticdbEnabled := true
 semanticdbVersion := "4.3.16"
@@ -83,4 +83,7 @@ addCommandAlias(
   ";compile:scalafix --check ;test:scalafix --check"
 )
 addCommandAlias("fix", ";compile:scalafix ;test:scalafix")
-addCommandAlias("validate", ";+test;fixCheck;scalafmtCheckAll")
+addCommandAlias(
+  "validate",
+  ";+test;fixCheck;scalafmtCheckAll;mimaReportBinaryIssues"
+)

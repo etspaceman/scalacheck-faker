@@ -1,17 +1,18 @@
 package faker.name
 
-import faker.ResourceLoader
 import org.scalacheck.{Arbitrary, Gen}
+
+import faker.ResourceLoader
 
 final case class Title private (value: String) extends AnyVal
 
 object Title {
   private val titleDescriptors: Seq[String] =
-    ResourceLoader.loadStringList("name.title.descriptors")
+    ResourceLoader.default.loadStringList("name.title.descriptors")
   private val titleLevels: Seq[String] =
-    ResourceLoader.loadStringList("name.title.levels")
+    ResourceLoader.default.loadStringList("name.title.levels")
   private val titleJobs: Seq[String] =
-    ResourceLoader.loadStringList("name.title.jobs")
+    ResourceLoader.default.loadStringList("name.title.jobs")
   implicit val titleArbitrary: Arbitrary[Title] = Arbitrary {
     for {
       descriptor <- Gen.oneOf(titleDescriptors)

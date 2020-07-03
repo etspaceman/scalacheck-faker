@@ -1,7 +1,8 @@
 package faker.internet
 
-import faker.ResourceLoader
 import org.scalacheck.{Arbitrary, Gen}
+
+import faker.ResourceLoader
 
 final case class UserAgent private (value: String) extends AnyVal
 
@@ -15,11 +16,13 @@ object UserAgent {
     "opera",
     "safari"
   )
-  implicit val userAgentArbitrary: Arbitrary[UserAgent] = Arbitrary(
-    for {
-      tpe <- Gen.oneOf(userAgentTypes)
-      agent <-
-        Gen.oneOf(ResourceLoader.loadStringList(s"internet.user-agents.$tpe"))
-    } yield UserAgent(agent)
-  )
+  implicit def userAgentArbitrary(implicit
+      loader: ResourceLoader
+  ): Arbitrary[UserAgent] =
+    Arbitrary(
+      for {
+        tpe <- Gen.oneOf(userAgentTypes)
+        agent <- Gen.oneOf(loader.loadStringList(s"internet.user-agents.$tpe"))
+      } yield UserAgent(agent)
+    )
 }

@@ -9,4 +9,11 @@ I have a few simple but important rules for accepting contributions:
 - Don't be a jerk
 - Adhere to the existing code style
 
-That's it! Thanks for reading.
+If you would like to introduce a breaking change to the API, or a refactor of the
+code-base, please first submit an issue to discuss these changes. I welcome all
+contributions, including these more intrusive ones! I just ask that we have a transparent
+discussion about them first.
+
+Lastly, in the end this is my code-base. As such, I have the final say in any new changes.
+
+That's it! Thanks for reading. I look forward to collaborating with you.

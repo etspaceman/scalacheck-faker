@@ -1,8 +1,9 @@
 package faker.name
 
-import faker.FakerSpec
+import faker.FakerArbitrarySpec
+import faker.ResourceLoader.Implicits._
 
-class NameSpec extends FakerSpec {
+class NameArbitrarySpec extends FakerArbitrarySpec {
   "Name" - {
     testCanGen[FirstName]
     testCanGen[LastName]
