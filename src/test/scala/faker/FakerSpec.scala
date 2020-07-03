@@ -91,6 +91,10 @@ class FakerSpec extends AnyFreeSpecLike {
         val res = Faker.default.domainWord()
         assert(res.nonEmpty, res)
       }
+      "domainSuffix should return successfully" in {
+        val res = Faker.default.domainSuffix()
+        assert(res.nonEmpty, res)
+      }
       "emailAddress should return successfully" in {
         val res = Faker.default.emailAddress()
         assert(res.split("@").length === 2, res)

@@ -19,7 +19,7 @@ object SafeEmailAddress {
         localPart <-
           Arbitrary
             .arbitrary[UserName]
-            .map(x => x.copy(value = StringUtils.stripAccents(x.value)))
+            .map(x => StringUtils.stripAccents(x.value))
         domain <- Gen.oneOf(safeEmailDomains).map(FakerIDN.toASCII)
       } yield SafeEmailAddress(s"$localPart@$domain")
     )

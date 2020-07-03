@@ -77,6 +77,10 @@ releaseProcess := Seq[ReleaseStep](
   pushChanges
 )
 
+scalacOptions in (Compile, console) ~= {
+  _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
+}
+
 addCommandAlias("cpl", ";+test:compile")
 addCommandAlias(
   "fixCheck",
