@@ -19,7 +19,7 @@ object EmailAddress {
         localPart <-
           Arbitrary
             .arbitrary[UserName]
-            .map(x => x.copy(value = StringUtils.stripAccents(x.value)))
+            .map(x => StringUtils.stripAccents(x.value))
         domain <-
           Gen
             .oneOf(freeEmailDomains)

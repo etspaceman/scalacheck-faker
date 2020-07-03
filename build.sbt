@@ -32,7 +32,9 @@ scalacOptions ++= (ScalaVersionADT.fromString(scalaVersion.value) match {
   case `2.12` => ScalacSettings.`2.12`
   case `2.13` => ScalacSettings.`2.13`
 })
-mimaPreviousArtifacts := Set()
+mimaPreviousArtifacts := Set(
+  "io.github.etspaceman" %% "scalacheck-faker" % "1.0.0"
+)
 homepage := Some(url("https://github.com/etspaceman/scalacheck-faker"))
 licenses := Seq(
   "MIT" -> url("https://github.com/etspaceman/scalacheck-faker/LICENSE")
@@ -76,6 +78,10 @@ releaseProcess := Seq[ReleaseStep](
   releaseStepCommand("sonatypeReleaseAll"),
   pushChanges
 )
+
+scalacOptions in (Compile, console) ~= {
+  _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
+}
 
 addCommandAlias("cpl", ";+test:compile")
 addCommandAlias(

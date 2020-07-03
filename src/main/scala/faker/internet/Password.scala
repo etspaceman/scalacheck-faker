@@ -17,10 +17,16 @@ object Password {
   ): Arbitrary[Password] =
     Arbitrary(
       for {
-        chars <- Arbitrary.arbitrary[LoremCharacters]
+        regularCharNumber <- Gen.choose(8, 20)
+        chars <-
+          Gen
+            .listOfN(
+              regularCharNumber,
+              Gen.oneOf(LoremCharacters.loremCharacters)
+            )
+            .map(_.mkString)
         specialChars <- Gen.atLeastOne(passwordSpecialCharacters)
-        pass =
-          Random.shuffle(chars.value.map(_.toString) ++ specialChars).mkString
+        pass = Random.shuffle(chars.map(_.toString) ++ specialChars).mkString
       } yield Password(pass)
     )
 }

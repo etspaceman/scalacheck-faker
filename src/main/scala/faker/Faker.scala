@@ -12,6 +12,8 @@ final class Faker(private val locale: Locale) {
   implicit val loader: ResourceLoader = new ResourceLoader(locale)
 
   // Lorem
+  def loremCharacters(): String =
+    Arbitrary.arbitrary[lorem.LoremCharacters].one.value
   def loremWord(): String = Arbitrary.arbitrary[lorem.LoremWord].one.value
   def loremWords(words: Int): String =
     Arbitrary.arbitrary[lorem.LoremWord].take(words).map(_.value).mkString(" ")
@@ -50,6 +52,8 @@ final class Faker(private val locale: Locale) {
   // Internet
   def avatar(): String = Arbitrary.arbitrary[internet.Avatar].one.value
   def domainName(): String = Arbitrary.arbitrary[internet.DomainName].one.value
+  def domainSuffix(): String =
+    Arbitrary.arbitrary[internet.DomainSuffix].one.value
   def domainWord(): String = Arbitrary.arbitrary[internet.DomainWord].one.value
   def emailAddress(): String =
     Arbitrary.arbitrary[internet.EmailAddress].one.value

@@ -13,9 +13,13 @@ object UserName {
     Arbitrary {
       for {
         firstName <-
-          Arbitrary.arbitrary[FirstName].map(_.value.replaceAll("'", ""))
+          Arbitrary
+            .arbitrary[FirstName]
+            .map(_.value.replaceAll("'", "").toLowerCase())
         lastName <-
-          Arbitrary.arbitrary[LastName].map(_.value.replaceAll("'", ""))
+          Arbitrary
+            .arbitrary[LastName]
+            .map(_.value.replaceAll("'", "").toLowerCase())
       } yield UserName(s"$firstName.$lastName")
     }
 }

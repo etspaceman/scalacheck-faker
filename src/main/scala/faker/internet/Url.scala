@@ -15,6 +15,8 @@ object Url {
         firstNameProcessed = firstName.value.toLowerCase().replaceAll("'", "")
         domainWord <- Arbitrary.arbitrary[DomainWord]
         domainSuffix <- Arbitrary.arbitrary[DomainSuffix]
-      } yield Url(s"www.$firstNameProcessed-$domainWord.$domainSuffix")
+      } yield Url(
+        s"www.$firstNameProcessed-${domainWord.value}.${domainSuffix.value}"
+      )
     )
 }

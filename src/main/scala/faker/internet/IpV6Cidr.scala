@@ -9,6 +9,6 @@ object IpV6Cidr {
     for {
       ipv6 <- Arbitrary.arbitrary[IpV6Address]
       cidrPart <- Gen.choose(1, 127)
-    } yield IpV6Cidr(s"$ipv6/$cidrPart")
+    } yield IpV6Cidr(s"${ipv6.value}/$cidrPart")
   )
 }
