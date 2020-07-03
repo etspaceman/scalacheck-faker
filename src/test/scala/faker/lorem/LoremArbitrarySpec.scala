@@ -1,9 +1,9 @@
 package faker.lorem
 
-import faker.FakerSpec
+import faker.FakerArbitrarySpec
 import faker.ResourceLoader.Implicits._
 
-class LoremSpec extends FakerSpec {
+class LoremArbitrarySpec extends FakerArbitrarySpec {
   "Lorem" - {
     testCanGen[LoremWord]
     testCanGen[LoremWords]
