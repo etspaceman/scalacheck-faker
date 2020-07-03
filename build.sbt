@@ -33,7 +33,7 @@ scalacOptions ++= (ScalaVersionADT.fromString(scalaVersion.value) match {
   case `2.13` => ScalacSettings.`2.13`
 })
 mimaPreviousArtifacts := Set(
-  "io.github.etspaceman" %% "scalacheck-faker" % "1.0.0"
+  "io.github.etspaceman" %% "scalacheck-faker" % "1.0.1"
 )
 homepage := Some(url("https://github.com/etspaceman/scalacheck-faker"))
 licenses := Seq(
