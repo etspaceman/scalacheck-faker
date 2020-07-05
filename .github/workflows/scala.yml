@@ -16,14 +16,6 @@ jobs:
       with:
         java-version: 1.8
     - name: Validate build
-      run: sbt validate
+      run: sbt validate && bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
       env:
         JAVA_OPTS: -Duser.country=US -Duser.language=en
-    - name: Generate coverage
-      run: sbt cov
-      env:
-        JAVA_OPTS: -Duser.country=US -Duser.language=en
-    - name: Upload coverage
-      uses: codecov/codecov-action@v1
-      with:
-        file: ./target/test-reports/
