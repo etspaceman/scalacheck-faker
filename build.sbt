@@ -92,10 +92,10 @@ addCommandAlias(
 )
 addCommandAlias("fix", ";compile:scalafix ;test:scalafix")
 addCommandAlias(
-  "validate",
-  ";+test;fixCheck;scalafmtCheckAll;mimaReportBinaryIssues;cov"
+  "cov",
+  ";clean;coverage;+test;coverageReport"
 )
 addCommandAlias(
-  "cov",
-  ";clean;coverage;test"
+  "validate",
+  ";cov;fixCheck;scalafmtCheckAll;mimaReportBinaryIssues"
 )
