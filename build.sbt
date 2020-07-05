@@ -95,3 +95,7 @@ addCommandAlias(
   "validate",
   ";+test;fixCheck;scalafmtCheckAll;mimaReportBinaryIssues"
 )
+addCommandAlias(
+  "cov",
+  ";clean;coverage;test"
+)
