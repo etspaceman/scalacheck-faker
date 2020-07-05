@@ -15,11 +15,11 @@ object UserName {
         firstName <-
           Arbitrary
             .arbitrary[FirstName]
-            .map(_.value.replaceAll("'", "").toLowerCase())
+            .map(_.value.replaceAll("'", "").replaceAll(" ", "").toLowerCase())
         lastName <-
           Arbitrary
             .arbitrary[LastName]
-            .map(_.value.replaceAll("'", "").toLowerCase())
+            .map(_.value.replaceAll("'", "").replaceAll(" ", "").toLowerCase())
       } yield UserName(s"$firstName.$lastName")
     }
 }
