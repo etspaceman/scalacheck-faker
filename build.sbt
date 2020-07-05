@@ -36,7 +36,7 @@ scalacOptions ++= (ScalaVersionADT.fromString(scalaVersion.value) match {
 val mimaVersion: Option[String] = Some("2.0.0")
 mimaPreviousArtifacts :=
   mimaVersion.map("io.github.etspaceman" %% "scalacheck-faker" % _).toSet
-
+initialCommands in console := "import faker._"
 homepage := Some(url("https://github.com/etspaceman/scalacheck-faker"))
 licenses := Seq(
   "MIT" -> url("https://github.com/etspaceman/scalacheck-faker/LICENSE")
