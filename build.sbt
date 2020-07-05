@@ -33,7 +33,7 @@ scalacOptions ++= (ScalaVersionADT.fromString(scalaVersion.value) match {
   case `2.12` => ScalacSettings.`2.12`
   case `2.13` => ScalacSettings.`2.13`
 })
-val mimaVersion: Option[String] = None
+val mimaVersion: Option[String] = Some("2.0.0")
 mimaPreviousArtifacts :=
   mimaVersion.map("io.github.etspaceman" %% "scalacheck-faker" % _).toSet
 
@@ -92,6 +92,10 @@ addCommandAlias(
 )
 addCommandAlias("fix", ";compile:scalafix ;test:scalafix")
 addCommandAlias(
+  "cov",
+  ";clean;coverage;+test;coverageReport"
+)
+addCommandAlias(
   "validate",
-  ";+test;fixCheck;scalafmtCheckAll;mimaReportBinaryIssues"
+  ";cov;fixCheck;scalafmtCheckAll;mimaReportBinaryIssues"
 )

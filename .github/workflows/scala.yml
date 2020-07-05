@@ -19,3 +19,5 @@ jobs:
       run: sbt validate
       env:
         JAVA_OPTS: -Duser.country=US -Duser.language=en
+    - name: Upload coverage
+      uses: codecov/codecov-action@v1
