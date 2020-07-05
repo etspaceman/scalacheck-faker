@@ -8,22 +8,9 @@ final case class UserAgent private (value: String) extends AnyVal
 
 object UserAgent {
   def userAgents(loader: ResourceLoader): Map[String, Seq[String]] =
-    Seq(
-      "aol",
-      "chrome",
-      "firefox",
-      "internet-explorer",
-      "netscape",
-      "opera",
-      "safari"
-    ).map(x => x -> loader.loadStringList(s"internet.user-agents.$x")).toMap
+    loader.loadKey[Map[String, Seq[String]]](s"internet.user-agents")
   implicit def userAgentArbitrary(implicit
       loader: ResourceLoader
   ): Arbitrary[UserAgent] =
-    Arbitrary(
-      for {
-        tpe <- Gen.oneOf(userAgents(loader).keys)
-        agent <- Gen.oneOf(userAgents(loader)(tpe))
-      } yield UserAgent(agent)
-    )
+    Arbitrary(Gen.oneOf(userAgents(loader).values.flatten).map(UserAgent.apply))
 }

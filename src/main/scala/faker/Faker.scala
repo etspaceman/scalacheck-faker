@@ -118,6 +118,44 @@ final class Faker(private val locale: Locale) {
   def randomZonedDateTime(): ZonedDateTime =
     Arbitrary.arbitrary[time.RandomZonedDateTime].one.value
 
+  // Address
+  def buildingNumber(): String =
+    Arbitrary.arbitrary[address.BuildingNumber].one.value
+  def city(): String =
+    Arbitrary.arbitrary[address.City].one.value
+  def cityPrefix(): String =
+    Arbitrary.arbitrary[address.CityPrefix].one.value
+  def citySuffix(): String =
+    Arbitrary.arbitrary[address.CitySuffix].one.value
+  def country(): address.Country =
+    Arbitrary.arbitrary[address.Country].one
+  def countryCode(): String = country().code
+  def countryName(): String = country().name
+  def defaultCountry(): address.DefaultCountry =
+    Arbitrary.arbitrary[address.DefaultCountry].one
+  def defaultCountryCode(): String = defaultCountry().code
+  def defaultCountryName(): String = defaultCountry().name
+  def fullAddress(): String =
+    Arbitrary.arbitrary[address.FullAddress].one.value
+  def latitude(): String =
+    Arbitrary.arbitrary[address.Latitude].one.value
+  def longitude(): String =
+    Arbitrary.arbitrary[address.Longitude].one.value
+  def postalCode(): String =
+    Arbitrary.arbitrary[address.PostalCode].one.value
+  def secondaryAddress(): String =
+    Arbitrary.arbitrary[address.SecondaryAddress].one.value
+  def state(): address.State = Arbitrary.arbitrary[address.State].one
+  def stateAbbr(): String = state().abbr
+  def stateZip(): String = state().zipGen.one
+  def streetAddress(): String =
+    Arbitrary.arbitrary[address.StreetAddress].one.value
+  def streetName(): String =
+    Arbitrary.arbitrary[address.StreetName].one.value
+  def streetPrefix(): String =
+    Arbitrary.arbitrary[address.StreetPrefix].one.value
+  def streetSuffix(): String =
+    Arbitrary.arbitrary[address.StreetSuffix].one.value
 }
 
 object Faker {

@@ -11,7 +11,7 @@ final case class Password private (value: String) extends AnyVal
 
 object Password {
   def passwordSpecialCharacters(implicit loader: ResourceLoader): Seq[String] =
-    loader.loadStringList("internet.password.special-characters")
+    loader.loadKey[Seq[String]]("internet.password.special-characters")
   implicit def passwordArbitrary(implicit
       loader: ResourceLoader
   ): Arbitrary[Password] =

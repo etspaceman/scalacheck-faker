@@ -15,7 +15,7 @@ final case class Avatar private (value: String) extends AnyVal
 
 object Avatar {
   def avatars(implicit loader: ResourceLoader): Seq[String] =
-    loader.loadStringList("internet.avatars")
+    loader.loadKey[Seq[String]]("internet.avatars")
 
   implicit def avatarArbitrary(implicit
       loader: ResourceLoader

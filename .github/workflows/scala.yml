@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
@@ -19,3 +17,5 @@ jobs:
         java-version: 1.8
     - name: Validate build
       run: sbt validate
+      env:
+        JAVA_OPTS: -Duser.country=US -Duser.language=en

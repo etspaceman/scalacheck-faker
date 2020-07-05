@@ -10,7 +10,7 @@ final case class EmailAddress private (value: String) extends AnyVal
 
 object EmailAddress {
   def freeEmailDomains(implicit loader: ResourceLoader): Seq[String] =
-    loader.loadStringList("internet.free-email-domains")
+    loader.loadKey[Seq[String]]("internet.free-email-domains")
   implicit def emailAddressArbitrary(implicit
       loader: ResourceLoader
   ): Arbitrary[EmailAddress] =

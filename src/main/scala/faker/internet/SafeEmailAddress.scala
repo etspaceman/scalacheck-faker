@@ -10,7 +10,7 @@ final case class SafeEmailAddress private (value: String) extends AnyVal
 
 object SafeEmailAddress {
   def safeEmailDomains(implicit loader: ResourceLoader): Seq[String] =
-    loader.loadStringList("internet.safe-email-domains")
+    loader.loadKey[Seq[String]]("internet.safe-email-domains")
   implicit def safeEmailAddressArbitrary(implicit
       loader: ResourceLoader
   ): Arbitrary[SafeEmailAddress] =

@@ -258,5 +258,91 @@ class FakerSpec extends AnyFreeSpecLike {
         assert(Option(res).isDefined, res)
       }
     }
+    "Address" - {
+      "buildingNumber should return successfully" in {
+        val res = Faker.default.buildingNumber()
+        assert(res.nonEmpty, res)
+      }
+      "city should return successfully" in {
+        val res = Faker.default.city()
+        assert(res.nonEmpty, res)
+      }
+      "cityPrefix should return successfully" in {
+        val res = Faker.default.cityPrefix()
+        assert(res.nonEmpty, res)
+      }
+      "citySuffix should return successfully" in {
+        val res = Faker.default.citySuffix()
+        assert(res.nonEmpty, res)
+      }
+      "country should return successfully" in {
+        val res = Faker.default.country()
+        assert(res.code.nonEmpty && res.name.nonEmpty, res)
+      }
+      "countryCode should return successfully" in {
+        val res = Faker.default.countryCode()
+        assert(res.nonEmpty, res)
+      }
+      "countryName should return successfully" in {
+        val res = Faker.default.countryName()
+        assert(res.nonEmpty, res)
+      }
+      "defaultCountry should return successfully" in {
+        val res = Faker.default.defaultCountry()
+        assert(res.code.nonEmpty && res.name.nonEmpty, res)
+      }
+      "defaultCountryCode should return successfully" in {
+        val res = Faker.default.defaultCountryCode()
+        assert(res.nonEmpty, res)
+      }
+      "defaultCountryName should return successfully" in {
+        val res = Faker.default.defaultCountryName()
+        assert(res.nonEmpty, res)
+      }
+      "fullAddress should return successfully" in {
+        val res = Faker.default.fullAddress()
+        assert(res.nonEmpty, res)
+      }
+      "latitude should return successfully" in {
+        val res = Faker.default.latitude()
+        assert(res.nonEmpty, res)
+      }
+      "longitude should return successfully" in {
+        val res = Faker.default.longitude()
+        assert(res.nonEmpty, res)
+      }
+      "secondaryAddress should return successfully" in {
+        val res = Faker.default.secondaryAddress()
+        assert(res.nonEmpty, res)
+      }
+      "state should return successfully" in {
+        val res = Faker.default.state()
+        assert(res.abbr.nonEmpty && res.name.nonEmpty, res)
+      }
+      "stateAbbr should return successfully" in {
+        val res = Faker.default.stateAbbr()
+        assert(res.nonEmpty, res)
+      }
+      "stateZip should return successfully" in {
+        val res = Faker.default.stateZip()
+        assert(res.nonEmpty, res)
+      }
+      "streetAddress should return successfully" in {
+        val res = Faker.default.streetAddress()
+        assert(res.nonEmpty, res)
+      }
+      "streetName should return successfully" in {
+        val res = Faker.default.streetName()
+        assert(res.nonEmpty, res)
+      }
+      "streetPrefix should return successfully" in {
+        val res = Faker.default.streetPrefix()
+        assert(res.nonEmpty, res)
+      }
+      "streetSuffix should return successfully" in {
+        val res = Faker.default.streetSuffix()
+        assert(res.nonEmpty, res)
+      }
+    }
   }
 }

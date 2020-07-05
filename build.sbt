@@ -23,6 +23,7 @@ credentials ++= (
 libraryDependencies ++= Seq(
   ScalaCheck,
   TypesafeConfig,
+  PureConfig,
   ApacheCommons,
   ScalaTest % Test,
   ScalaTestPlusScalaCheck % Test
@@ -32,9 +33,10 @@ scalacOptions ++= (ScalaVersionADT.fromString(scalaVersion.value) match {
   case `2.12` => ScalacSettings.`2.12`
   case `2.13` => ScalacSettings.`2.13`
 })
-mimaPreviousArtifacts := Set(
-  "io.github.etspaceman" %% "scalacheck-faker" % "1.0.1"
-)
+val mimaVersion: Option[String] = None
+mimaPreviousArtifacts :=
+  mimaVersion.map("io.github.etspaceman" %% "scalacheck-faker" % _).toSet
+
 homepage := Some(url("https://github.com/etspaceman/scalacheck-faker"))
 licenses := Seq(
   "MIT" -> url("https://github.com/etspaceman/scalacheck-faker/LICENSE")
