@@ -14,7 +14,11 @@ object DomainWord {
     Arbitrary(
       Arbitrary
         .arbitrary[LastName]
-        .map(ln => FakerIDN.toASCII(ln.value.toLowerCase().replaceAll("'", "")))
+        .map(ln =>
+          FakerIDN.toASCII(
+            ln.value.toLowerCase().replaceAll("'", "").replaceAll(" ", "")
+          )
+        )
         .map(DomainWord.apply)
     )
 }

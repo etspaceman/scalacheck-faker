@@ -156,8 +156,24 @@ final class Faker(private val locale: Locale) {
     Arbitrary.arbitrary[address.StreetPrefix].one.value
   def streetSuffix(): String =
     Arbitrary.arbitrary[address.StreetSuffix].one.value
+
+  // Company
+  def bs(): String = Arbitrary.arbitrary[company.BS].one.value
+  def buzzWord(): String = Arbitrary.arbitrary[company.BuzzWord].one.value
+  def catchPhrase(): String = Arbitrary.arbitrary[company.CatchPhrase].one.value
+  def companyDomainName(): String =
+    Arbitrary.arbitrary[company.CompanyDomainName].one.value
+  def companyName(): String = Arbitrary.arbitrary[company.CompanyName].one.value
+  def companySuffix(): String =
+    Arbitrary.arbitrary[company.CompanySuffix].one.value
+  def companyUrl(): String = Arbitrary.arbitrary[company.CompanyUrl].one.value
+  def industry(): String = Arbitrary.arbitrary[company.Industry].one.value
+  def logo(): String = Arbitrary.arbitrary[company.Logo].one.value
+  def profession(): String = Arbitrary.arbitrary[company.Profession].one.value
 }
 
 object Faker {
   val default = new Faker(Locale.getDefault)
+  val en_US = new Faker(Locale.US)
+  val en = new Faker(Locale.ENGLISH)
 }

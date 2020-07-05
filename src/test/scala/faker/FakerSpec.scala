@@ -343,6 +343,46 @@ class FakerSpec extends AnyFreeSpecLike {
         val res = Faker.default.streetSuffix()
         assert(res.nonEmpty, res)
       }
+      "bs should return successfully" in {
+        val res = Faker.default.bs()
+        assert(res.nonEmpty, res)
+      }
+      "buzzWord should return successfully" in {
+        val res = Faker.default.buzzWord()
+        assert(res.nonEmpty, res)
+      }
+      "catchPhrase should return successfully" in {
+        val res = Faker.default.catchPhrase()
+        assert(res.nonEmpty, res)
+      }
+      "companyDomainName should return successfully" in {
+        val res = Faker.default.companyDomainName()
+        assert(res.nonEmpty, res)
+      }
+      "companyName should return successfully" in {
+        val res = Faker.default.companyName()
+        assert(res.nonEmpty, res)
+      }
+      "companySuffix should return successfully" in {
+        val res = Faker.default.companySuffix()
+        assert(res.nonEmpty, res)
+      }
+      "companyUrl should return successfully" in {
+        val res = Faker.default.companyUrl()
+        assert(res.nonEmpty, res)
+      }
+      "industry should return successfully" in {
+        val res = Faker.default.industry()
+        assert(res.nonEmpty, res)
+      }
+      "logo should return successfully" in {
+        val res = Faker.default.logo()
+        assert(res.nonEmpty, res)
+      }
+      "profession should return successfully" in {
+        val res = Faker.default.profession()
+        assert(res.nonEmpty, res)
+      }
     }
   }
 }
