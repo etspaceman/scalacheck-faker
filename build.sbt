@@ -93,7 +93,7 @@ addCommandAlias(
 addCommandAlias("fix", ";compile:scalafix ;test:scalafix")
 addCommandAlias(
   "cov",
-  ";clean;coverage;+test;coverageReport"
+  ";clean;coverage;+test;+coverageReport"
 )
 addCommandAlias(
   "validate",
