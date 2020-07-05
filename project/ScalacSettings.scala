@@ -100,5 +100,7 @@ object ScalacSettings {
       "-Ywarn-unused:patvars",
       "-Ywarn-unused:privates"
     ).contains(x)
+  ) ++ Seq(
+    "-Ywarn-unused"
   )
 }

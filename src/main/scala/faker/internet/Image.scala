@@ -14,9 +14,9 @@ final case class Image private (value: String) extends AnyVal
 
 object Image {
   def imageDimensions(implicit loader: ResourceLoader): Seq[String] =
-    loader.loadStringList("internet.image.dimensions")
+    loader.loadKey[Seq[String]]("internet.image.dimensions")
   def imageCategories(implicit loader: ResourceLoader): Seq[String] =
-    loader.loadStringList("internet.image.categories")
+    loader.loadKey[Seq[String]]("internet.image.categories")
   implicit def imageArbitrary(implicit
       loader: ResourceLoader
   ): Arbitrary[Image] =

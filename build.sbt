@@ -23,6 +23,7 @@ credentials ++= (
 libraryDependencies ++= Seq(
   ScalaCheck,
   TypesafeConfig,
+  PureConfig,
   ApacheCommons,
   ScalaTest % Test,
   ScalaTestPlusScalaCheck % Test

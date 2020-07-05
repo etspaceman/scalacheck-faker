@@ -1,33 +1,33 @@
 package faker
 
-import scala.jdk.CollectionConverters._
+import scala.reflect.ClassTag
 
 import java.util.Locale
 
-import com.typesafe.config._
+import pureconfig._
 
 final class ResourceLoader(private val locale: Locale) {
 
-  private val defaultConfig: Config =
-    ConfigFactory.parseResources("default.conf")
-  private val languageConfig: Config =
-    ConfigFactory.parseResources(s"${locale.getLanguage}.conf")
-  private val localeConfig: Config =
-    ConfigFactory.parseResources(s"${locale.toString}.conf")
+  private val defaultConfig: ConfigObjectSource =
+    ConfigSource.resources("default.conf")
+  private val languageConfig: ConfigObjectSource =
+    ConfigSource.resources(s"${locale.getLanguage}.conf")
+  private val localeConfig: ConfigObjectSource =
+    ConfigSource.resources(s"${locale.toString}.conf")
 
   // Fallback Pattern: en-US.conf -> en.conf -> default.conf
-  private val conf: Config =
-    localeConfig
-      .withFallback(languageConfig)
+  private val conf: ConfigSource =
+    localeConfig.optional
+      .withFallback(languageConfig.optional)
       .withFallback(defaultConfig)
-      .resolve()
 
-  def loadStringList(key: String): Seq[String] =
-    conf.getStringList(key).asScala.toSeq
+  def loadKey[A: ConfigReader: ClassTag](key: String): A =
+    conf.at(key).loadOrThrow[A]
 }
 
 object ResourceLoader {
   val default: ResourceLoader = new ResourceLoader(Locale.getDefault)
+  val US: ResourceLoader = new ResourceLoader(Locale.US)
 
   object Implicits {
     implicit val defaultResourceLoader: ResourceLoader = default
