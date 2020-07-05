@@ -13,6 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Set Locale to en_US.UTF-8
+      run: |
+        sudo locale-gen en_US.UTF-8
+        sudo update-locale LANG=en_US.UTF-8
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
