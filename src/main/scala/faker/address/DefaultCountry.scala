@@ -9,11 +9,11 @@ import faker.ResourceLoader
 final case class DefaultCountry private (code: String, name: String)
 
 object DefaultCountry {
-  def defaultCountry(implicit loader: ResourceLoader): DefaultCountry =
-    loader.loadKey[DefaultCountry]("address.default-country")
+  def defaultCountries(implicit loader: ResourceLoader): Seq[DefaultCountry] =
+    loader.loadKey[Seq[DefaultCountry]]("address.default-countries")
   implicit def defaultCountryArbitrary(implicit
       loader: ResourceLoader
-  ): Arbitrary[DefaultCountry] = Arbitrary(Gen.const(defaultCountry))
+  ): Arbitrary[DefaultCountry] = Arbitrary(Gen.oneOf(defaultCountries))
 
   implicit val defaultCountryConfigReader: ConfigReader[DefaultCountry] =
     deriveReader

@@ -5,7 +5,7 @@ import java.time.{Instant, LocalDateTime, OffsetDateTime, ZonedDateTime}
 import org.scalatest.freespec.AnyFreeSpecLike
 
 class FakerSpec extends AnyFreeSpecLike {
-  val fakers: Seq[Faker] = Seq(Faker.en_US, Faker.en_CA)
+  val fakers: Seq[Faker] = Seq(Faker.en_US, Faker.en_CA, Faker.en_GB)
 
   fakers.foreach(faker =>
     s"Faker - ${faker.locale}" - {
