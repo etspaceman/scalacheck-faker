@@ -1,9 +1,9 @@
 package faker.internet
 
+import scala.util.Try
+
 import org.scalatest.freespec.AnyFreeSpecLike
 import org.scalatestplus.scalacheck.Checkers
-
-import scala.util.Try
 
 class FakerIDNSpec extends AnyFreeSpecLike with Checkers {
   "FakerIDN" - {
