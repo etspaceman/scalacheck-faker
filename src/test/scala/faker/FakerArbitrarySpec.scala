@@ -14,7 +14,7 @@ trait FakerArbitrarySpec extends AnyFreeSpecLike with Checkers {
   ): Unit =
     resourceLoaders.foreach(implicit loader =>
       s"${CT.runtimeClass.getName} should generate faker data successfully for ${loader.locale}" in {
-        check((_: A) => true)
+        check((_: A) => true, minSuccessful(100))
       }
     )
 }
