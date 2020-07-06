@@ -32,7 +32,9 @@ final class ResourceLoader(private[faker] val locale: Locale) {
         .withFallback(langConf.optional)
         .withFallback(defaultConfig)
     case (Some(langConf), _) => langConf.optional.withFallback(defaultConfig)
-    case _                   => defaultConfig
+    case (_, Some(localeConf)) =>
+      localeConf.optional.withFallback(defaultConfig)
+    case _ => defaultConfig
   }
 
   def loadKey[A: ConfigReader: ClassTag](key: String): A =
