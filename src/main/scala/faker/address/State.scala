@@ -27,6 +27,6 @@ final case class State private (
 object State {
   implicit val stateConfigReader: ConfigReader[State] = deriveReader
   val states: Seq[State] =
-    ResourceLoader.US.loadKey[Seq[State]]("address.states")
+    ResourceLoader.en_US.loadKey[Seq[State]]("address.states")
   implicit val stateArbitrary: Arbitrary[State] = Arbitrary(Gen.oneOf(states))
 }

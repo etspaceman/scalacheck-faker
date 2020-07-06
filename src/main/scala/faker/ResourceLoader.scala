@@ -43,7 +43,7 @@ final class ResourceLoader(private[faker] val locale: Locale) {
 
 object ResourceLoader {
   val default: ResourceLoader = new ResourceLoader(Locale.getDefault)
-  val US: ResourceLoader = new ResourceLoader(Locale.US)
+  val en_US: ResourceLoader = new ResourceLoader(Locale.US)
   val en_CA: ResourceLoader = new ResourceLoader(Locale.CANADA)
   val en_GB: ResourceLoader = new ResourceLoader(Locale.UK)
 

@@ -8,7 +8,7 @@ import org.scalatestplus.scalacheck.Checkers
 
 trait FakerArbitrarySpec extends AnyFreeSpecLike with Checkers {
   val resourceLoaders: Seq[ResourceLoader] =
-    Seq(ResourceLoader.US, ResourceLoader.en_CA, ResourceLoader.en_GB)
+    Seq(ResourceLoader.en_US, ResourceLoader.en_CA, ResourceLoader.en_GB)
   def testCanGen[A: Arbitrary](implicit
       CT: ClassTag[A]
   ): Unit =
