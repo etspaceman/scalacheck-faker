@@ -97,5 +97,21 @@ addCommandAlias(
 )
 addCommandAlias(
   "validate",
-  ";cov;fixCheck;scalafmtCheckAll;mimaReportBinaryIssues"
+  ";cov;prettyCheck;mimaReportBinaryIssues"
+)
+addCommandAlias(
+  "fmt",
+  ";scalafmtAll;scalafmtSbt"
+)
+addCommandAlias(
+  "fmtCheck",
+  ";scalafmtCheckAll;scalafmtSbtCheck"
+)
+addCommandAlias(
+  "pretty",
+  ";fix;fmt"
+)
+addCommandAlias(
+  "prettyCheck",
+  ";fixCheck;fmtCheck"
 )

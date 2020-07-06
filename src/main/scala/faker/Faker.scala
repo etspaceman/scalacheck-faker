@@ -170,6 +170,11 @@ final class Faker(private val locale: Locale) {
   def industry(): String = Arbitrary.arbitrary[company.Industry].one.value
   def logo(): String = Arbitrary.arbitrary[company.Logo].one.value
   def profession(): String = Arbitrary.arbitrary[company.Profession].one.value
+
+  // Phone Number
+  def phoneNumber(): String = Arbitrary.arbitrary[phone.PhoneNumber].one.value
+  def cellPhoneNumber(): String =
+    Arbitrary.arbitrary[phone.CellPhoneNumber].one.value
 }
 
 object Faker {
