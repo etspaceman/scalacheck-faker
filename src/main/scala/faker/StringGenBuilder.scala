@@ -92,6 +92,19 @@ object StringPart {
   implicit val stringPartConfigReader: ConfigReader[StringPart] = deriveReader
 }
 
+private[faker] final case class StringRegexPart(
+    prefix: Option[String],
+    suffix: Option[String],
+    value: String
+) extends StringGenBuilderPart {
+  val valueGen: Gen[String] = value.regexGen
+}
+
+object StringRegexPart {
+  implicit val stringRegexPartConfigReader: ConfigReader[StringRegexPart] =
+    deriveReader
+}
+
 private[faker] final case class StringBuilderPart(
     prefix: Option[String],
     suffix: Option[String],

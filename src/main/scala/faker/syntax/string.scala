@@ -1,5 +1,6 @@
 package faker.syntax
 
+import com.mifmif.common.regex.Generex
 import org.scalacheck.Gen
 
 object string extends FakerStringSyntax
@@ -16,5 +17,7 @@ object FakerStringSyntax {
         if (char == '#') gen.flatMap(x => Gen.choose(0, 9).map(y => s"$x$y"))
         else gen.map(y => y + char.toString)
       }
+
+    def regexGen: Gen[String] = Gen.delay(new Generex(str).random())
   }
 }

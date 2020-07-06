@@ -179,6 +179,7 @@ final class Faker(private val locale: Locale) {
 
 object Faker {
   val default = new Faker(Locale.getDefault)
-  val en_US = new Faker(Locale.US)
   val en = new Faker(Locale.ENGLISH)
+  val en_US = new Faker(Locale.US)
+  val en_CA = new Faker(Locale.CANADA)
 }
