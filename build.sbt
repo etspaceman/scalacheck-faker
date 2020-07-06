@@ -25,6 +25,7 @@ libraryDependencies ++= Seq(
   TypesafeConfig,
   PureConfig,
   ApacheCommons,
+  Generex,
   ScalaTest % Test,
   ScalaTestPlusScalaCheck % Test
 )
