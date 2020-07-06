@@ -383,6 +383,14 @@ class FakerSpec extends AnyFreeSpecLike {
         val res = Faker.default.profession()
         assert(res.nonEmpty, res)
       }
+      "phoneNumber should return successfully" in {
+        val res = Faker.default.phoneNumber()
+        assert(res.nonEmpty, res)
+      }
+      "cellPhoneNumber should return successfully" in {
+        val res = Faker.default.cellPhoneNumber()
+        assert(res.nonEmpty, res)
+      }
     }
   }
 }
