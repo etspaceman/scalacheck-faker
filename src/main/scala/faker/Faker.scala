@@ -7,7 +7,7 @@ import org.scalacheck.Arbitrary
 
 import faker.syntax.scalacheck._
 
-final class Faker(private val locale: Locale) {
+final class Faker(private[faker] val locale: Locale) {
 
   implicit val loader: ResourceLoader = new ResourceLoader(locale)
 

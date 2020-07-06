@@ -6,7 +6,7 @@ import java.util.Locale
 
 import pureconfig._
 
-final class ResourceLoader(private val locale: Locale) {
+final class ResourceLoader(private[faker] val locale: Locale) {
   private val country: Option[String] = {
     val cty = Option(locale.getCountry)
     if (cty.exists(_.isEmpty)) None else cty
