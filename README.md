@@ -60,6 +60,8 @@ provides a similar feel to other Faker libraries.
 import java.time.Instant
 import java.util.Locale
 
+import org.scalacheck.rng.Seed
+
 import faker._
 
 val firstName: String = Faker.default.firstName()
@@ -69,6 +71,10 @@ val nowInstant: Instant = Faker.default.nowInstant()
 val ukFaker: Faker = new Faker(Locale.UK)
 
 val ukFirstName: String = ukFaker.firstName()
+
+// Sometimes you need to be able to manually supply the seed for the random number generator.
+// You can do that below:
+val firstNameSeeded: String = Faker.default.firstName(Seed(2L))
 ```
 
 ## Early Development Warning

@@ -1,6 +1,7 @@
 package faker.syntax
 
 import org.scalacheck.Gen
+import org.scalacheck.rng.Seed
 
 import faker.compat.LazyListCompat
 
@@ -15,8 +16,15 @@ trait ScalacheckSyntax {
 
 object ScalacheckSyntax extends LazyListCompat {
   final class ScalacheckGenOps[A](private val gen: Gen[A]) extends AnyVal {
-    def lazyList: LazyList[A] = LazyList.continually(gen.sample.toList).flatten
-    def one: A = lazyList.head
-    def take(n: Int): Seq[A] = lazyList.take(n)
+    def lazyList(seed: Seed): LazyList[A] =
+      LazyList
+        .continually(gen.apply(Gen.Parameters.default, seed).toList)
+        .flatten
+    def lazyList: LazyList[A] = lazyList(Seed.random())
+    def one(seed: Seed): A = lazyList(seed).head
+    def one: A = one(Seed.random())
+    def take(n: Int, seed: Seed): Seq[A] =
+      lazyList(seed).take(n)
+    def take(n: Int): Seq[A] = take(n, Seed.random())
   }
 }
