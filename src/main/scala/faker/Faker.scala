@@ -53,7 +53,7 @@ final class Faker(private[faker] val locale: Locale) {
       .map(_.value)
       .mkString("\n")
   def loremParagraphs(paragraphs: Int): String =
-    loremParagraph(paragraphs, Seed.random())
+    loremParagraphs(paragraphs, Seed.random())
   def loremParagraphs(): String = loremParagraphs(Seed.random())
   def loremParagraphs(seed: Seed): String =
     Arbitrary.arbitrary[lorem.LoremParagraphs].one(seed).value
