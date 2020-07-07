@@ -20,7 +20,7 @@ class StringGenBuilderSpec extends AnyFreeSpecLike {
       val builder = StringGenBuilder(
         Seq(StringGenBuilderWeightedOption(List(stringPart1, stringPart2)))
       )
-      val res = builder.gen.one()
+      val res = builder.gen.one
       assert(
         res === "stringPart1Prefix stringPart1 stringPart1Suffix stringPart2Prefix stringPart2 stringPart2Suffix."
       )
@@ -35,7 +35,7 @@ class StringGenBuilderSpec extends AnyFreeSpecLike {
         Seq(StringGenBuilderWeightedOption(List(regexPart)))
       )
 
-      val res = builder.gen.one()
+      val res = builder.gen.one
 
       assert(res.nonEmpty)
     }
