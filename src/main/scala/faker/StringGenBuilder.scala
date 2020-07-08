@@ -52,10 +52,10 @@ object SeqStringPart {
 private[faker] final case class SeqStateZipPart(
     prefix: Option[String],
     suffix: Option[String],
-    value: Seq[address.State]
+    value: Seq[address.StateLike]
 ) extends StringGenBuilderPart {
   val valueGen: Gen[String] =
-    Gen.sequence(value.map(_.zipGen)).flatMap(x => Gen.oneOf(x.asScala))
+    Gen.sequence(value.map(_.postalCodeGen)).flatMap(x => Gen.oneOf(x.asScala))
 }
 
 object SeqStateZipPart {
@@ -66,11 +66,11 @@ object SeqStateZipPart {
 private[faker] final case class SeqStateAbbrAndZipPart(
     prefix: Option[String],
     suffix: Option[String],
-    value: Seq[address.State]
+    value: Seq[address.StateLike]
 ) extends StringGenBuilderPart {
   val valueGen: Gen[String] = for {
     state <- Gen.oneOf(value)
-    zip <- state.zipGen
+    zip <- state.postalCodeGen
   } yield s"${state.abbr} $zip"
 }
 

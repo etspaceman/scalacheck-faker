@@ -1,14 +1,137 @@
 package faker
 
+import scala.reflect.ClassTag
+
 import java.time.{Instant, LocalDateTime, OffsetDateTime, ZonedDateTime}
+import java.util.Locale
 
+import org.scalacheck.Arbitrary
+import org.scalatest.Assertion
 import org.scalatest.freespec.AnyFreeSpecLike
+import org.scalatestplus.scalacheck.Checkers
 
-class FakerSpec extends AnyFreeSpecLike {
-  val fakers: Seq[Faker] = Seq(Faker.en_US, Faker.en_CA, Faker.en_GB)
+class FakerSpec extends AnyFreeSpecLike with Checkers {
+  @SuppressWarnings(Array("DisableSyntax.defaultArgs"))
+  def testCanGen[A: Arbitrary](locale: Locale, shouldRun: Boolean = true)(
+      implicit CT: ClassTag[A]
+  ): Unit = {
+    val desc =
+      s"${CT.runtimeClass.getName} should generate faker data successfully for $locale"
+    if (shouldRun) desc in { check((_: A) => true) }
+    else desc ignore {}
+  }
 
-  fakers.foreach(faker =>
-    s"Faker - ${faker.locale}" - {
+  val localesToTest = Seq(
+    SupportedLocales.en_US,
+    SupportedLocales.en_CA,
+    SupportedLocales.en_GB,
+    SupportedLocales.en_IND
+  )
+
+  val fakers: Seq[Faker] =
+    Seq(Faker.en_US, Faker.en_CA, Faker.en_GB, Faker.en_IND)
+
+  val countriesWithStates = Seq("US", "IND", "CA")
+
+  def ignorableTest[A](desc: String, faker: Faker)(
+      shouldRun: Faker => Boolean
+  )(fakerF: Faker => A)(assertion: A => Assertion): Unit =
+    if (shouldRun(faker)) {
+      desc in {
+        val res = fakerF(faker)
+        assertion(res)
+      }
+    } else { desc ignore {} }
+
+  localesToTest.foreach { locale =>
+    s"Arbitrary tests for $locale" - {
+      implicit val loader: ResourceLoader = new ResourceLoader(locale)
+      testCanGen[address.BuildingNumber](locale)
+      testCanGen[address.City](locale)
+      testCanGen[address.CityPrefix](locale)
+      testCanGen[address.CitySuffix](locale)
+      testCanGen[address.Country](locale)
+      testCanGen[address.DefaultCountry](locale)
+      testCanGen[address.FullAddress](locale)
+      testCanGen[address.Latitude](locale)
+      testCanGen[address.Longitude](locale)
+      testCanGen[address.PostalCode](locale)
+      testCanGen[address.SecondaryAddress](locale)
+      testCanGen[address.StateLike](
+        locale,
+        countriesWithStates.contains(locale.getCountry)
+      )
+      testCanGen[address.StreetAddress](locale)
+      testCanGen[address.StreetName](locale)
+      testCanGen[address.StreetPrefix](locale)
+      testCanGen[address.StreetSuffix](locale)
+      testCanGen[company.BS](locale)
+      testCanGen[company.BuzzWord](locale)
+      testCanGen[company.CatchPhrase](locale)
+      testCanGen[company.CompanyDomainName](locale)
+      testCanGen[company.CompanyName](locale)
+      testCanGen[company.CompanySuffix](locale)
+      testCanGen[company.CompanyUrl](locale)
+      testCanGen[company.Industry](locale)
+      testCanGen[company.Logo](locale)
+      testCanGen[company.Profession](locale)
+      testCanGen[internet.Avatar](locale)
+      testCanGen[internet.DomainName](locale)
+      testCanGen[internet.DomainSuffix](locale)
+      testCanGen[internet.DomainWord](locale)
+      testCanGen[internet.EmailAddress](locale)
+      testCanGen[internet.Image](locale)
+      testCanGen[internet.IpV4Address](locale)
+      testCanGen[internet.IpV4Cidr](locale)
+      testCanGen[internet.IpV6Address](locale)
+      testCanGen[internet.IpV6Cidr](locale)
+      testCanGen[internet.MacAddress](locale)
+      testCanGen[internet.Password](locale)
+      testCanGen[internet.PrivateIpV4Address](locale)
+      testCanGen[internet.PublicIpV4Address](locale)
+      testCanGen[internet.SafeEmailAddress](locale)
+      testCanGen[internet.Slug](locale)
+      testCanGen[internet.Url](locale)
+      testCanGen[internet.UserAgent](locale)
+      testCanGen[lorem.LoremWord](locale)
+      testCanGen[lorem.LoremWords](locale)
+      testCanGen[lorem.LoremSentence](locale)
+      testCanGen[lorem.LoremParagraph](locale)
+      testCanGen[lorem.LoremParagraphs](locale)
+      testCanGen[lorem.LoremCharacters](locale)
+      testCanGen[name.FirstName](locale)
+      testCanGen[name.LastName](locale)
+      testCanGen[name.FullName](locale)
+      testCanGen[name.FullNameWithMiddle](locale)
+      testCanGen[name.Prefix](locale)
+      testCanGen[name.Suffix](locale)
+      testCanGen[name.Title](locale)
+      testCanGen[name.UserName](locale)
+      testCanGen[phone.PhoneNumber](locale)
+      testCanGen[phone.CellPhoneNumber](locale)
+      testCanGen[time.CurrentEraInstant](locale)
+      testCanGen[time.CurrentEraLocalDateTime](locale)
+      testCanGen[time.CurrentEraOffsetDateTime](locale)
+      testCanGen[time.CurrentEraZonedDateTime](locale)
+      testCanGen[time.FutureInstant](locale)
+      testCanGen[time.FutureLocalDateTime](locale)
+      testCanGen[time.FutureOffsetDateTime](locale)
+      testCanGen[time.FutureZonedDateTime](locale)
+      testCanGen[time.NowInstant](locale)
+      testCanGen[time.NowLocalDateTime](locale)
+      testCanGen[time.NowOffsetDateTime](locale)
+      testCanGen[time.NowZonedDateTime](locale)
+      testCanGen[time.PastInstant](locale)
+      testCanGen[time.PastLocalDateTime](locale)
+      testCanGen[time.PastOffsetDateTime](locale)
+      testCanGen[time.PastZonedDateTime](locale)
+      testCanGen[time.RandomInstant](locale)
+      testCanGen[time.RandomLocalDateTime](locale)
+      testCanGen[time.RandomOffsetDateTime](locale)
+      testCanGen[time.RandomZonedDateTime](locale)
+    }
+    s"Faker tests for $locale" - {
+      val faker: Faker = new Faker(locale)
       "Lorem" - {
         "loremWord should return successfully" in {
           val res = faker.loremWord()
@@ -318,18 +441,18 @@ class FakerSpec extends AnyFreeSpecLike {
           val res = faker.secondaryAddress()
           assert(res.nonEmpty, res)
         }
-        "state should return successfully" in {
-          val res = faker.state()
-          assert(res.abbr.nonEmpty && res.name.nonEmpty, res)
-        }
-        "stateAbbr should return successfully" in {
-          val res = faker.stateAbbr()
-          assert(res.nonEmpty, res)
-        }
-        "stateZip should return successfully" in {
-          val res = faker.stateZip()
-          assert(res.nonEmpty, res)
-        }
+        ignorableTest("state should return successfully", faker)(x =>
+          countriesWithStates.contains(x.locale.getCountry)
+        )(_.state())(res => assert(res.abbr.nonEmpty && res.name.nonEmpty, res))
+
+        ignorableTest("stateAbbr should return successfully", faker)(x =>
+          countriesWithStates.contains(x.locale.getCountry)
+        )(_.stateAbbr())(res => assert(res.nonEmpty, res))
+
+        ignorableTest("stateZip should return successfully", faker)(x =>
+          countriesWithStates.contains(x.locale.getCountry)
+        )(_.stateZip())(res => assert(res.nonEmpty, res))
+
         "streetAddress should return successfully" in {
           val res = faker.streetAddress()
           assert(res.nonEmpty, res)
@@ -396,5 +519,5 @@ class FakerSpec extends AnyFreeSpecLike {
         }
       }
     }
-  )
+  }
 }
