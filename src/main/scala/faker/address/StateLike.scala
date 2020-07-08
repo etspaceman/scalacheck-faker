@@ -54,7 +54,7 @@ object State {
 
 final case class Province(abbr: String, name: String, postalCodeString: String)
     extends StateLike {
-  override val postalCodeGen: Gen[String] = postalCodeString.interpolatedGen
+  override val postalCodeGen: Gen[String] = postalCodeString.regexGen
 }
 
 object Province {
