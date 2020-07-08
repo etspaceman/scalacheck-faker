@@ -34,7 +34,7 @@ scalacOptions ++= (ScalaVersionADT.fromString(scalaVersion.value) match {
   case `2.12` => ScalacSettings.`2.12`
   case `2.13` => ScalacSettings.`2.13`
 })
-val mimaVersion: Option[String] = Some("3.0.0")
+val mimaVersion: Option[String] = None
 mimaPreviousArtifacts :=
   mimaVersion.map("io.github.etspaceman" %% "scalacheck-faker" % _).toSet
 initialCommands in console := "import faker._"

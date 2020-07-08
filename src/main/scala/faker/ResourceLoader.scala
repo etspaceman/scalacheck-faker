@@ -42,10 +42,12 @@ final class ResourceLoader(private[faker] val locale: Locale) {
 }
 
 object ResourceLoader {
-  val default: ResourceLoader = new ResourceLoader(Locale.getDefault)
-  val en_US: ResourceLoader = new ResourceLoader(Locale.US)
-  val en_CA: ResourceLoader = new ResourceLoader(Locale.CANADA)
-  val en_GB: ResourceLoader = new ResourceLoader(Locale.UK)
+  val default: ResourceLoader = new ResourceLoader(SupportedLocales.default)
+  val en: ResourceLoader = new ResourceLoader(SupportedLocales.en)
+  val en_US: ResourceLoader = new ResourceLoader(SupportedLocales.en_US)
+  val en_CA: ResourceLoader = new ResourceLoader(SupportedLocales.en_CA)
+  val en_GB: ResourceLoader = new ResourceLoader(SupportedLocales.en_GB)
+  val en_IND: ResourceLoader = new ResourceLoader(SupportedLocales.en_IND)
 
   object Implicits {
     implicit val defaultResourceLoader: ResourceLoader = default

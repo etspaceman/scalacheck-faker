@@ -261,13 +261,13 @@ final class Faker(private[faker] val locale: Locale) {
   def secondaryAddress(seed: Seed): String =
     Arbitrary.arbitrary[address.SecondaryAddress].one(seed).value
   def secondaryAddress(): String = secondaryAddress(Seed.random())
-  def state(seed: Seed): address.State =
-    Arbitrary.arbitrary[address.State].one(seed)
-  def state(): address.State = state(Seed.random())
+  def state(seed: Seed): address.StateLike =
+    Arbitrary.arbitrary[address.StateLike].one(seed)
+  def state(): address.StateLike = state(Seed.random())
   def stateAbbr(seed: Seed): String = state(seed).abbr
   def stateAbbr(): String = stateAbbr(Seed.random())
   def stateZip(seed: Seed): String =
-    state(seed).zipGen.one(seed)
+    state(seed).postalCodeGen.one(seed)
   def stateZip(): String = stateZip(Seed.random())
   def streetAddress(seed: Seed): String =
     Arbitrary.arbitrary[address.StreetAddress].one(seed).value
@@ -324,9 +324,10 @@ final class Faker(private[faker] val locale: Locale) {
 }
 
 object Faker {
-  val default = new Faker(Locale.getDefault)
-  val en = new Faker(Locale.ENGLISH)
-  val en_US = new Faker(Locale.US)
-  val en_CA = new Faker(Locale.CANADA)
-  val en_GB = new Faker(Locale.UK)
+  val default = new Faker(SupportedLocales.default)
+  val en = new Faker(SupportedLocales.en)
+  val en_US = new Faker(SupportedLocales.en_US)
+  val en_CA = new Faker(SupportedLocales.en_CA)
+  val en_GB = new Faker(SupportedLocales.en_GB)
+  val en_IND = new Faker(SupportedLocales.en_IND)
 }
