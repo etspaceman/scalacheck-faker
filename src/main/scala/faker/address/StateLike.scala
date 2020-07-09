@@ -4,8 +4,8 @@ import org.scalacheck.{Arbitrary, Gen}
 import pureconfig.ConfigReader
 import pureconfig.generic.semiauto._
 
-import faker.ResourceLoader
 import faker.syntax.string._
+import faker.{ResourceLoader, StringGenBuilder}
 
 sealed trait StateLike {
   def abbr: String
@@ -43,18 +43,24 @@ object UsState {
   implicit val usStateConfigReader: ConfigReader[UsState] = deriveReader
 }
 
-final case class State(abbr: String, name: String, postalCodeString: String)
-    extends StateLike {
-  override val postalCodeGen: Gen[String] = postalCodeString.interpolatedGen
+final case class State(
+    abbr: String,
+    name: String,
+    postalCodeBuilder: StringGenBuilder
+) extends StateLike {
+  override val postalCodeGen: Gen[String] = postalCodeBuilder.gen
 }
 
 object State {
   implicit val stateConfigReader: ConfigReader[State] = deriveReader
 }
 
-final case class Province(abbr: String, name: String, postalCodeString: String)
-    extends StateLike {
-  override val postalCodeGen: Gen[String] = postalCodeString.regexGen
+final case class Province(
+    abbr: String,
+    name: String,
+    postalCodeBuilder: StringGenBuilder
+) extends StateLike {
+  override val postalCodeGen: Gen[String] = postalCodeBuilder.gen
 }
 
 object Province {

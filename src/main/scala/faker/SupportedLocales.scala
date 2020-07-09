@@ -9,4 +9,5 @@ object SupportedLocales {
   val en_CA: Locale = Locale.CANADA
   val en_GB: Locale = Locale.UK
   val en_IND: Locale = new Locale("en", "IND")
+  val en_AU: Locale = new Locale("en", "AU")
 }

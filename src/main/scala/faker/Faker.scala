@@ -324,10 +324,11 @@ final class Faker(private[faker] val locale: Locale) {
 }
 
 object Faker {
-  val default = new Faker(SupportedLocales.default)
-  val en = new Faker(SupportedLocales.en)
-  val en_US = new Faker(SupportedLocales.en_US)
-  val en_CA = new Faker(SupportedLocales.en_CA)
-  val en_GB = new Faker(SupportedLocales.en_GB)
-  val en_IND = new Faker(SupportedLocales.en_IND)
+  val default: Faker = new Faker(SupportedLocales.default)
+  val en: Faker = new Faker(SupportedLocales.en)
+  val en_US: Faker = new Faker(SupportedLocales.en_US)
+  val en_CA: Faker = new Faker(SupportedLocales.en_CA)
+  val en_GB: Faker = new Faker(SupportedLocales.en_GB)
+  val en_IND: Faker = new Faker(SupportedLocales.en_IND)
+  val en_AU: Faker = new Faker(SupportedLocales.en_AU)
 }
