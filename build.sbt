@@ -90,6 +90,9 @@ scalacOptions in (Compile, console) ~= {
   _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
 }
 
+fork in Test := true
+testForkedParallel in Test := true
+
 addCommandAlias("cpl", ";+test:compile")
 addCommandAlias(
   "fixCheck",

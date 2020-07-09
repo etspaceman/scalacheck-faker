@@ -32,9 +32,11 @@ final class ResourceLoader(private[faker] val locale: Locale) {
         .withFallback(langConf.optional)
         .withFallback(defaultConfig)
     case (Some(langConf), _) => langConf.optional.withFallback(defaultConfig)
+    // $COVERAGE-OFF$
     case (_, Some(localeConf)) =>
       localeConf.optional.withFallback(defaultConfig)
     case _ => defaultConfig
+    // $COVERAGE-ON$
   }
 
   def loadKey[A: ConfigReader: ClassTag](key: String): A =
@@ -42,14 +44,17 @@ final class ResourceLoader(private[faker] val locale: Locale) {
 }
 
 object ResourceLoader {
+  // $COVERAGE-OFF$
   val default: ResourceLoader = new ResourceLoader(SupportedLocales.default)
   val en: ResourceLoader = new ResourceLoader(SupportedLocales.en)
   val en_US: ResourceLoader = new ResourceLoader(SupportedLocales.en_US)
   val en_CA: ResourceLoader = new ResourceLoader(SupportedLocales.en_CA)
   val en_GB: ResourceLoader = new ResourceLoader(SupportedLocales.en_GB)
   val en_IND: ResourceLoader = new ResourceLoader(SupportedLocales.en_IND)
+  val en_AU: ResourceLoader = new ResourceLoader(SupportedLocales.en_AU)
 
   object Implicits {
     implicit val defaultResourceLoader: ResourceLoader = default
   }
+  // $COVERAGE-ON$
 }
