@@ -42,6 +42,7 @@ final class ResourceLoader(private[faker] val locale: Locale) {
 }
 
 object ResourceLoader {
+  // $COVERAGE-OFF$
   val default: ResourceLoader = new ResourceLoader(SupportedLocales.default)
   val en: ResourceLoader = new ResourceLoader(SupportedLocales.en)
   val en_US: ResourceLoader = new ResourceLoader(SupportedLocales.en_US)
@@ -53,4 +54,5 @@ object ResourceLoader {
   object Implicits {
     implicit val defaultResourceLoader: ResourceLoader = default
   }
+  // $COVERAGE-ON$
 }

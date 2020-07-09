@@ -324,6 +324,7 @@ final class Faker(private[faker] val locale: Locale) {
 }
 
 object Faker {
+  // $COVERAGE-OFF$
   val default: Faker = new Faker(SupportedLocales.default)
   val en: Faker = new Faker(SupportedLocales.en)
   val en_US: Faker = new Faker(SupportedLocales.en_US)
@@ -331,4 +332,5 @@ object Faker {
   val en_GB: Faker = new Faker(SupportedLocales.en_GB)
   val en_IND: Faker = new Faker(SupportedLocales.en_IND)
   val en_AU: Faker = new Faker(SupportedLocales.en_AU)
+  // $COVERAGE-ON$
 }
