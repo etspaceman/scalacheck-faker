@@ -53,6 +53,7 @@ object ResourceLoader {
   val en_IND: ResourceLoader = new ResourceLoader(SupportedLocales.en_IND)
   val en_AU: ResourceLoader = new ResourceLoader(SupportedLocales.en_AU)
   val en_MS: ResourceLoader = new ResourceLoader(SupportedLocales.en_MS)
+  val en_NEP: ResourceLoader = new ResourceLoader(SupportedLocales.en_NEP)
 
   object Implicits {
     implicit val defaultResourceLoader: ResourceLoader = default
