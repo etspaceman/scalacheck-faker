@@ -23,7 +23,7 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     else desc ignore {}
   }
 
-  val countriesWithStates = Seq("US", "IND", "CA")
+  val countriesWithoutStates = Seq("GB")
 
   def ignorableTest[A](desc: String, faker: Faker)(
       shouldRun: Faker => Boolean
@@ -50,7 +50,7 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[address.SecondaryAddress](locale)
     testCanGen[address.StateLike](
       locale,
-      countriesWithStates.contains(locale.getCountry)
+      !countriesWithoutStates.contains(locale.getCountry)
     )
     testCanGen[address.StreetAddress](locale)
     testCanGen[address.StreetName](locale)
@@ -433,15 +433,15 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
         assert(res.nonEmpty, res)
       }
       ignorableTest("state should return successfully", faker)(x =>
-        countriesWithStates.contains(x.locale.getCountry)
+        !countriesWithoutStates.contains(x.locale.getCountry)
       )(_.state())(res => assert(res.abbr.nonEmpty && res.name.nonEmpty, res))
 
       ignorableTest("stateAbbr should return successfully", faker)(x =>
-        countriesWithStates.contains(x.locale.getCountry)
+        !countriesWithoutStates.contains(x.locale.getCountry)
       )(_.stateAbbr())(res => assert(res.nonEmpty, res))
 
       ignorableTest("stateZip should return successfully", faker)(x =>
-        countriesWithStates.contains(x.locale.getCountry)
+        !countriesWithoutStates.contains(x.locale.getCountry)
       )(_.stateZip())(res => assert(res.nonEmpty, res))
 
       "streetAddress should return successfully" in {
