@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        scala: [2.11.12, 2.12.11, 2.13.3]
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
@@ -16,7 +19,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Validate build
-      run: sbt validate
+      run: sbt ++${{ matrix.scala }} validate
       env:
         JAVA_OPTS: -Duser.country=US -Duser.language=en
     - name: Upload coverage
