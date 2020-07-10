@@ -1,9 +1,5 @@
 name: Scala CI
 
-strategy:
-  matrix:
-    scala: [2.11, 2.12, 2.13]
-
 on:
   push:
     branches: [ master ]
@@ -13,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        scala: [2.11, 2.12, 2.13]
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
