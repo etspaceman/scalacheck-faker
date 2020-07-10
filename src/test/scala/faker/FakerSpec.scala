@@ -23,7 +23,7 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     else desc ignore {}
   }
 
-  val countriesWithoutStates = Seq("GB", "NZ", "SG")
+  val countriesWithoutStates = Seq("GB", "NZ", "SG", "UG")
 
   def ignorableTest[A](desc: String, faker: Faker)(
       shouldRun: Faker => Boolean
