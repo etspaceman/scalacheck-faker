@@ -12,4 +12,5 @@ object SupportedLocales {
   val en_AU: Locale = new Locale("en", "AU")
   val en_MS: Locale = new Locale("en", "MS")
   val en_NEP: Locale = new Locale("en", "NEP")
+  val en_NG: Locale = new Locale("en", "NG")
 }
