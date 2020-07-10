@@ -91,7 +91,6 @@ scalacOptions in (Compile, console) ~= {
 }
 
 fork in Test := true
-testForkedParallel in Test := true
 
 addCommandAlias("cpl", ";+test:compile")
 addCommandAlias(
