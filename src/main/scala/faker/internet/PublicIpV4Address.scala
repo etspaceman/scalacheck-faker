@@ -7,7 +7,7 @@ final case class PublicIpV4Address private (value: String) extends AnyVal
 object PublicIpV4Address {
   private val privateFirstParts: Seq[Int] = Seq(10, 127, 169, 192, 172)
   private val publicIpV4FirstPart: Gen[Int] =
-    Gen.choose(2, 255).filterNot(privateFirstParts.contains)
+    Gen.choose(2, 255).retryUntil(!privateFirstParts.contains(_))
   implicit val publicIpV4AddressArbitrary: Arbitrary[PublicIpV4Address] =
     Arbitrary(
       for {
