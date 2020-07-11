@@ -6,6 +6,7 @@ import org.scalacheck.Gen
 import pureconfig.ConfigReader
 import pureconfig.generic.semiauto._
 
+import faker.address.DefaultCountry
 import faker.syntax.string._
 
 private[faker] final case class StringGenBuilder(
@@ -115,6 +116,20 @@ private[faker] final case class StringBuilderPart(
 
 object StringBuilderPart {
   implicit val stringBuilderPartConfigReader: ConfigReader[StringBuilderPart] =
+    deriveReader
+}
+
+private[faker] final case class DefaultCountryPart(
+    prefix: Option[String],
+    suffix: Option[String],
+    value: Seq[DefaultCountry]
+) extends StringGenBuilderPart {
+  val valueGen: Gen[String] = Gen.oneOf(value.map(_.code))
+}
+
+object DefaultCountryPart {
+  implicit val defaultCountryPartConfigReader
+      : ConfigReader[DefaultCountryPart] =
     deriveReader
 }
 
