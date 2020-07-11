@@ -4,6 +4,10 @@ import java.util.Locale
 
 object SupportedLocales {
   val default: Locale = Locale.getDefault()
+
+  val ar: Locale = new Locale("ar")
+  val bg: Locale = new Locale("bg")
+  val by: Locale = new Locale("by")
   val en: Locale = Locale.ENGLISH
   val en_US: Locale = Locale.US
   val en_CA: Locale = Locale.CANADA
@@ -18,6 +22,4 @@ object SupportedLocales {
   val en_SG: Locale = new Locale("en", "SG")
   val en_UG: Locale = new Locale("en", "UG")
   val en_ZA: Locale = new Locale("en", "ZA")
-  val ar: Locale = new Locale("ar")
-  val bg: Locale = new Locale("bg")
 }
