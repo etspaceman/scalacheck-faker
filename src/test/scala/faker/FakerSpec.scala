@@ -6,7 +6,6 @@ import java.time.{Instant, LocalDateTime, OffsetDateTime, ZonedDateTime}
 import java.util.Locale
 
 import org.scalacheck.Arbitrary
-import org.scalatest.Assertion
 import org.scalatest.freespec.AnyFreeSpecLike
 import org.scalatestplus.scalacheck.Checkers
 
@@ -14,27 +13,13 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
   def locale: Locale
 
   @SuppressWarnings(Array("DisableSyntax.defaultArgs"))
-  def testCanGen[A: Arbitrary](locale: Locale, shouldRun: Boolean = true)(
-      implicit CT: ClassTag[A]
+  def testCanGen[A: Arbitrary](locale: Locale)(implicit
+      CT: ClassTag[A]
   ): Unit = {
-    val desc =
-      s"${CT.runtimeClass.getName} should generate faker data successfully for $locale"
-    if (shouldRun) desc in { check((_: A) => true) }
-    else desc ignore {}
+    s"${CT.runtimeClass.getName} should generate faker data successfully for $locale" in {
+      check((_: A) => true)
+    }
   }
-
-  val languagesWithoutStates = Seq("ar")
-  val countriesWithoutStates = Seq("GB", "NZ", "SG", "UG")
-
-  def ignorableTest[A](desc: String, faker: Faker)(
-      shouldRun: Faker => Boolean
-  )(fakerF: Faker => A)(assertion: A => Assertion): Unit =
-    if (shouldRun(faker)) {
-      desc in {
-        val res = fakerF(faker)
-        assertion(res)
-      }
-    } else { desc ignore {} }
 
   s"Arbitrary tests for $locale" - {
     implicit val loader: ResourceLoader = new ResourceLoader(locale)
@@ -49,12 +34,7 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[address.Longitude](locale)
     testCanGen[address.PostalCode](locale)
     testCanGen[address.SecondaryAddress](locale)
-    testCanGen[address.StateLike](
-      locale,
-      !countriesWithoutStates.contains(
-        locale.getCountry
-      ) && !languagesWithoutStates.contains(locale.getLanguage)
-    )
+    testCanGen[address.StateLike](locale)
     testCanGen[address.StreetAddress](locale)
     testCanGen[address.StreetName](locale)
     testCanGen[address.StreetPrefix](locale)
@@ -435,21 +415,18 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
         val res = faker.secondaryAddress()
         assert(res.nonEmpty, res)
       }
-      ignorableTest("state should return successfully", faker)(x =>
-        !countriesWithoutStates.contains(x.locale.getCountry) &&
-          !languagesWithoutStates.contains(x.locale.getLanguage)
-      )(_.state())(res => assert(res.abbr.nonEmpty && res.name.nonEmpty, res))
-
-      ignorableTest("stateAbbr should return successfully", faker)(x =>
-        !countriesWithoutStates.contains(x.locale.getCountry) &&
-          !languagesWithoutStates.contains(x.locale.getLanguage)
-      )(_.stateAbbr())(res => assert(res.nonEmpty, res))
-
-      ignorableTest("stateZip should return successfully", faker)(x =>
-        !countriesWithoutStates.contains(x.locale.getCountry) &&
-          !languagesWithoutStates.contains(x.locale.getLanguage)
-      )(_.stateZip())(res => assert(res.nonEmpty, res))
-
+      "state should return successfully" in {
+        val res = faker.state()
+        assert(res.abbr.nonEmpty && res.name.nonEmpty, res)
+      }
+      "stateAbbr should return successfully" in {
+        val res = faker.stateAbbr()
+        assert(res.nonEmpty, res)
+      }
+      "stateZip should return successfully" in {
+        val res = faker.stateZip()
+        assert(res.nonEmpty, res)
+      }
       "streetAddress should return successfully" in {
         val res = faker.streetAddress()
         assert(res.nonEmpty, res)
