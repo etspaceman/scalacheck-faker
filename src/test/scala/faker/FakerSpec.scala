@@ -23,6 +23,7 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     else desc ignore {}
   }
 
+  val languagesWithoutStates = Seq("ar")
   val countriesWithoutStates = Seq("GB", "NZ", "SG", "UG")
 
   def ignorableTest[A](desc: String, faker: Faker)(
@@ -50,7 +51,9 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[address.SecondaryAddress](locale)
     testCanGen[address.StateLike](
       locale,
-      !countriesWithoutStates.contains(locale.getCountry)
+      !countriesWithoutStates.contains(
+        locale.getCountry
+      ) && !languagesWithoutStates.contains(locale.getLanguage)
     )
     testCanGen[address.StreetAddress](locale)
     testCanGen[address.StreetName](locale)
@@ -433,15 +436,18 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
         assert(res.nonEmpty, res)
       }
       ignorableTest("state should return successfully", faker)(x =>
-        !countriesWithoutStates.contains(x.locale.getCountry)
+        !countriesWithoutStates.contains(x.locale.getCountry) &&
+          !languagesWithoutStates.contains(x.locale.getLanguage)
       )(_.state())(res => assert(res.abbr.nonEmpty && res.name.nonEmpty, res))
 
       ignorableTest("stateAbbr should return successfully", faker)(x =>
-        !countriesWithoutStates.contains(x.locale.getCountry)
+        !countriesWithoutStates.contains(x.locale.getCountry) &&
+          !languagesWithoutStates.contains(x.locale.getLanguage)
       )(_.stateAbbr())(res => assert(res.nonEmpty, res))
 
       ignorableTest("stateZip should return successfully", faker)(x =>
-        !countriesWithoutStates.contains(x.locale.getCountry)
+        !countriesWithoutStates.contains(x.locale.getCountry) &&
+          !languagesWithoutStates.contains(x.locale.getLanguage)
       )(_.stateZip())(res => assert(res.nonEmpty, res))
 
       "streetAddress should return successfully" in {
