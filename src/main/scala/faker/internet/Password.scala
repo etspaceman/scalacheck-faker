@@ -1,7 +1,5 @@
 package faker.internet
 
-import scala.util.Random
-
 import org.scalacheck.{Arbitrary, Gen}
 
 import faker.ResourceLoader
@@ -17,16 +15,17 @@ object Password {
   ): Arbitrary[Password] =
     Arbitrary(
       for {
-        regularCharNumber <- Gen.choose(8, 20)
-        chars <-
+        charNum <- Gen.choose(8, 20)
+        pass <-
           Gen
             .listOfN(
-              regularCharNumber,
-              Gen.oneOf(LoremCharacters.loremCharacters)
+              charNum,
+              Gen.frequency(
+                4 -> Gen.oneOf(LoremCharacters.loremCharacters),
+                1 -> Gen.oneOf(passwordSpecialCharacters)
+              )
             )
             .map(_.mkString)
-        specialChars <- Gen.atLeastOne(passwordSpecialCharacters)
-        pass = Random.shuffle(chars.map(_.toString) ++ specialChars).mkString
       } yield Password(pass)
     )
 }

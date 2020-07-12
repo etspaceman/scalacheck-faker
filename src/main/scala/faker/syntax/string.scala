@@ -1,7 +1,7 @@
 package faker.syntax
 
-import com.mifmif.common.regex.Generex
 import org.scalacheck.Gen
+import wolfendale.scalacheck.regexp.RegexpGen
 
 object string extends FakerStringSyntax
 
@@ -18,6 +18,6 @@ object FakerStringSyntax {
         else gen.map(y => y + char.toString)
       }
 
-    def regexGen: Gen[String] = Gen.delay(new Generex(str).random())
+    def regexGen: Gen[String] = RegexpGen.from(str)
   }
 }

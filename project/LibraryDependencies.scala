@@ -11,5 +11,5 @@ object LibraryDependencies {
   val OrganizeImports =
     "com.github.liancheng" %% "organize-imports" % "0.3.1-RC3"
   val PureConfig = "com.github.pureconfig" %% "pureconfig" % "0.13.0"
-  val Generex = "com.github.mifmif" % "generex" % "1.0.2"
+  val ScalaCheckGenRegexp = "wolfendale" %% "scalacheck-gen-regexp" % "0.1.2"
 }
