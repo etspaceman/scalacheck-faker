@@ -333,6 +333,7 @@ object Faker {
   val ca: Faker = new Faker(SupportedLocales.ca)
   val ca_CAT: Faker = new Faker(SupportedLocales.ca_CAT)
   val cs_CZ: Faker = new Faker(SupportedLocales.cs_CZ)
+  val da_DK: Faker = new Faker(SupportedLocales.da_DK)
   val en: Faker = new Faker(SupportedLocales.en)
   val en_US: Faker = new Faker(SupportedLocales.en_US)
   val en_CA: Faker = new Faker(SupportedLocales.en_CA)

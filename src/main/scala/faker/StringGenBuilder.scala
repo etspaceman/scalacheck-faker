@@ -123,7 +123,7 @@ private[faker] final case class DefaultCountryPart(
     suffix: Option[String],
     value: Seq[address.DefaultCountry]
 ) extends StringGenBuilderPart {
-  val valueGen: Gen[String] = Gen.oneOf(value.map(_.name))
+  val valueGen: Gen[String] = Gen.oneOf(value.map(_.code))
 }
 
 object DefaultCountryPart {
