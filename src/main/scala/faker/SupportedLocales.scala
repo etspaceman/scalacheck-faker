@@ -8,6 +8,8 @@ object SupportedLocales {
   val ar: Locale = new Locale("ar")
   val bg: Locale = new Locale("bg")
   val by: Locale = new Locale("by")
+  val ca: Locale = new Locale("ca")
+  val ca_CAT: Locale = new Locale("ca", "CAT")
   val en: Locale = Locale.ENGLISH
   val en_US: Locale = Locale.US
   val en_CA: Locale = Locale.CANADA
