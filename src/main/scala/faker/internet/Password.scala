@@ -16,12 +16,14 @@ object Password {
     Arbitrary(
       for {
         charNum <- Gen.choose(8, 20)
-        specialChars <- Gen.atLeastOne(passwordSpecialCharacters)
         pass <-
           Gen
             .listOfN(
               charNum,
-              Gen.oneOf(LoremCharacters.loremCharacters ++ specialChars)
+              Gen.frequency(
+                4 -> Gen.oneOf(LoremCharacters.loremCharacters),
+                1 -> Gen.oneOf(passwordSpecialCharacters)
+              )
             )
             .map(_.mkString)
       } yield Password(pass)
