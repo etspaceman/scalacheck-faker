@@ -86,6 +86,3 @@ Some instances may not be implemented due to the support not being present in so
 Faker library. If you see some instances that should exist for a locale, and have values
 that would be relevant for it, please either open an Issue or PR with the proposed
 implementation.
-
-## Early Development Warning
-This repository is in active and early development. Use at your own risk.
