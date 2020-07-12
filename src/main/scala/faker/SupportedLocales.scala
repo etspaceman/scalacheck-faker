@@ -10,6 +10,7 @@ object SupportedLocales {
   val by: Locale = new Locale("by")
   val ca: Locale = new Locale("ca")
   val ca_CAT: Locale = new Locale("ca", "CAT")
+  val cs_CZ: Locale = new Locale("cs", "CZ")
   val en: Locale = Locale.ENGLISH
   val en_US: Locale = Locale.US
   val en_CA: Locale = Locale.CANADA
