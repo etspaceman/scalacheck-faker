@@ -12,6 +12,9 @@ object SupportedLocales {
   val ca_CAT: Locale = new Locale("ca", "CAT")
   val cs_CZ: Locale = new Locale("cs", "CZ")
   val da_DK: Locale = new Locale("da", "DK")
+  val de: Locale = Locale.GERMAN
+  val de_AT: Locale = new Locale("de", "AT")
+  val de_CH: Locale = new Locale("de", "CH")
   val en: Locale = Locale.ENGLISH
   val en_US: Locale = Locale.US
   val en_CA: Locale = Locale.CANADA
