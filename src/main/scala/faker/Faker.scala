@@ -337,6 +337,7 @@ object Faker {
   val de: Faker = new Faker(SupportedLocales.de)
   val de_AT: Faker = new Faker(SupportedLocales.de_AT)
   val de_CH: Faker = new Faker(SupportedLocales.de_CH)
+  val ee: Faker = new Faker(SupportedLocales.ee)
   val en: Faker = new Faker(SupportedLocales.en)
   val en_US: Faker = new Faker(SupportedLocales.en_US)
   val en_CA: Faker = new Faker(SupportedLocales.en_CA)

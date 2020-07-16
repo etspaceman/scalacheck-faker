@@ -15,6 +15,7 @@ object SupportedLocales {
   val de: Locale = Locale.GERMAN
   val de_AT: Locale = new Locale("de", "AT")
   val de_CH: Locale = new Locale("de", "CH")
+  val ee: Locale = new Locale("ee")
   val en: Locale = Locale.ENGLISH
   val en_US: Locale = Locale.US
   val en_CA: Locale = Locale.CANADA
