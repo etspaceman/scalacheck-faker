@@ -63,6 +63,19 @@ object SeqStateZipPart {
     deriveReader
 }
 
+private[faker] final case class SeqStateNamePart(
+    prefix: Option[String],
+    suffix: Option[String],
+    value: Seq[address.StateLike]
+) extends StringGenBuilderPart {
+  val valueGen: Gen[String] = Gen.oneOf(value.map(_.name))
+}
+
+object SeqStateNamePart {
+  implicit val seqStateNamePartConfigReader: ConfigReader[SeqStateNamePart] =
+    deriveReader
+}
+
 private[faker] final case class SeqStateAbbrAndZipPart(
     prefix: Option[String],
     suffix: Option[String],
