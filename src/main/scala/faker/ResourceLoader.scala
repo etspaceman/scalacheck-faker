@@ -57,6 +57,7 @@ object ResourceLoader {
   val de: ResourceLoader = new ResourceLoader(SupportedLocales.de)
   val de_AT: ResourceLoader = new ResourceLoader(SupportedLocales.de_AT)
   val de_CH: ResourceLoader = new ResourceLoader(SupportedLocales.de_CH)
+  val ee: ResourceLoader = new ResourceLoader(SupportedLocales.ee)
   val en: ResourceLoader = new ResourceLoader(SupportedLocales.en)
   val en_US: ResourceLoader = new ResourceLoader(SupportedLocales.en_US)
   val en_CA: ResourceLoader = new ResourceLoader(SupportedLocales.en_CA)
