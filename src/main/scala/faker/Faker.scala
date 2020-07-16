@@ -321,6 +321,10 @@ final class Faker(private[faker] val locale: Locale) {
   def cellPhoneNumber(seed: Seed): String =
     Arbitrary.arbitrary[phone.CellPhoneNumber].one(seed).value
   def cellPhoneNumber(): String = cellPhoneNumber(Seed.random())
+
+  // Beer
+  def beer(seed: Seed): String = Arbitrary.arbitrary[beer.Beer].one(seed).value
+  def beer(): String = beer(Seed.random())
 }
 
 object Faker {
