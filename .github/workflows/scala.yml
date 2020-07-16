@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        scala: [2.11.12, 2.12.11, 2.13.3]
+        scala: [2.11.12, 2.12.12, 2.13.3]
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
