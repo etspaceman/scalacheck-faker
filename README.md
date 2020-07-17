@@ -49,7 +49,7 @@ import faker._
 import faker.ResourceLoader
 
 object UKResourceLoader {
-  implicit val UKResourceLoader: ResourceLoader = new ResourceLoader(Locale.UK)
+  implicit val UKResourceLoader: ResourceLoader = ResourceLoader.en_GB
 }
 ```
 
@@ -68,10 +68,8 @@ import faker._
 val firstName: String = Faker.default.firstName()
 val nowInstant: Instant = Faker.default.nowInstant()
 
-// You can also construct a Faker instance using a manually-provided Locale:
-val ukFaker: Faker = new Faker(Locale.UK)
-
-val ukFirstName: String = ukFaker.firstName()
+// You can also leverage a Faker instance using a manually-designated Locale:
+val ukFirstName: String = Faker.en_GB.firstName()
 
 // Sometimes you need to be able to manually supply the seed for the random number generator.
 // You can do that below:
