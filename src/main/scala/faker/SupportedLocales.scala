@@ -32,4 +32,5 @@ object SupportedLocales {
   val en_ZA: Locale = new Locale("en", "ZA")
   val es: Locale = new Locale("es")
   val es_MX: Locale = new Locale("es", "MX")
+  val fa: Locale = new Locale("fa")
 }
