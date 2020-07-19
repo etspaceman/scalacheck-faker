@@ -13,7 +13,12 @@ final class ResourceLoader(private[faker] val locale: Locale) {
   }
   private val language: Option[String] = {
     val lang = Option(locale.getLanguage)
-    if (lang.exists(_.isEmpty)) None else lang
+    if (lang.exists(_.isEmpty)) None
+    // 2020-07-18: Special case for hebrew as the Locale class overrides
+    // this input to "iw" (even though it claims to prefer "he"). This should
+    // allow the ResourceLoader to handle both cases.
+    else if (lang.contains("iw")) Some("he")
+    else lang
   }
 
   private val defaultConfig: ConfigObjectSource =
@@ -79,6 +84,7 @@ object ResourceLoader {
   val fr: ResourceLoader = new ResourceLoader(SupportedLocales.fr)
   val fr_CA: ResourceLoader = new ResourceLoader(SupportedLocales.fr_CA)
   val fr_CH: ResourceLoader = new ResourceLoader(SupportedLocales.fr_CH)
+  val he: ResourceLoader = new ResourceLoader(SupportedLocales.he)
 
   object Implicits {
     implicit val defaultResourceLoader: ResourceLoader = default
