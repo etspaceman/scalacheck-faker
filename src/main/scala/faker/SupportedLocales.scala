@@ -38,4 +38,5 @@ object SupportedLocales {
   val fr_CA: Locale = new Locale("fr", "CA")
   val fr_CH: Locale = new Locale("fr", "CH")
   val he: Locale = new Locale("he")
+  val hu: Locale = new Locale("hu")
 }
