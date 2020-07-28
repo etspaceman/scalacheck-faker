@@ -42,4 +42,5 @@ object SupportedLocales {
   val hy: Locale = new Locale("hy")
   val id: Locale = new Locale("id")
   val in_ID: Locale = new Locale("in_ID")
+  val it: Locale = Locale.ITALIAN
 }
