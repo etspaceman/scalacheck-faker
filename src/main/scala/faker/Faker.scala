@@ -367,5 +367,6 @@ object Faker {
   val it: Faker = new Faker(SupportedLocales.it)
   val ja: Faker = new Faker(SupportedLocales.ja)
   val ko: Faker = new Faker(SupportedLocales.ko)
+  val lv: Faker = new Faker(SupportedLocales.lv)
   // $COVERAGE-ON$
 }
