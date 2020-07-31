@@ -91,6 +91,7 @@ object ResourceLoader {
   val in_ID: ResourceLoader = new ResourceLoader(SupportedLocales.in_ID)
   val it: ResourceLoader = new ResourceLoader(SupportedLocales.it)
   val ja: ResourceLoader = new ResourceLoader(SupportedLocales.ja)
+  val ko: ResourceLoader = new ResourceLoader(SupportedLocales.ko)
 
   object Implicits {
     implicit val defaultResourceLoader: ResourceLoader = default
