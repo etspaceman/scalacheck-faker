@@ -46,4 +46,5 @@ object SupportedLocales {
   val ja: Locale = Locale.JAPANESE
   val ko: Locale = Locale.KOREAN
   val lv: Locale = new Locale("lv")
+  val nb_NO: Locale = new Locale("nb", "NO")
 }
