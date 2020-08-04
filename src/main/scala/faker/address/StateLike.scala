@@ -96,3 +96,13 @@ final case class Prefecture(name: String, postalCodeBuilder: StringGenBuilder)
 object Prefecture {
   implicit val prefectureConfigReader: ConfigReader[Prefecture] = deriveReader
 }
+
+final case class County(name: String, postalCodeBuilder: StringGenBuilder)
+    extends StateLike {
+  override val abbr: String = name
+  override val postalCodeGen: Gen[String] = postalCodeBuilder.gen
+}
+
+object County {
+  implicit val countyConfigReader: ConfigReader[County] = deriveReader
+}
