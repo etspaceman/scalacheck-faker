@@ -98,7 +98,7 @@ object Prefecture {
 }
 
 final case class County(name: String, postalCodeBuilder: StringGenBuilder)
-  extends StateLike {
+    extends StateLike {
   override val abbr: String = name
   override val postalCodeGen: Gen[String] = postalCodeBuilder.gen
 }
