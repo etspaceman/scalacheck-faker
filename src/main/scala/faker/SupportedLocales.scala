@@ -52,4 +52,5 @@ object SupportedLocales {
   val pt: Locale = new Locale("pt")
   val pt_BR: Locale = new Locale("pt", "BR")
   val ru: Locale = new Locale("ru")
+  val sk: Locale = new Locale("sk")
 }
