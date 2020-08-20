@@ -56,4 +56,5 @@ object SupportedLocales {
   val sv: Locale = new Locale("sv")
   val th: Locale = new Locale("th")
   val tr: Locale = new Locale("tr")
+  val uk: Locale = new Locale("uk")
 }
