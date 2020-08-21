@@ -57,4 +57,7 @@ object SupportedLocales {
   val th: Locale = new Locale("th")
   val tr: Locale = new Locale("tr")
   val uk: Locale = new Locale("uk")
+  val vi: Locale = new Locale("vi")
+  val zh_CN: Locale = Locale.CHINA
+  val zh_TW: Locale = Locale.TAIWAN
 }
