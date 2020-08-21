@@ -49,4 +49,15 @@ object SupportedLocales {
   val nb_NO: Locale = new Locale("nb", "NO")
   val nl: Locale = new Locale("nl")
   val pl: Locale = new Locale("pl")
+  val pt: Locale = new Locale("pt")
+  val pt_BR: Locale = new Locale("pt", "BR")
+  val ru: Locale = new Locale("ru")
+  val sk: Locale = new Locale("sk")
+  val sv: Locale = new Locale("sv")
+  val th: Locale = new Locale("th")
+  val tr: Locale = new Locale("tr")
+  val uk: Locale = new Locale("uk")
+  val vi: Locale = new Locale("vi")
+  val zh_CN: Locale = Locale.CHINA
+  val zh_TW: Locale = Locale.TAIWAN
 }
