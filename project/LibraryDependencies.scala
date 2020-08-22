@@ -6,7 +6,7 @@ object LibraryDependencies {
   val ApacheCommons = "org.apache.commons" % "commons-lang3" % "3.11"
   val ScalaTest = "org.scalatest" %% "scalatest" % "3.2.0"
   val ScalaTestPlusScalaCheck =
-    "org.scalatestplus" %% "scalacheck-1-14" % "3.2.0.0"
+    "org.scalatestplus" %% "scalacheck-1-14" % "3.2.2.0"
   val KindProjector = "org.typelevel" % "kind-projector" % "0.11.0"
   val OrganizeImports =
     "com.github.liancheng" %% "organize-imports" % "0.3.1-RC3"
