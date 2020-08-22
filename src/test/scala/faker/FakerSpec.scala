@@ -98,6 +98,9 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[name.UserName](locale)(x => Some(x.value))
     testCanGen[phone.PhoneNumber](locale)(x => Some(x.value))
     testCanGen[phone.CellPhoneNumber](locale)(x => Some(x.value))
+    testCanGen[pokemon.PokemonName](locale)(x => Some(x.value))
+    testCanGen[pokemon.PokemonLocation](locale)(x => Some(x.value))
+    testCanGen[pokemon.PokemonMove](locale)(x => Some(x.value))
     testCanGen[time.CurrentEraInstant](locale)(_ => None)
     testCanGen[time.CurrentEraLocalDateTime](locale)(_ => None)
     testCanGen[time.CurrentEraOffsetDateTime](locale)(_ => None)
@@ -504,6 +507,20 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
       }
       "cellPhoneNumber should return successfully" in {
         val res = faker.cellPhoneNumber()
+        assert(res.nonEmpty, res)
+      }
+    }
+    "Pokemon" - {
+      "pokemonName should return successfully" in {
+        val res = faker.pokemonName()
+        assert(res.nonEmpty, res)
+      }
+      "pokemonLocation should return successfully" in {
+        val res = faker.pokemonLocation()
+        assert(res.nonEmpty, res)
+      }
+      "pokemonMove should return successfully" in {
+        val res = faker.pokemonMove()
         assert(res.nonEmpty, res)
       }
     }

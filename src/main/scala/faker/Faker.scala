@@ -321,6 +321,17 @@ final class Faker(private[faker] val locale: Locale) {
   def cellPhoneNumber(seed: Seed): String =
     Arbitrary.arbitrary[phone.CellPhoneNumber].one(seed).value
   def cellPhoneNumber(): String = cellPhoneNumber(Seed.random())
+
+  // Pokemon
+  def pokemonName(seed: Seed): String =
+    Arbitrary.arbitrary[pokemon.PokemonName].one(seed).value
+  def pokemonName(): String = pokemonName(Seed.random())
+  def pokemonLocation(seed: Seed): String =
+    Arbitrary.arbitrary[pokemon.PokemonLocation].one(seed).value
+  def pokemonLocation(): String = pokemonLocation(Seed.random())
+  def pokemonMove(seed: Seed): String =
+    Arbitrary.arbitrary[pokemon.PokemonMove].one(seed).value
+  def pokemonMove(): String = pokemonMove(Seed.random())
 }
 
 object Faker {
