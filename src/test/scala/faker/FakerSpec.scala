@@ -54,6 +54,7 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[address.StreetName](locale)(x => Some(x.value))
     testCanGen[address.StreetPrefix](locale)(x => Some(x.value))
     testCanGen[address.StreetSuffix](locale)(x => Some(x.value))
+    testCanGen[animal.AnimalName](locale)(x => Some(x.value))
     testCanGen[company.BS](locale)(x => Some(x.value))
     testCanGen[company.BuzzWord](locale)(x => Some(x.value))
     testCanGen[company.CatchPhrase](locale)(x => Some(x.value))
@@ -521,6 +522,12 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
       }
       "pokemonMove should return successfully" in {
         val res = faker.pokemonMove()
+        assert(res.nonEmpty, res)
+      }
+    }
+    "Animal" - {
+      "animalName should return successfully" in {
+        val res = faker.animalName()
         assert(res.nonEmpty, res)
       }
     }
