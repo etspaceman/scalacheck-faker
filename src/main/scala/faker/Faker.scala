@@ -348,6 +348,20 @@ final class Faker(private[faker] val locale: Locale) {
   def genderShortBinaryType(seed: Seed): String =
     Arbitrary.arbitrary[gender.GenderShortBinaryType].one(seed).value
   def genderShortBinaryType(): String = genderShortBinaryType(Seed.random())
+
+  // Zelda
+  def zeldaGame(seed: Seed): String =
+    Arbitrary.arbitrary[zelda.ZeldaGame].one(seed).value
+  def zeldaGame(): String = zeldaGame(Seed.random())
+  def zeldaCharacter(seed: Seed): String =
+    Arbitrary.arbitrary[zelda.ZeldaCharacter].one(seed).value
+  def zeldaCharacter(): String = zeldaCharacter(Seed.random())
+  def zeldaLocation(seed: Seed): String =
+    Arbitrary.arbitrary[zelda.ZeldaLocation].one(seed).value
+  def zeldaLocation(): String = zeldaLocation(Seed.random())
+  def zeldaItem(seed: Seed): String =
+    Arbitrary.arbitrary[zelda.ZeldaItem].one(seed).value
+  def zeldaItem(): String = zeldaItem(Seed.random())
 }
 
 object Faker {

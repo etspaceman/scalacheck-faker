@@ -125,6 +125,10 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[time.RandomLocalDateTime](locale)(_ => None)
     testCanGen[time.RandomOffsetDateTime](locale)(_ => None)
     testCanGen[time.RandomZonedDateTime](locale)(_ => None)
+    testCanGen[zelda.ZeldaCharacter](locale)(x => Some(x.value))
+    testCanGen[zelda.ZeldaGame](locale)(x => Some(x.value))
+    testCanGen[zelda.ZeldaItem](locale)(x => Some(x.value))
+    testCanGen[zelda.ZeldaLocation](locale)(x => Some(x.value))
   }
   s"Faker tests for $locale" - {
     val faker: Faker = new Faker(locale)
@@ -545,6 +549,24 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
       }
       "genderShortBinaryType should return successfully" in {
         val res = faker.genderShortBinaryType()
+        assert(res.nonEmpty, res)
+      }
+    }
+    "Zelda" - {
+      "zeldaCharacter should return successfully" in {
+        val res = faker.zeldaCharacter()
+        assert(res.nonEmpty, res)
+      }
+      "zeldaGame should return successfully" in {
+        val res = faker.zeldaGame()
+        assert(res.nonEmpty, res)
+      }
+      "zeldaItem should return successfully" in {
+        val res = faker.zeldaItem()
+        assert(res.nonEmpty, res)
+      }
+      "zeldaLocation should return successfully" in {
+        val res = faker.zeldaLocation()
         assert(res.nonEmpty, res)
       }
     }
