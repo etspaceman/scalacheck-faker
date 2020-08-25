@@ -534,5 +534,19 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
         assert(res.nonEmpty, res)
       }
     }
+    "Gender" - {
+      "genderType should return successfully" in {
+        val res = faker.genderType()
+        assert(res.nonEmpty, res)
+      }
+      "genderBinaryType should return successfully" in {
+        val res = faker.genderBinaryType()
+        assert(res.nonEmpty, res)
+      }
+      "genderShortBinaryType should return successfully" in {
+        val res = faker.genderShortBinaryType()
+        assert(res.nonEmpty, res)
+      }
+    }
   }
 }
