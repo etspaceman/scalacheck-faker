@@ -65,6 +65,9 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[company.Industry](locale)(x => Some(x.value))
     testCanGen[company.Logo](locale)(x => Some(x.value))
     testCanGen[company.Profession](locale)(x => Some(x.value))
+    testCanGen[gender.GenderType](locale)(x => Some(x.value))
+    testCanGen[gender.GenderBinaryType](locale)(x => Some(x.value))
+    testCanGen[gender.GenderShortBinaryType](locale)(x => Some(x.value))
     testCanGen[internet.Avatar](locale)(x => Some(x.value))
     testCanGen[internet.DomainName](locale)(x => Some(x.value))
     testCanGen[internet.DomainSuffix](locale)(x => Some(x.value))
@@ -528,6 +531,20 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     "Animal" - {
       "animalName should return successfully" in {
         val res = faker.animalName()
+        assert(res.nonEmpty, res)
+      }
+    }
+    "Gender" - {
+      "genderType should return successfully" in {
+        val res = faker.genderType()
+        assert(res.nonEmpty, res)
+      }
+      "genderBinaryType should return successfully" in {
+        val res = faker.genderBinaryType()
+        assert(res.nonEmpty, res)
+      }
+      "genderShortBinaryType should return successfully" in {
+        val res = faker.genderShortBinaryType()
         assert(res.nonEmpty, res)
       }
     }

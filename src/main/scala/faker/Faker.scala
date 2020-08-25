@@ -338,6 +338,16 @@ final class Faker(private[faker] val locale: Locale) {
     Arbitrary.arbitrary[animal.AnimalName].one(seed).value
   def animalName(): String = animalName(Seed.random())
 
+  // Gender
+  def genderType(seed: Seed): String =
+    Arbitrary.arbitrary[gender.GenderType].one(seed).value
+  def genderType(): String = genderType(Seed.random())
+  def genderBinaryType(seed: Seed): String =
+    Arbitrary.arbitrary[gender.GenderBinaryType].one(seed).value
+  def genderBinaryType(): String = genderBinaryType(Seed.random())
+  def genderShortBinaryType(seed: Seed): String =
+    Arbitrary.arbitrary[gender.GenderShortBinaryType].one(seed).value
+  def genderShortBinaryType(): String = genderShortBinaryType(Seed.random())
 }
 
 object Faker {
