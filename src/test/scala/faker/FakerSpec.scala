@@ -129,6 +129,15 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[zelda.ZeldaGame](locale)(x => Some(x.value))
     testCanGen[zelda.ZeldaItem](locale)(x => Some(x.value))
     testCanGen[zelda.ZeldaLocation](locale)(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmoji](locale)(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiActivity](locale)(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiCelebration](locale)(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiCustom](locale)(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiFood](locale)(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiNature](locale)(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiObject](locale)(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiPerson](locale)(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiTravel](locale)(x => Some(x.value))
   }
   s"Faker tests for $locale" - {
     val faker: Faker = new Faker(locale)
@@ -567,6 +576,44 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
       }
       "zeldaLocation should return successfully" in {
         val res = faker.zeldaLocation()
+        assert(res.nonEmpty, res)
+      }
+    }
+    "Slack Emojis" - {
+      "slackEmoji should return successfully" in {
+        val res = faker.slackEmoji()
+        assert(res.nonEmpty, res)
+      }
+      "slackEmojiActivity should return successfully" in {
+        val res = faker.slackEmojiActivity()
+        assert(res.nonEmpty, res)
+      }
+      "slackEmojiCelebration should return successfully" in {
+        val res = faker.slackEmojiCelebration()
+        assert(res.nonEmpty, res)
+      }
+      "slackEmojiCustom should return successfully" in {
+        val res = faker.slackEmojiCustom()
+        assert(res.nonEmpty, res)
+      }
+      "slackEmojiFood should return successfully" in {
+        val res = faker.slackEmojiFood()
+        assert(res.nonEmpty, res)
+      }
+      "slackEmojiNature should return successfully" in {
+        val res = faker.slackEmojiNature()
+        assert(res.nonEmpty, res)
+      }
+      "slackEmojiObject should return successfully" in {
+        val res = faker.slackEmojiObject()
+        assert(res.nonEmpty, res)
+      }
+      "slackEmojiPerson should return successfully" in {
+        val res = faker.slackEmojiPerson()
+        assert(res.nonEmpty, res)
+      }
+      "slackEmojiTravel should return successfully" in {
+        val res = faker.slackEmojiTravel()
         assert(res.nonEmpty, res)
       }
     }
