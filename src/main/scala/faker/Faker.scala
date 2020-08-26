@@ -362,6 +362,35 @@ final class Faker(private[faker] val locale: Locale) {
   def zeldaItem(seed: Seed): String =
     Arbitrary.arbitrary[zelda.ZeldaItem].one(seed).value
   def zeldaItem(): String = zeldaItem(Seed.random())
+
+  // Slack Emojis
+  def slackEmoji(seed: Seed): String =
+    Arbitrary.arbitrary[slack.emoji.SlackEmoji].one(seed).value
+  def slackEmoji(): String = slackEmoji(Seed.random())
+  def slackEmojiActivity(seed: Seed): String =
+    Arbitrary.arbitrary[slack.emoji.SlackEmojiActivity].one(seed).value
+  def slackEmojiActivity(): String = slackEmojiActivity(Seed.random())
+  def slackEmojiCelebration(seed: Seed): String =
+    Arbitrary.arbitrary[slack.emoji.SlackEmojiCelebration].one(seed).value
+  def slackEmojiCelebration(): String = slackEmojiCelebration(Seed.random())
+  def slackEmojiCustom(seed: Seed): String =
+    Arbitrary.arbitrary[slack.emoji.SlackEmojiCustom].one(seed).value
+  def slackEmojiCustom(): String = slackEmojiCustom(Seed.random())
+  def slackEmojiFood(seed: Seed): String =
+    Arbitrary.arbitrary[slack.emoji.SlackEmojiFood].one(seed).value
+  def slackEmojiFood(): String = slackEmojiFood(Seed.random())
+  def slackEmojiNature(seed: Seed): String =
+    Arbitrary.arbitrary[slack.emoji.SlackEmojiNature].one(seed).value
+  def slackEmojiNature(): String = slackEmojiNature(Seed.random())
+  def slackEmojiObject(seed: Seed): String =
+    Arbitrary.arbitrary[slack.emoji.SlackEmojiObject].one(seed).value
+  def slackEmojiObject(): String = slackEmojiObject(Seed.random())
+  def slackEmojiPerson(seed: Seed): String =
+    Arbitrary.arbitrary[slack.emoji.SlackEmojiPerson].one(seed).value
+  def slackEmojiPerson(): String = slackEmojiPerson(Seed.random())
+  def slackEmojiTravel(seed: Seed): String =
+    Arbitrary.arbitrary[slack.emoji.SlackEmojiTravel].one(seed).value
+  def slackEmojiTravel(): String = slackEmojiTravel(Seed.random())
 }
 
 object Faker {
