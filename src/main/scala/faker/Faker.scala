@@ -391,6 +391,17 @@ final class Faker(private[faker] val locale: Locale) {
   def slackEmojiTravel(seed: Seed): String =
     Arbitrary.arbitrary[slack.emoji.SlackEmojiTravel].one(seed).value
   def slackEmojiTravel(): String = slackEmojiTravel(Seed.random())
+
+  // Weather
+  def weatherDescription(seed: Seed): String =
+    Arbitrary.arbitrary[weather.WeatherDescription].one(seed).value
+  def weatherDescription(): String = weatherDescription(Seed.random())
+  def temperatureCelsius(seed: Seed): String =
+    Arbitrary.arbitrary[weather.TemperatureCelsius].one(seed).value
+  def temperatureCelsius(): String = temperatureCelsius(Seed.random())
+  def temperatureFahrenheit(seed: Seed): String =
+    Arbitrary.arbitrary[weather.TemperatureFahrenheit].one(seed).value
+  def temperatureFahrenheit(): String = temperatureFahrenheit(Seed.random())
 }
 
 object Faker {

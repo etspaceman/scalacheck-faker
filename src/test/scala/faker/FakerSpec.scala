@@ -138,6 +138,9 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[slack.emoji.SlackEmojiObject](locale)(x => Some(x.value))
     testCanGen[slack.emoji.SlackEmojiPerson](locale)(x => Some(x.value))
     testCanGen[slack.emoji.SlackEmojiTravel](locale)(x => Some(x.value))
+    testCanGen[weather.WeatherDescription](locale)(x => Some(x.value))
+    testCanGen[weather.TemperatureCelsius](locale)(x => Some(x.value))
+    testCanGen[weather.TemperatureFahrenheit](locale)(x => Some(x.value))
   }
   s"Faker tests for $locale" - {
     val faker: Faker = new Faker(locale)
@@ -614,6 +617,20 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
       }
       "slackEmojiTravel should return successfully" in {
         val res = faker.slackEmojiTravel()
+        assert(res.nonEmpty, res)
+      }
+    }
+    "Weather" - {
+      "weatherDescription should return successfully" in {
+        val res = faker.weatherDescription()
+        assert(res.nonEmpty, res)
+      }
+      "temperatureCelsius should return successfully" in {
+        val res = faker.temperatureCelsius()
+        assert(res.nonEmpty, res)
+      }
+      "temperatureFahrenheit should return successfully" in {
+        val res = faker.temperatureFahrenheit()
         assert(res.nonEmpty, res)
       }
     }
