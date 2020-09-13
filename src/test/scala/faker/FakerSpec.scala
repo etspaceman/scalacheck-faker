@@ -141,6 +141,10 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[weather.WeatherDescription](locale)(x => Some(x.value))
     testCanGen[weather.TemperatureCelsius](locale)(x => Some(x.value))
     testCanGen[weather.TemperatureFahrenheit](locale)(x => Some(x.value))
+    testCanGen[music.MusicAlbum](locale)(x => Some(x.value))
+    testCanGen[music.MusicalGenre](locale)(x => Some(x.value))
+    testCanGen[music.MusicalInstrument](locale)(x => Some(x.value))
+    testCanGen[music.MusicBand](locale)(x => Some(x.value))
   }
   s"Faker tests for $locale" - {
     val faker: Faker = new Faker(locale)
@@ -633,6 +637,25 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
         val res = faker.temperatureFahrenheit()
         assert(res.nonEmpty, res)
       }
+    }
+    "Music" - {
+      "musicAlbum should return successfully" in {
+        val res = faker.musicAlbum()
+        assert(res.nonEmpty, res)
+      }
+      "musicalGenre should return successfully" in {
+        val res = faker.musicalGenre()
+        assert(res.nonEmpty, res)
+      }
+      "musicalInstrument should return successfully" in {
+        val res = faker.musicalInstrument()
+        assert(res.nonEmpty, res)
+      }
+      "musicBand should return successfully" in {
+        val res = faker.musicBand()
+        assert(res.nonEmpty, res)
+      }
+
     }
   }
 }

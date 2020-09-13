@@ -402,6 +402,20 @@ final class Faker(private[faker] val locale: Locale) {
   def temperatureFahrenheit(seed: Seed): String =
     Arbitrary.arbitrary[weather.TemperatureFahrenheit].one(seed).value
   def temperatureFahrenheit(): String = temperatureFahrenheit(Seed.random())
+
+  // Music
+  def musicAlbum(seed: Seed): String =
+    Arbitrary.arbitrary[music.MusicAlbum].one(seed).value
+  def musicAlbum(): String = musicAlbum(Seed.random())
+  def musicalGenre(seed: Seed): String =
+    Arbitrary.arbitrary[music.MusicalGenre].one(seed).value
+  def musicalGenre(): String = musicalGenre(Seed.random())
+  def musicalInstrument(seed: Seed): String =
+    Arbitrary.arbitrary[music.MusicalInstrument].one(seed).value
+  def musicalInstrument(): String = musicalInstrument(Seed.random())
+  def musicBand(seed: Seed): String =
+    Arbitrary.arbitrary[music.MusicBand].one(seed).value
+  def musicBand(): String = musicBand(Seed.random())
 }
 
 object Faker {
