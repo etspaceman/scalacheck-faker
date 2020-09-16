@@ -416,6 +416,12 @@ final class Faker(private[faker] val locale: Locale) {
   def musicBand(seed: Seed): String =
     Arbitrary.arbitrary[music.MusicBand].one(seed).value
   def musicBand(): String = musicBand(Seed.random())
+
+  //Dragonball
+  def dragonballCharacter(seed: Seed): String =
+    Arbitrary.arbitrary[dragonball.DragonBallCharacter].one(seed).value
+  def dragonballCharacter(): String = dragonballCharacter(Seed.random())
+
 }
 
 object Faker {

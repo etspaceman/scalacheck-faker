@@ -145,6 +145,7 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[music.MusicalGenre](locale)(x => Some(x.value))
     testCanGen[music.MusicalInstrument](locale)(x => Some(x.value))
     testCanGen[music.MusicBand](locale)(x => Some(x.value))
+    testCanGen[dragonball.DragonBallCharacter](locale)(x => Some(x.value))
   }
   s"Faker tests for $locale" - {
     val faker: Faker = new Faker(locale)
@@ -655,7 +656,12 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
         val res = faker.musicBand()
         assert(res.nonEmpty, res)
       }
-
+    }
+    "Dragonball" - {
+      "dragonballCharacter should return successfully" in {
+        val res = faker.dragonballCharacter()
+        assert(res.nonEmpty, res)
+      }
     }
   }
 }
