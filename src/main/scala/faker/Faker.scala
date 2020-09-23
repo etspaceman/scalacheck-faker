@@ -417,11 +417,33 @@ final class Faker(private[faker] val locale: Locale) {
     Arbitrary.arbitrary[music.MusicBand].one(seed).value
   def musicBand(): String = musicBand(Seed.random())
 
-  //Dragonball
+  // Dragonball
   def dragonballCharacter(seed: Seed): String =
     Arbitrary.arbitrary[dragonball.DragonBallCharacter].one(seed).value
   def dragonballCharacter(): String = dragonballCharacter(Seed.random())
 
+  // Job
+  def jobField(seed: Seed): String =
+    Arbitrary.arbitrary[job.JobField].one(seed).value
+  def jobField(): String = jobField(Seed.random())
+  def jobSeniority(seed: Seed): String =
+    Arbitrary.arbitrary[job.JobSeniority].one(seed).value
+  def jobSeniority(): String = jobSeniority(Seed.random())
+  def jobPosition(seed: Seed): String =
+    Arbitrary.arbitrary[job.JobPosition].one(seed).value
+  def jobPosition(): String = jobPosition(Seed.random())
+  def jobKeySkill(seed: Seed): String =
+    Arbitrary.arbitrary[job.JobKeySkill].one(seed).value
+  def jobKeySkill(): String = jobKeySkill(Seed.random())
+  def jobEmploymentType(seed: Seed): String =
+    Arbitrary.arbitrary[job.JobEmploymentType].one(seed).value
+  def jobEmploymentType(): String = jobEmploymentType(Seed.random())
+  def jobEducationLevel(seed: Seed): String =
+    Arbitrary.arbitrary[job.JobEducationLevel].one(seed).value
+  def jobEducationLevel(): String = jobEducationLevel(Seed.random())
+  def jobTitle(seed: Seed): String =
+    Arbitrary.arbitrary[job.JobTitle].one(seed).value
+  def jobTitle(): String = jobTitle(Seed.random())
 }
 
 object Faker {
