@@ -146,6 +146,13 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[music.MusicalInstrument](locale)(x => Some(x.value))
     testCanGen[music.MusicBand](locale)(x => Some(x.value))
     testCanGen[dragonball.DragonBallCharacter](locale)(x => Some(x.value))
+    testCanGen[job.JobField](locale)(x => Some(x.value))
+    testCanGen[job.JobSeniority](locale)(x => Some(x.value))
+    testCanGen[job.JobPosition](locale)(x => Some(x.value))
+    testCanGen[job.JobKeySkill](locale)(x => Some(x.value))
+    testCanGen[job.JobEmploymentType](locale)(x => Some(x.value))
+    testCanGen[job.JobEducationLevel](locale)(x => Some(x.value))
+    testCanGen[job.JobTitle](locale)(x => Some(x.value))
   }
   s"Faker tests for $locale" - {
     val faker: Faker = new Faker(locale)
@@ -660,6 +667,36 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     "Dragonball" - {
       "dragonballCharacter should return successfully" in {
         val res = faker.dragonballCharacter()
+        assert(res.nonEmpty, res)
+      }
+    }
+    "Job" - {
+      "jobField should return successfully" in {
+        val res = faker.jobField()
+        assert(res.nonEmpty, res)
+      }
+      "jobSeniority should return successfully" in {
+        val res = faker.jobSeniority()
+        assert(res.nonEmpty, res)
+      }
+      "jobPosition should return successfully" in {
+        val res = faker.jobPosition()
+        assert(res.nonEmpty, res)
+      }
+      "jobKeySkill should return successfully" in {
+        val res = faker.jobKeySkill()
+        assert(res.nonEmpty, res)
+      }
+      "jobEmploymentType should return successfully" in {
+        val res = faker.jobEmploymentType()
+        assert(res.nonEmpty, res)
+      }
+      "jobEducationLevel should return successfully" in {
+        val res = faker.jobEducationLevel()
+        assert(res.nonEmpty, res)
+      }
+      "jobTitle should return successfully" in {
+        val res = faker.jobTitle()
         assert(res.nonEmpty, res)
       }
     }
