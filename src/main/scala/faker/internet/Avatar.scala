@@ -4,8 +4,7 @@ import org.scalacheck.{Arbitrary, Gen}
 
 import faker.ResourceLoader
 
-/**
-  * Generates a random avatar url based on a collection of profile pictures of real people. All this avatar have been
+/** Generates a random avatar url based on a collection of profile pictures of real people. All this avatar have been
   * authorized by its awesome users to be used on live websites (not just mockups). For more information, please
   * visit: http://uifaces.com/authorized
   *

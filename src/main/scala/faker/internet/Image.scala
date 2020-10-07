@@ -4,8 +4,7 @@ import org.scalacheck.{Arbitrary, Gen}
 
 import faker.ResourceLoader
 
-/**
-  * Generates a random image url based on the lorempixel service. All the images provided by this service are released
+/** Generates a random image url based on the lorempixel service. All the images provided by this service are released
   * under the creative commons license (CC BY-SA). For more information, please visit: http://lorempixel.com/
   *
   * @see <a href="http://loremflickr.com/">lorempixel</a>
