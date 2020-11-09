@@ -1,9 +1,10 @@
 package faker.currency
 
-import faker.ResourceLoader
 import org.scalacheck.{Arbitrary, Gen}
 import pureconfig.ConfigReader
 import pureconfig.generic.semiauto.deriveReader
+
+import faker.ResourceLoader
 
 final case class CurrencyName private (value: String) extends AnyVal
 
