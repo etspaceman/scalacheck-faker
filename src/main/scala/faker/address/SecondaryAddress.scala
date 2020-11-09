@@ -1,7 +1,5 @@
 package faker.address
 
-import scala.jdk.CollectionConverters._
-
 import org.scalacheck.{Arbitrary, Gen}
 
 import faker.ResourceLoader
@@ -15,11 +13,11 @@ object SecondaryAddress {
   ): Arbitrary[SecondaryAddress] =
     Arbitrary(
       Gen
-        .sequence(
+        .sequence[Seq[String], String](
           loader
             .loadKey[Seq[String]]("address.secondary-addresses")
             .map(_.interpolatedGen)
         )
-        .flatMap(x => Gen.oneOf(x.asScala).map(SecondaryAddress.apply))
+        .flatMap(x => Gen.oneOf(x).map(SecondaryAddress.apply))
     )
 }

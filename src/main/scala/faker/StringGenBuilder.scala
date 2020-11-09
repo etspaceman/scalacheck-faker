@@ -1,7 +1,5 @@
 package faker
 
-import scala.jdk.CollectionConverters._
-
 import org.scalacheck.Gen
 import pureconfig.ConfigReader
 import pureconfig.generic.semiauto._
@@ -40,8 +38,8 @@ private[faker] final case class SeqStringPart(
 ) extends StringGenBuilderPart {
   val valueGen: Gen[String] =
     Gen
-      .sequence(value.map(_.interpolatedGen))
-      .flatMap(x => Gen.oneOf(x.asScala))
+      .sequence[Seq[String], String](value.map(_.interpolatedGen))
+      .flatMap(x => Gen.oneOf(x))
 }
 
 object SeqStringPart {
@@ -55,7 +53,9 @@ private[faker] final case class SeqStateZipPart(
     value: Seq[address.StateLike]
 ) extends StringGenBuilderPart {
   val valueGen: Gen[String] =
-    Gen.sequence(value.map(_.postalCodeGen)).flatMap(x => Gen.oneOf(x.asScala))
+    Gen
+      .sequence[Seq[String], String](value.map(_.postalCodeGen))
+      .flatMap(x => Gen.oneOf(x))
 }
 
 object SeqStateZipPart {
@@ -162,7 +162,8 @@ private[faker] final case class StringGenBuilderWeightedOption(
     parts: List[StringGenBuilderPart],
     weight: Int = 1
 ) {
-  val gen: Gen[String] = Gen.sequence(parts.map(_.gen)).map(_.asScala.mkString)
+  val gen: Gen[String] =
+    Gen.sequence[Seq[String], String](parts.map(_.gen)).map(_.mkString)
 }
 
 object StringGenBuilderWeightedOption {
