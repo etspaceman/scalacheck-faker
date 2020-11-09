@@ -153,6 +153,9 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[job.JobEmploymentType](locale)(x => Some(x.value))
     testCanGen[job.JobEducationLevel](locale)(x => Some(x.value))
     testCanGen[job.JobTitle](locale)(x => Some(x.value))
+    testCanGen[currency.CurrencyCode](locale)(x => Some(x.value))
+    testCanGen[currency.CurrencyName](locale)(x => Some(x.value))
+    testCanGen[currency.CurrencySymbol](locale)(x => Some(x.value))
   }
   s"Faker tests for $locale" - {
     val faker: Faker = new Faker(locale)
@@ -697,6 +700,20 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
       }
       "jobTitle should return successfully" in {
         val res = faker.jobTitle()
+        assert(res.nonEmpty, res)
+      }
+    }
+    "Currency" - {
+      "currencyCode should return successfully" in {
+        val res = faker.currencyCode()
+        assert(res.nonEmpty, res)
+      }
+      "currencyName should return successfully" in {
+        val res = faker.currencyName()
+        assert(res.nonEmpty, res)
+      }
+      "currencySymbol should return successfully" in {
+        val res = faker.currencySymbol()
         assert(res.nonEmpty, res)
       }
     }
