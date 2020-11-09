@@ -444,6 +444,17 @@ final class Faker(private[faker] val locale: Locale) {
   def jobTitle(seed: Seed): String =
     Arbitrary.arbitrary[job.JobTitle].one(seed).value
   def jobTitle(): String = jobTitle(Seed.random())
+
+  // currency
+  def currencyCode(seed: Seed): String =
+    Arbitrary.arbitrary[currency.CurrencyCode].one(seed).value
+  def currencyCode(): String = currencyCode(Seed.random())
+  def currencyName(seed: Seed): String =
+    Arbitrary.arbitrary[currency.CurrencyName].one(seed).value
+  def currencyName(): String = currencyName(Seed.random())
+  def currencySymbol(seed: Seed): String =
+    Arbitrary.arbitrary[currency.CurrencySymbol].one(seed).value
+  def currencySymbol(): String = currencySymbol(Seed.random())
 }
 
 object Faker {
