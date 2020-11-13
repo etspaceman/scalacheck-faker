@@ -27,15 +27,22 @@ libraryDependencies ++= Seq(
   PureConfig,
   ApacheCommons,
   ScalaCheckGenRegexp,
+  NewType,
   ScalaTest % Test,
   ScalaTestPlusScalaCheck % Test
-)
+) ++ (if (ScalaVersionADT.fromString(scalaVersion.value) == `2.13`) Seq.empty
+      else
+        Seq(
+          compilerPlugin(
+            "org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full
+          )
+        ))
 scalacOptions ++= (ScalaVersionADT.fromString(scalaVersion.value) match {
   case `2.11` => ScalacSettings.`2.11`
   case `2.12` => ScalacSettings.`2.12`
   case `2.13` => ScalacSettings.`2.13`
 })
-val mimaVersion: Option[String] = Some("5.0.0")
+val mimaVersion: Option[String] = None
 mimaPreviousArtifacts :=
   mimaVersion.map("io.github.etspaceman" %% "scalacheck-faker" % _).toSet
 initialCommands in console :=
