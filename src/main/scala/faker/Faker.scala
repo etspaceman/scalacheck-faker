@@ -261,9 +261,9 @@ final class Faker(private[faker] val locale: Locale) {
   def secondaryAddress(seed: Seed): String =
     Arbitrary.arbitrary[address.SecondaryAddress].one(seed).value
   def secondaryAddress(): String = secondaryAddress(Seed.random())
-  def state(seed: Seed): address.StateLike =
-    Arbitrary.arbitrary[address.StateLike].one(seed)
-  def state(): address.StateLike = state(Seed.random())
+  def state(seed: Seed): states.StateLike =
+    Arbitrary.arbitrary[states.StateLike].one(seed)
+  def state(): states.StateLike = state(Seed.random())
   def stateAbbr(seed: Seed): String = state(seed).abbr
   def stateAbbr(): String = stateAbbr(Seed.random())
   def stateZip(seed: Seed): String =

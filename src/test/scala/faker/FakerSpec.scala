@@ -1,7 +1,5 @@
 package faker
 
-import scala.reflect.ClassTag
-
 import java.time.{Instant, LocalDateTime, OffsetDateTime, ZonedDateTime}
 import java.util.Locale
 
@@ -12,8 +10,8 @@ import org.scalatestplus.scalacheck.Checkers
 trait FakerSpec extends AnyFreeSpecLike with Checkers {
   def locale: Locale
 
-  def testCanGen[A: Arbitrary](locale: Locale)(stringF: A => Option[String])(
-      implicit CT: ClassTag[A]
+  def testCanGen[A: Arbitrary](locale: Locale, desc: String)(
+      stringF: A => Option[String]
   ): Unit = {
     @SuppressWarnings(Array("DisableSyntax.var"))
     var hasAlerted: Boolean = false
@@ -22,7 +20,7 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
         info("Value contains an unimplemented element!")
         hasAlerted = true
       }
-    s"${CT.runtimeClass.getName} should generate faker data successfully for $locale" in {
+    s"$desc should generate faker data successfully for $locale" in {
       check((x: A) => {
         stringF(x).foreach(maybeAlert)
         true
@@ -32,130 +30,314 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
 
   s"Arbitrary tests for $locale" - {
     implicit val loader: ResourceLoader = new ResourceLoader(locale)
-    testCanGen[address.BuildingNumber](locale)(x => Some(x.value))
-    testCanGen[address.City](locale)(x => Some(x.value))
-    testCanGen[address.CityPrefix](locale)(x => Some(x.value))
-    testCanGen[address.CitySuffix](locale)(x => Some(x.value))
-    testCanGen[address.Country](locale)(x =>
+    testCanGen[address.BuildingNumber](locale, "address.BuildingNumber")(x =>
+      Some(x.value)
+    )
+    testCanGen[address.City](locale, "address.City")(x => Some(x.value))
+    testCanGen[address.CityPrefix](locale, "address.CityPrefix")(x =>
+      Some(x.value)
+    )
+    testCanGen[address.CitySuffix](locale, "address.CitySuffix")(x =>
+      Some(x.value)
+    )
+    testCanGen[address.Country](locale, "address.Country")(x =>
       Some(s"Code: '${x.code}', Name: '${x.name}''")
     )
-    testCanGen[address.DefaultCountry](locale)(x =>
+    testCanGen[address.DefaultCountry](locale, "address.DefaultCountry")(x =>
       Some(s"Code: '${x.code}', Name: '${x.name}''")
     )
-    testCanGen[address.FullAddress](locale)(x => Some(x.value))
-    testCanGen[address.Latitude](locale)(x => Some(x.value))
-    testCanGen[address.Longitude](locale)(x => Some(x.value))
-    testCanGen[address.PostalCode](locale)(x => Some(x.value))
-    testCanGen[address.SecondaryAddress](locale)(x => Some(x.value))
-    testCanGen[address.StateLike](locale)(x =>
+    testCanGen[address.FullAddress](locale, "address.FullAddress")(x =>
+      Some(x.value)
+    )
+    testCanGen[address.Latitude](locale, "address.Latitude")(x => Some(x.value))
+    testCanGen[address.Longitude](locale, "address.Longitude")(x =>
+      Some(x.value)
+    )
+    testCanGen[address.PostalCode](locale, "address.PostalCode")(x =>
+      Some(x.value)
+    )
+    testCanGen[address.SecondaryAddress](locale, "address.SecondaryAddress")(
+      x => Some(x.value)
+    )
+    testCanGen[states.StateLike](locale, "states.StateLike")(x =>
       Some(s"Abbr: '${x.abbr}', Name: '${x.name}''")
     )
-    testCanGen[address.StreetAddress](locale)(x => Some(x.value))
-    testCanGen[address.StreetName](locale)(x => Some(x.value))
-    testCanGen[address.StreetPrefix](locale)(x => Some(x.value))
-    testCanGen[address.StreetSuffix](locale)(x => Some(x.value))
-    testCanGen[animal.AnimalName](locale)(x => Some(x.value))
-    testCanGen[company.BS](locale)(x => Some(x.value))
-    testCanGen[company.BuzzWord](locale)(x => Some(x.value))
-    testCanGen[company.CatchPhrase](locale)(x => Some(x.value))
-    testCanGen[company.CompanyDomainName](locale)(x => Some(x.value))
-    testCanGen[company.CompanyName](locale)(x => Some(x.value))
-    testCanGen[company.CompanySuffix](locale)(x => Some(x.value))
-    testCanGen[company.CompanyUrl](locale)(x => Some(x.value))
-    testCanGen[company.Industry](locale)(x => Some(x.value))
-    testCanGen[company.Logo](locale)(x => Some(x.value))
-    testCanGen[company.Profession](locale)(x => Some(x.value))
-    testCanGen[gender.GenderType](locale)(x => Some(x.value))
-    testCanGen[gender.GenderBinaryType](locale)(x => Some(x.value))
-    testCanGen[gender.GenderShortBinaryType](locale)(x => Some(x.value))
-    testCanGen[internet.Avatar](locale)(x => Some(x.value))
-    testCanGen[internet.DomainName](locale)(x => Some(x.value))
-    testCanGen[internet.DomainSuffix](locale)(x => Some(x.value))
-    testCanGen[internet.DomainWord](locale)(x => Some(x.value))
-    testCanGen[internet.EmailAddress](locale)(x => Some(x.value))
-    testCanGen[internet.Image](locale)(x => Some(x.value))
-    testCanGen[internet.IpV4Address](locale)(x => Some(x.value))
-    testCanGen[internet.IpV4Cidr](locale)(x => Some(x.value))
-    testCanGen[internet.IpV6Address](locale)(x => Some(x.value))
-    testCanGen[internet.IpV6Cidr](locale)(x => Some(x.value))
-    testCanGen[internet.MacAddress](locale)(x => Some(x.value))
-    testCanGen[internet.Password](locale)(x => Some(x.value))
-    testCanGen[internet.PrivateIpV4Address](locale)(x => Some(x.value))
-    testCanGen[internet.PublicIpV4Address](locale)(x => Some(x.value))
-    testCanGen[internet.SafeEmailAddress](locale)(x => Some(x.value))
-    testCanGen[internet.Slug](locale)(x => Some(x.value))
-    testCanGen[internet.Url](locale)(x => Some(x.value))
-    testCanGen[internet.UserAgent](locale)(x => Some(x.value))
-    testCanGen[lorem.LoremWord](locale)(x => Some(x.value))
-    testCanGen[lorem.LoremWords](locale)(x => Some(x.value))
-    testCanGen[lorem.LoremSentence](locale)(x => Some(x.value))
-    testCanGen[lorem.LoremParagraph](locale)(x => Some(x.value))
-    testCanGen[lorem.LoremParagraphs](locale)(x => Some(x.value))
-    testCanGen[lorem.LoremCharacters](locale)(x => Some(x.value))
-    testCanGen[name.FirstName](locale)(x => Some(x.value))
-    testCanGen[name.LastName](locale)(x => Some(x.value))
-    testCanGen[name.FullName](locale)(x => Some(x.value))
-    testCanGen[name.FullNameWithMiddle](locale)(x => Some(x.value))
-    testCanGen[name.Prefix](locale)(x => Some(x.value))
-    testCanGen[name.Suffix](locale)(x => Some(x.value))
-    testCanGen[name.Title](locale)(x => Some(x.value))
-    testCanGen[name.UserName](locale)(x => Some(x.value))
-    testCanGen[phone.PhoneNumber](locale)(x => Some(x.value))
-    testCanGen[phone.CellPhoneNumber](locale)(x => Some(x.value))
-    testCanGen[pokemon.PokemonName](locale)(x => Some(x.value))
-    testCanGen[pokemon.PokemonLocation](locale)(x => Some(x.value))
-    testCanGen[pokemon.PokemonMove](locale)(x => Some(x.value))
-    testCanGen[time.CurrentEraInstant](locale)(_ => None)
-    testCanGen[time.CurrentEraLocalDateTime](locale)(_ => None)
-    testCanGen[time.CurrentEraOffsetDateTime](locale)(_ => None)
-    testCanGen[time.CurrentEraZonedDateTime](locale)(_ => None)
-    testCanGen[time.FutureInstant](locale)(_ => None)
-    testCanGen[time.FutureLocalDateTime](locale)(_ => None)
-    testCanGen[time.FutureOffsetDateTime](locale)(_ => None)
-    testCanGen[time.FutureZonedDateTime](locale)(_ => None)
-    testCanGen[time.NowInstant](locale)(_ => None)
-    testCanGen[time.NowLocalDateTime](locale)(_ => None)
-    testCanGen[time.NowOffsetDateTime](locale)(_ => None)
-    testCanGen[time.NowZonedDateTime](locale)(_ => None)
-    testCanGen[time.PastInstant](locale)(_ => None)
-    testCanGen[time.PastLocalDateTime](locale)(_ => None)
-    testCanGen[time.PastOffsetDateTime](locale)(_ => None)
-    testCanGen[time.PastZonedDateTime](locale)(_ => None)
-    testCanGen[time.RandomInstant](locale)(_ => None)
-    testCanGen[time.RandomLocalDateTime](locale)(_ => None)
-    testCanGen[time.RandomOffsetDateTime](locale)(_ => None)
-    testCanGen[time.RandomZonedDateTime](locale)(_ => None)
-    testCanGen[zelda.ZeldaCharacter](locale)(x => Some(x.value))
-    testCanGen[zelda.ZeldaGame](locale)(x => Some(x.value))
-    testCanGen[zelda.ZeldaItem](locale)(x => Some(x.value))
-    testCanGen[zelda.ZeldaLocation](locale)(x => Some(x.value))
-    testCanGen[slack.emoji.SlackEmoji](locale)(x => Some(x.value))
-    testCanGen[slack.emoji.SlackEmojiActivity](locale)(x => Some(x.value))
-    testCanGen[slack.emoji.SlackEmojiCelebration](locale)(x => Some(x.value))
-    testCanGen[slack.emoji.SlackEmojiCustom](locale)(x => Some(x.value))
-    testCanGen[slack.emoji.SlackEmojiFood](locale)(x => Some(x.value))
-    testCanGen[slack.emoji.SlackEmojiNature](locale)(x => Some(x.value))
-    testCanGen[slack.emoji.SlackEmojiObject](locale)(x => Some(x.value))
-    testCanGen[slack.emoji.SlackEmojiPerson](locale)(x => Some(x.value))
-    testCanGen[slack.emoji.SlackEmojiTravel](locale)(x => Some(x.value))
-    testCanGen[weather.WeatherDescription](locale)(x => Some(x.value))
-    testCanGen[weather.TemperatureCelsius](locale)(x => Some(x.value))
-    testCanGen[weather.TemperatureFahrenheit](locale)(x => Some(x.value))
-    testCanGen[music.MusicAlbum](locale)(x => Some(x.value))
-    testCanGen[music.MusicalGenre](locale)(x => Some(x.value))
-    testCanGen[music.MusicalInstrument](locale)(x => Some(x.value))
-    testCanGen[music.MusicBand](locale)(x => Some(x.value))
-    testCanGen[dragonball.DragonBallCharacter](locale)(x => Some(x.value))
-    testCanGen[job.JobField](locale)(x => Some(x.value))
-    testCanGen[job.JobSeniority](locale)(x => Some(x.value))
-    testCanGen[job.JobPosition](locale)(x => Some(x.value))
-    testCanGen[job.JobKeySkill](locale)(x => Some(x.value))
-    testCanGen[job.JobEmploymentType](locale)(x => Some(x.value))
-    testCanGen[job.JobEducationLevel](locale)(x => Some(x.value))
-    testCanGen[job.JobTitle](locale)(x => Some(x.value))
-    testCanGen[currency.CurrencyCode](locale)(x => Some(x.value))
-    testCanGen[currency.CurrencyName](locale)(x => Some(x.value))
-    testCanGen[currency.CurrencySymbol](locale)(x => Some(x.value))
+    testCanGen[address.StreetAddress](locale, "address.StreetAddress")(x =>
+      Some(x.value)
+    )
+    testCanGen[address.StreetName](locale, "address.StreetName")(x =>
+      Some(x.value)
+    )
+    testCanGen[address.StreetPrefix](locale, "address.StreetPrefix")(x =>
+      Some(x.value)
+    )
+    testCanGen[address.StreetSuffix](locale, "address.StreetSuffix")(x =>
+      Some(x.value)
+    )
+    testCanGen[animal.AnimalName](locale, "animal.AnimalName")(x =>
+      Some(x.value)
+    )
+    testCanGen[company.BS](locale, "company.BS")(x => Some(x.value))
+    testCanGen[company.BuzzWord](locale, "company.BuzzWord")(x => Some(x.value))
+    testCanGen[company.CatchPhrase](locale, "company.CatchPhrase")(x =>
+      Some(x.value)
+    )
+    testCanGen[company.CompanyDomainName](locale, "company.CompanyDomainName")(
+      x => Some(x.value)
+    )
+    testCanGen[company.CompanyName](locale, "company.CompanyName")(x =>
+      Some(x.value)
+    )
+    testCanGen[company.CompanySuffix](locale, "company.CompanySuffix")(x =>
+      Some(x.value)
+    )
+    testCanGen[company.CompanyUrl](locale, "company.CompanyUrl")(x =>
+      Some(x.value)
+    )
+    testCanGen[company.Industry](locale, "company.Industry")(x => Some(x.value))
+    testCanGen[company.Logo](locale, "company.Logo")(x => Some(x.value))
+    testCanGen[company.Profession](locale, "company.Profession")(x =>
+      Some(x.value)
+    )
+    testCanGen[gender.GenderType](locale, "gender.GenderType")(x =>
+      Some(x.value)
+    )
+    testCanGen[gender.GenderBinaryType](locale, "gender.GenderBinaryType")(x =>
+      Some(x.value)
+    )
+    testCanGen[gender.GenderShortBinaryType](
+      locale,
+      "gender.GenderShortBinaryType"
+    )(x => Some(x.value))
+    testCanGen[internet.Avatar](locale, "internet.Avatar")(x => Some(x.value))
+    testCanGen[internet.DomainName](locale, "internet.DomainName")(x =>
+      Some(x.value)
+    )
+    testCanGen[internet.DomainSuffix](locale, "internet.DomainSuffix")(x =>
+      Some(x.value)
+    )
+    testCanGen[internet.DomainWord](locale, "internet.DomainWord")(x =>
+      Some(x.value)
+    )
+    testCanGen[internet.EmailAddress](locale, "internet.EmailAddress")(x =>
+      Some(x.value)
+    )
+    testCanGen[internet.Image](locale, "internet.Image")(x => Some(x.value))
+    testCanGen[internet.IpV4Address](locale, "internet.IpV4Address")(x =>
+      Some(x.value)
+    )
+    testCanGen[internet.IpV4Cidr](locale, "internet.IpV4Cidr")(x =>
+      Some(x.value)
+    )
+    testCanGen[internet.IpV6Address](locale, "internet.IpV6Address")(x =>
+      Some(x.value)
+    )
+    testCanGen[internet.IpV6Cidr](locale, "internet.IpV6Cidr")(x =>
+      Some(x.value)
+    )
+    testCanGen[internet.MacAddress](locale, "internet.MacAddress")(x =>
+      Some(x.value)
+    )
+    testCanGen[internet.Password](locale, "internet.Password")(x =>
+      Some(x.value)
+    )
+    testCanGen[internet.PrivateIpV4Address](
+      locale,
+      "internet.PrivateIpV4Address"
+    )(x => Some(x.value))
+    testCanGen[internet.PublicIpV4Address](
+      locale,
+      "internet.PublicIpV4Address"
+    )(x => Some(x.value))
+    testCanGen[internet.SafeEmailAddress](locale, "internet.SafeEmailAddress")(
+      x => Some(x.value)
+    )
+    testCanGen[internet.Slug](locale, "internet.Slug")(x => Some(x.value))
+    testCanGen[internet.Url](locale, "internet.Url")(x => Some(x.value))
+    testCanGen[internet.UserAgent](locale, "internet.UserAgent")(x =>
+      Some(x.value)
+    )
+    testCanGen[lorem.LoremWord](locale, "lorem.LoremWord")(x => Some(x.value))
+    testCanGen[lorem.LoremWords](locale, "lorem.LoremWords")(x => Some(x.value))
+    testCanGen[lorem.LoremSentence](locale, "lorem.LoremSentence")(x =>
+      Some(x.value)
+    )
+    testCanGen[lorem.LoremParagraph](locale, "lorem.LoremParagraph")(x =>
+      Some(x.value)
+    )
+    testCanGen[lorem.LoremParagraphs](locale, "lorem.LoremParagraphs")(x =>
+      Some(x.value)
+    )
+    testCanGen[lorem.LoremCharacters](locale, "lorem.LoremCharacters")(x =>
+      Some(x.value)
+    )
+    testCanGen[name.FirstName](locale, "name.FirstName")(x => Some(x.value))
+    testCanGen[name.LastName](locale, "name.LastName")(x => Some(x.value))
+    testCanGen[name.FullName](locale, "name.FullName")(x => Some(x.value))
+    testCanGen[name.FullNameWithMiddle](locale, "name.FullNameWithMiddle")(x =>
+      Some(x.value)
+    )
+    testCanGen[name.Prefix](locale, "name.Prefix")(x => Some(x.value))
+    testCanGen[name.Suffix](locale, "name.Suffix")(x => Some(x.value))
+    testCanGen[name.Title](locale, "name.Title")(x => Some(x.value))
+    testCanGen[name.UserName](locale, "name.UserName")(x => Some(x.value))
+    testCanGen[phone.PhoneNumber](locale, "phone.PhoneNumber")(x =>
+      Some(x.value)
+    )
+    testCanGen[phone.CellPhoneNumber](locale, "phone.CellPhoneNumber")(x =>
+      Some(x.value)
+    )
+    testCanGen[pokemon.PokemonName](locale, "pokemon.PokemonName")(x =>
+      Some(x.value)
+    )
+    testCanGen[pokemon.PokemonLocation](locale, "pokemon.PokemonLocation")(x =>
+      Some(x.value)
+    )
+    testCanGen[pokemon.PokemonMove](locale, "pokemon.PokemonMove")(x =>
+      Some(x.value)
+    )
+    testCanGen[time.CurrentEraInstant](locale, "time.CurrentEraInstant")(_ =>
+      None
+    )
+    testCanGen[time.CurrentEraLocalDateTime](
+      locale,
+      "time.CurrentEraLocalDateTime"
+    )(_ => None)
+    testCanGen[time.CurrentEraOffsetDateTime](
+      locale,
+      "time.CurrentEraOffsetDateTime"
+    )(_ => None)
+    testCanGen[time.CurrentEraZonedDateTime](
+      locale,
+      "time.CurrentEraZonedDateTime"
+    )(_ => None)
+    testCanGen[time.FutureInstant](locale, "time.FutureInstant")(_ => None)
+    testCanGen[time.FutureLocalDateTime](locale, "time.FutureLocalDateTime")(
+      _ => None
+    )
+    testCanGen[time.FutureOffsetDateTime](locale, "time.FutureOffsetDateTime")(
+      _ => None
+    )
+    testCanGen[time.FutureZonedDateTime](locale, "time.FutureZonedDateTime")(
+      _ => None
+    )
+    testCanGen[time.NowInstant](locale, "time.NowInstant")(_ => None)
+    testCanGen[time.NowLocalDateTime](locale, "time.NowLocalDateTime")(_ =>
+      None
+    )
+    testCanGen[time.NowOffsetDateTime](locale, "time.NowOffsetDateTime")(_ =>
+      None
+    )
+    testCanGen[time.NowZonedDateTime](locale, "time.NowZonedDateTime")(_ =>
+      None
+    )
+    testCanGen[time.PastInstant](locale, "time.PastInstant")(_ => None)
+    testCanGen[time.PastLocalDateTime](locale, "time.PastLocalDateTime")(_ =>
+      None
+    )
+    testCanGen[time.PastOffsetDateTime](locale, "time.PastOffsetDateTime")(_ =>
+      None
+    )
+    testCanGen[time.PastZonedDateTime](locale, "time.PastZonedDateTime")(_ =>
+      None
+    )
+    testCanGen[time.RandomInstant](locale, "time.RandomInstant")(_ => None)
+    testCanGen[time.RandomLocalDateTime](locale, "time.RandomLocalDateTime")(
+      _ => None
+    )
+    testCanGen[time.RandomOffsetDateTime](locale, "time.RandomOffsetDateTime")(
+      _ => None
+    )
+    testCanGen[time.RandomZonedDateTime](locale, "time.RandomZonedDateTime")(
+      _ => None
+    )
+    testCanGen[zelda.ZeldaCharacter](locale, "zelda.ZeldaCharacter")(x =>
+      Some(x.value)
+    )
+    testCanGen[zelda.ZeldaGame](locale, "zelda.ZeldaGame")(x => Some(x.value))
+    testCanGen[zelda.ZeldaItem](locale, "zelda.ZeldaItem")(x => Some(x.value))
+    testCanGen[zelda.ZeldaLocation](locale, "zelda.ZeldaLocation")(x =>
+      Some(x.value)
+    )
+    testCanGen[slack.emoji.SlackEmoji](locale, "slack.emoji.SlackEmoji")(x =>
+      Some(x.value)
+    )
+    testCanGen[slack.emoji.SlackEmojiActivity](
+      locale,
+      "slack.emoji.SlackEmojiActivity"
+    )(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiCelebration](
+      locale,
+      "slack.emoji.SlackEmojiCelebration"
+    )(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiCustom](
+      locale,
+      "slack.emoji.SlackEmojiCustom"
+    )(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiFood](
+      locale,
+      "slack.emoji.SlackEmojiFood"
+    )(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiNature](
+      locale,
+      "slack.emoji.SlackEmojiNature"
+    )(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiObject](
+      locale,
+      "slack.emoji.SlackEmojiObject"
+    )(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiPerson](
+      locale,
+      "slack.emoji.SlackEmojiPerson"
+    )(x => Some(x.value))
+    testCanGen[slack.emoji.SlackEmojiTravel](
+      locale,
+      "slack.emoji.SlackEmojiTravel"
+    )(x => Some(x.value))
+    testCanGen[weather.WeatherDescription](
+      locale,
+      "weather.WeatherDescription"
+    )(x => Some(x.value))
+    testCanGen[weather.TemperatureCelsius](
+      locale,
+      "weather.TemperatureCelsius"
+    )(x => Some(x.value))
+    testCanGen[weather.TemperatureFahrenheit](
+      locale,
+      "weather.TemperatureFahrenheit"
+    )(x => Some(x.value))
+    testCanGen[music.MusicAlbum](locale, "music.MusicAlbum")(x => Some(x.value))
+    testCanGen[music.MusicalGenre](locale, "music.MusicalGenre")(x =>
+      Some(x.value)
+    )
+    testCanGen[music.MusicalInstrument](locale, "music.MusicalInstrument")(x =>
+      Some(x.value)
+    )
+    testCanGen[music.MusicBand](locale, "music.MusicBand")(x => Some(x.value))
+    testCanGen[dragonball.DragonBallCharacter](
+      locale,
+      "dragonball.DragonBallCharacter"
+    )(x => Some(x.value))
+    testCanGen[job.JobField](locale, "job.JobField")(x => Some(x.value))
+    testCanGen[job.JobSeniority](locale, "job.JobSeniority")(x => Some(x.value))
+    testCanGen[job.JobPosition](locale, "job.JobPosition")(x => Some(x.value))
+    testCanGen[job.JobKeySkill](locale, "job.JobKeySkill")(x => Some(x.value))
+    testCanGen[job.JobEmploymentType](locale, "job.JobEmploymentType")(x =>
+      Some(x.value)
+    )
+    testCanGen[job.JobEducationLevel](locale, "job.JobEducationLevel")(x =>
+      Some(x.value)
+    )
+    testCanGen[job.JobTitle](locale, "job.JobTitle")(x => Some(x.value))
+    testCanGen[currency.CurrencyCode](locale, "currency.CurrencyCode")(x =>
+      Some(x.value)
+    )
+    testCanGen[currency.CurrencyName](locale, "currency.CurrencyName")(x =>
+      Some(x.value)
+    )
+    testCanGen[currency.CurrencySymbol](locale, "currency.CurrencySymbol")(x =>
+      Some(x.value)
+    )
   }
   s"Faker tests for $locale" - {
     val faker: Faker = new Faker(locale)

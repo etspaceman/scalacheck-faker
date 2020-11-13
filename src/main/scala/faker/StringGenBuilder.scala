@@ -50,7 +50,7 @@ object SeqStringPart {
 private[faker] final case class SeqStateZipPart(
     prefix: Option[String],
     suffix: Option[String],
-    value: Seq[address.StateLike]
+    value: Seq[states.StateLike]
 ) extends StringGenBuilderPart {
   val valueGen: Gen[String] =
     Gen
@@ -66,7 +66,7 @@ object SeqStateZipPart {
 private[faker] final case class SeqStateNamePart(
     prefix: Option[String],
     suffix: Option[String],
-    value: Seq[address.StateLike]
+    value: Seq[states.StateLike]
 ) extends StringGenBuilderPart {
   val valueGen: Gen[String] = Gen.oneOf(value.map(_.name))
 }
@@ -79,7 +79,7 @@ object SeqStateNamePart {
 private[faker] final case class SeqStateAbbrAndZipPart(
     prefix: Option[String],
     suffix: Option[String],
-    value: Seq[address.StateLike]
+    value: Seq[states.StateLike]
 ) extends StringGenBuilderPart {
   val valueGen: Gen[String] = for {
     state <- Gen.oneOf(value)

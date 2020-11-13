@@ -86,7 +86,8 @@ object ScalacSettings {
     "-Ybackend-parallelism",
     "8", // Enable paralellisation — change to desired number!
     "-Ycache-plugin-class-loader:last-modified", // Enables caching of classloaders for compiler plugins
-    "-Ycache-macro-class-loader:last-modified" // and macro definitions. This can lead to performance improvements.
+    "-Ycache-macro-class-loader:last-modified", // and macro definitions. This can lead to performance improvements.
+    "-Ymacro-annotations" // Enables macro annotations (used for newtypes)
   )
 
   val `2.11` = `2.12`.filterNot(x =>
