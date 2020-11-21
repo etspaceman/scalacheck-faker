@@ -74,18 +74,12 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[address.StreetSuffix](locale, "address.StreetSuffix")(x =>
       Some(x.value)
     )
-    testCanGen[ancient.God](locale, "ancient.God")(x =>
-      Some(x.value)
-    )
+    testCanGen[ancient.God](locale, "ancient.God")(x => Some(x.value))
     testCanGen[ancient.Primordial](locale, "ancient.Primordial")(x =>
       Some(x.value)
     )
-    testCanGen[ancient.Titan](locale, "ancient.Titan")(x =>
-      Some(x.value)
-    )
-    testCanGen[ancient.Hero](locale, "ancient.Hero")(x =>
-      Some(x.value)
-    )
+    testCanGen[ancient.Titan](locale, "ancient.Titan")(x => Some(x.value))
+    testCanGen[ancient.Hero](locale, "ancient.Hero")(x => Some(x.value))
     testCanGen[animal.AnimalName](locale, "animal.AnimalName")(x =>
       Some(x.value)
     )

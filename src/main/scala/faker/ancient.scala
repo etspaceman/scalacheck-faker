@@ -13,7 +13,7 @@ object ancient {
       loader.loadKey[Seq[God]]("ancient.gods")
 
     implicit def godArbitrary(implicit
-      loader: ResourceLoader
+        loader: ResourceLoader
     ): Arbitrary[God] =
       Arbitrary(Gen.oneOf(gods))
 
@@ -28,7 +28,7 @@ object ancient {
       loader.loadKey[Seq[Primordial]]("ancient.primordials")
 
     implicit def primordialArbitrary(implicit
-      loader: ResourceLoader
+        loader: ResourceLoader
     ): Arbitrary[Primordial] =
       Arbitrary(Gen.oneOf(primordials))
 
@@ -43,7 +43,7 @@ object ancient {
       loader.loadKey[Seq[Titan]]("ancient.titans")
 
     implicit def primordialArbitrary(implicit
-      loader: ResourceLoader
+        loader: ResourceLoader
     ): Arbitrary[Titan] =
       Arbitrary(Gen.oneOf(titans))
 
@@ -58,7 +58,7 @@ object ancient {
       loader.loadKey[Seq[Hero]]("ancient.heroes")
 
     implicit def heroArbitrary(implicit
-      loader: ResourceLoader
+        loader: ResourceLoader
     ): Arbitrary[Hero] =
       Arbitrary(Gen.oneOf(heroes))
 
