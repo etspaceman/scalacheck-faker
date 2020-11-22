@@ -74,6 +74,12 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[address.StreetSuffix](locale, "address.StreetSuffix")(x =>
       Some(x.value)
     )
+    testCanGen[ancient.God](locale, "ancient.God")(x => Some(x.value))
+    testCanGen[ancient.Primordial](locale, "ancient.Primordial")(x =>
+      Some(x.value)
+    )
+    testCanGen[ancient.Titan](locale, "ancient.Titan")(x => Some(x.value))
+    testCanGen[ancient.Hero](locale, "ancient.Hero")(x => Some(x.value))
     testCanGen[animal.AnimalName](locale, "animal.AnimalName")(x =>
       Some(x.value)
     )
@@ -896,6 +902,24 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
       }
       "currencySymbol should return successfully" in {
         val res = faker.currencySymbol()
+        assert(res.nonEmpty, res)
+      }
+    }
+    "Ancient" - {
+      "god should return successfully" in {
+        val res = faker.god()
+        assert(res.nonEmpty, res)
+      }
+      "primordial should return successfully" in {
+        val res = faker.primordial()
+        assert(res.nonEmpty, res)
+      }
+      "titan should return successfully" in {
+        val res = faker.titan()
+        assert(res.nonEmpty, res)
+      }
+      "hero should return successfully" in {
+        val res = faker.hero()
         assert(res.nonEmpty, res)
       }
     }
