@@ -455,6 +455,20 @@ final class Faker(private[faker] val locale: Locale) {
   def currencySymbol(seed: Seed): String =
     Arbitrary.arbitrary[currency.CurrencySymbol].one(seed).value
   def currencySymbol(): String = currencySymbol(Seed.random())
+
+  // Ancient
+  def god(seed: Seed): String =
+    Arbitrary.arbitrary[ancient.God].one(seed).value
+  def god(): String = god(Seed.random())
+  def primordial(seed: Seed): String =
+    Arbitrary.arbitrary[ancient.Primordial].one(seed).value
+  def primordial(): String = primordial(Seed.random())
+  def titan(seed: Seed): String =
+    Arbitrary.arbitrary[ancient.Titan].one(seed).value
+  def titan(): String = titan(Seed.random())
+  def hero(seed: Seed): String =
+    Arbitrary.arbitrary[ancient.Hero].one(seed).value
+  def hero(): String = hero(Seed.random())
 }
 
 object Faker {

@@ -905,5 +905,23 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
         assert(res.nonEmpty, res)
       }
     }
+    "Ancient" - {
+      "god should return successfully" in {
+        val res = faker.god()
+        assert(res.nonEmpty, res)
+      }
+      "primordial should return successfully" in {
+        val res = faker.primordial()
+        assert(res.nonEmpty, res)
+      }
+      "titan should return successfully" in {
+        val res = faker.titan()
+        assert(res.nonEmpty, res)
+      }
+      "hero should return successfully" in {
+        val res = faker.hero()
+        assert(res.nonEmpty, res)
+      }
+    }
   }
 }
