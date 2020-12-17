@@ -1,0 +1,21 @@
+pull_request_rules:
+  - name: assign and label scala-steward's PRs
+    conditions:
+      - author=scala-steward
+    actions:
+      assign:
+        users: [etspaceman]
+      label:
+        add: [dependency-update]
+  - name: merge scala-steward's PRs
+    conditions:
+      - author=scala-steward
+      - status-success=build (2.11.12)
+      - status-success=build (2.12.12)
+      - status-success=build (2.13.3)
+      - status-success=codecov/patch
+      - status-success=codecov/project
+    actions:
+      merge:
+        method: squash
+        strict: true
