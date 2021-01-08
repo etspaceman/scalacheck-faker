@@ -473,13 +473,13 @@ final class Faker(private[faker] val locale: Locale) {
   // Aviation
   def aircraft(seed: Seed): String =
     Arbitrary.arbitrary[aviation.Aircraft].one(seed).value
-  def aircraft(): String = god(Seed.random())
+  def aircraft(): String = aircraft(Seed.random())
   def airport(seed: Seed): String =
     Arbitrary.arbitrary[aviation.Airport].one(seed).value
-  def airport(): String = god(Seed.random())
+  def airport(): String = airport(Seed.random())
   def metar(seed: Seed): String =
     Arbitrary.arbitrary[aviation.Metar].one(seed).value
-  def metar(): String = god(Seed.random())
+  def metar(): String = metar(Seed.random())
 }
 
 object Faker {
