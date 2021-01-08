@@ -28,14 +28,13 @@ object aviation {
       loader.loadKey[Seq[Airport]]("aviation.airports")
 
     implicit def airportArbitrary(implicit
-      loader: ResourceLoader
+        loader: ResourceLoader
     ): Arbitrary[Airport] =
       Arbitrary(Gen.oneOf(airports))
 
     implicit val airportConfigReader: ConfigReader[Airport] =
       ConfigReader[String].coerce
   }
-
 
   @newtype final case class Metar private (value: String)
 
@@ -44,7 +43,7 @@ object aviation {
       loader.loadKey[Seq[Metar]]("aviation.metars")
 
     implicit def metarArbitrary(implicit
-      loader: ResourceLoader
+        loader: ResourceLoader
     ): Arbitrary[Metar] =
       Arbitrary(Gen.oneOf(metars))
 

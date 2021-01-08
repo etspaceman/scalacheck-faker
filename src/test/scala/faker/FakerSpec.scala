@@ -83,10 +83,10 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     testCanGen[animal.AnimalName](locale, "animal.AnimalName")(x =>
       Some(x.value)
     )
-    testCanGen[aviation.Aircraft](locale, "aviation.Aircraft")(x => Some(x.value))
-    testCanGen[aviation.Airport](locale, "aviation.Airport")(x =>
+    testCanGen[aviation.Aircraft](locale, "aviation.Aircraft")(x =>
       Some(x.value)
     )
+    testCanGen[aviation.Airport](locale, "aviation.Airport")(x => Some(x.value))
     testCanGen[aviation.Metar](locale, "aviation.Metar")(x => Some(x.value))
     testCanGen[company.BS](locale, "company.BS")(x => Some(x.value))
     testCanGen[company.BuzzWord](locale, "company.BuzzWord")(x => Some(x.value))
