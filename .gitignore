@@ -3,3 +3,5 @@ target/
 .env
 .metals
 .bsp/
+.vscode/
+.bloop/
