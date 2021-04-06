@@ -11,8 +11,8 @@ pull_request_rules:
     conditions:
       - author=scala-steward
       - status-success=build (2.11.12)
-      - status-success=build (2.12.12)
-      - status-success=build (2.13.4)
+      - status-success=build (2.12.13)
+      - status-success=build (2.13.5)
       - status-success=codecov/patch
       - status-success=codecov/project
     actions:
