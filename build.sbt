@@ -3,12 +3,12 @@ import sbtrelease.ReleaseStateTransformations._
 
 organization := "io.github.etspaceman"
 description := "Fake data generation using ScalaCheck Arbitrary instances"
-scalaVersion := "2.13.4"
-crossScalaVersions ++= Seq(scalaVersion.value, "2.12.12", "2.11.12")
+scalaVersion := "2.13.5"
+crossScalaVersions ++= Seq(scalaVersion.value, "2.12.13", "2.11.12")
 ThisBuild / scalafixDependencies += OrganizeImports
 addCompilerPlugin(KindProjector cross CrossVersion.full)
 semanticdbEnabled := true
-semanticdbVersion := "4.4.2"
+semanticdbVersion := scalafixSemanticdb.revision
 credentials ++= (
   for {
     username <- Option(System.getenv().get("SONATYPE_USERNAME"))
@@ -45,7 +45,7 @@ scalacOptions ++= (ScalaVersionADT.fromString(scalaVersion.value) match {
 val mimaVersion: Option[String] = None
 mimaPreviousArtifacts :=
   mimaVersion.map("io.github.etspaceman" %% "scalacheck-faker" % _).toSet
-initialCommands in console :=
+console / initialCommands :=
   """import faker._
     |import faker.syntax.string._
     |import faker.syntax.scalacheck._
@@ -73,7 +73,7 @@ releaseVcsSign := true
 releasePublishArtifactsAction := PgpKeys.publishSigned.value
 releaseCrossBuild := true
 publishMavenStyle := true
-publishArtifact in Test := false
+Test / publishArtifact := false
 pomIncludeRepository := Function.const(false)
 publishTo := {
   if (isSnapshot.value) Some(Opts.resolver.sonatypeSnapshots)
@@ -94,19 +94,19 @@ releaseProcess := Seq[ReleaseStep](
   pushChanges
 )
 
-scalacOptions in (Compile, console) ~= {
+Compile / console / scalacOptions ~= {
   _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
 }
 
-fork in Test := true
+Test / fork := true
 testForkedParallel := true
 
-addCommandAlias("cpl", ";+test:compile")
+addCommandAlias("cpl", ";+Test / compile")
 addCommandAlias(
   "fixCheck",
-  ";compile:scalafix --check ;test:scalafix --check"
+  ";Compile / scalafix --check ;Test / scalafix --check"
 )
-addCommandAlias("fix", ";compile:scalafix ;test:scalafix")
+addCommandAlias("fix", ";Compile / scalafix ;Test / scalafix")
 addCommandAlias(
   "cov",
   ";clean;coverage;test;coverageReport"
