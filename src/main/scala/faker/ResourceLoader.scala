@@ -44,7 +44,9 @@ final class ResourceLoader(private[faker] val locale: Locale) {
     // $COVERAGE-ON$
   }
 
-  def loadKey[A: ConfigReader: ClassTag](key: String): A =
+  def loadKey[A: ClassTag](key: String)(implicit
+      CR: Derivation[ConfigReader[A]]
+  ): A =
     conf.at(key).loadOrThrow[A]
 }
 
