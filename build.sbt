@@ -20,7 +20,7 @@ credentials ++= (
     password
   )
 ).toSeq
-//resolvers += Resolver.bintrayRepo("wolfendale", "maven")
+resolvers += Resolver.jcenterRepo
 libraryDependencies ++= Seq(
   ScalaCheck,
   TypesafeConfig,
