@@ -20,7 +20,6 @@ credentials ++= (
     password
   )
 ).toSeq
-resolvers += Resolver.jcenterRepo
 libraryDependencies ++= Seq(
   ScalaCheck,
   TypesafeConfig,
