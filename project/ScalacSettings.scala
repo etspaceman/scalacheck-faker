@@ -89,19 +89,4 @@ object ScalacSettings {
     "-Ycache-macro-class-loader:last-modified", // and macro definitions. This can lead to performance improvements.
     "-Ymacro-annotations" // Enables macro annotations (used for newtypes)
   )
-
-  val `2.11` = `2.12`.filterNot(x =>
-    Seq(
-      "-Xlint:constant",
-      "-Ywarn-extra-implicit",
-      "-Ywarn-unused:implicits",
-      "-Ywarn-unused:imports",
-      "-Ywarn-unused:locals",
-      "-Ywarn-unused:params",
-      "-Ywarn-unused:patvars",
-      "-Ywarn-unused:privates"
-    ).contains(x)
-  ) ++ Seq(
-    "-Ywarn-unused"
-  )
 }
