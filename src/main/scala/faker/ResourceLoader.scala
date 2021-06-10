@@ -45,7 +45,7 @@ final class ResourceLoader(private[faker] val locale: Locale) {
   }
 
   def loadKey[A: ClassTag](key: String)(implicit
-      CR: Derivation[ConfigReader[A]]
+      CR: ConfigReader[A]
   ): A =
     conf.at(key).loadOrThrow[A]
 }
