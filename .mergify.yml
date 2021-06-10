@@ -10,7 +10,7 @@ pull_request_rules:
   - name: merge scala-steward's PRs
     conditions:
       - author=scala-steward
-      - status-success=build (2.12.13)
+      - status-success=build (2.12.14)
       - status-success=build (2.13.5)
       - status-success=codecov/patch
       - status-success=codecov/project
