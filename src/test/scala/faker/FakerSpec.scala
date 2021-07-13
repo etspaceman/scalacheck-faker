@@ -88,6 +88,9 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
     )
     testCanGen[aviation.Airport](locale, "aviation.Airport")(x => Some(x.value))
     testCanGen[aviation.Metar](locale, "aviation.Metar")(x => Some(x.value))
+    testCanGen[cat.Name](locale, "cat.Name")(x => Some(x.value))
+    testCanGen[cat.Breed](locale, "cat.Breed")(x => Some(x.value))
+    testCanGen[cat.Registry](locale, "cat.Registry")(x => Some(x.value))
     testCanGen[company.BS](locale, "company.BS")(x => Some(x.value))
     testCanGen[company.BuzzWord](locale, "company.BuzzWord")(x => Some(x.value))
     testCanGen[company.CatchPhrase](locale, "company.CatchPhrase")(x =>
@@ -939,6 +942,20 @@ trait FakerSpec extends AnyFreeSpecLike with Checkers {
       }
       "metar should return successfully" in {
         val res = faker.metar()
+        assert(res.nonEmpty, res)
+      }
+    }
+    "Cat" - {
+      "name should return successfully" in {
+        val res = faker.catName()
+        assert(res.nonEmpty, res)
+      }
+      "breed should return successfully" in {
+        val res = faker.catBreed()
+        assert(res.nonEmpty, res)
+      }
+      "registry should return successfully" in {
+        val res = faker.catRegistry()
         assert(res.nonEmpty, res)
       }
     }

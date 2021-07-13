@@ -480,6 +480,17 @@ final class Faker(private[faker] val locale: Locale) {
   def metar(seed: Seed): String =
     Arbitrary.arbitrary[aviation.Metar].one(seed).value
   def metar(): String = metar(Seed.random())
+
+  // Cat
+  def catName(seed: Seed): String =
+    Arbitrary.arbitrary[cat.Name].one(seed).value
+  def catName(): String = catName(Seed.random())
+  def catBreed(seed: Seed): String =
+    Arbitrary.arbitrary[cat.Breed].one(seed).value
+  def catBreed(): String = catBreed(Seed.random())
+  def catRegistry(seed: Seed): String =
+    Arbitrary.arbitrary[cat.Registry].one(seed).value
+  def catRegistry(): String = catRegistry(Seed.random())
 }
 
 object Faker {
