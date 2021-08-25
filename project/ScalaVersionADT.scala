@@ -6,7 +6,7 @@ object ScalaVersionADT {
     CrossVersion.partialVersion(str) match {
       case Some((2, 12)) => `2.12`
       case Some((2, 13)) => `2.13`
-      case _             => throw new RuntimeException("Unsupported scala version")
+      case _ => throw new RuntimeException("Unsupported scala version")
     }
 }
 case object `2.12` extends ScalaVersionADT
