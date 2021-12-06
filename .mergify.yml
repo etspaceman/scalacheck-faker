@@ -1,3 +1,13 @@
+queue_rules:
+  - name: default
+    speculative_checks: 3
+    conditions:
+      - author=scala-steward
+      - status-success=build (2.12.15)
+      - status-success=build (2.13.7)
+      - status-success=codecov/patch
+      - status-success=codecov/project
+
 pull_request_rules:
   - name: assign and label scala-steward's PRs
     conditions:
@@ -15,6 +25,6 @@ pull_request_rules:
       - status-success=codecov/patch
       - status-success=codecov/project
     actions:
-      merge:
+      queue:
+        name: default
         method: squash
-        strict: true
