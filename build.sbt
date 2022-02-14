@@ -8,7 +8,7 @@ crossScalaVersions ++= Seq(scalaVersion.value, "2.12.15")
 ThisBuild / scalafixDependencies += OrganizeImports
 addCompilerPlugin(KindProjector cross CrossVersion.full)
 semanticdbEnabled := true
-semanticdbVersion := "4.4.30"
+semanticdbVersion := scalafixSemanticdb.revision
 credentials ++= (
   for {
     username <- Option(System.getenv().get("SONATYPE_USERNAME"))
