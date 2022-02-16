@@ -3,7 +3,7 @@ queue_rules:
     conditions:
       - author=scala-steward
       - status-success=build (2.12.15)
-      - status-success=build (2.13.7)
+      - status-success=build (2.13.8)
       - status-success=codecov/patch
       - status-success=codecov/project
 
@@ -20,7 +20,7 @@ pull_request_rules:
     conditions:
       - author=scala-steward
       - status-success=build (2.12.15)
-      - status-success=build (2.13.7)
+      - status-success=build (2.13.8)
       - status-success=codecov/patch
       - status-success=codecov/project
     actions:
