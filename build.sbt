@@ -3,12 +3,12 @@ import sbtrelease.ReleaseStateTransformations._
 
 organization := "io.github.etspaceman"
 description := "Fake data generation using ScalaCheck Arbitrary instances"
-scalaVersion := "2.13.7"
+scalaVersion := "2.13.8"
 crossScalaVersions ++= Seq(scalaVersion.value, "2.12.15")
 ThisBuild / scalafixDependencies += OrganizeImports
 addCompilerPlugin(KindProjector cross CrossVersion.full)
 semanticdbEnabled := true
-semanticdbVersion := "4.4.30"
+semanticdbVersion := scalafixSemanticdb.revision
 credentials ++= (
   for {
     username <- Option(System.getenv().get("SONATYPE_USERNAME"))
