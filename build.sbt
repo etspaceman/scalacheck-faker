@@ -4,7 +4,7 @@ import sbtrelease.ReleaseStateTransformations._
 organization := "io.github.etspaceman"
 description := "Fake data generation using ScalaCheck Arbitrary instances"
 scalaVersion := "2.13.8"
-crossScalaVersions ++= Seq(scalaVersion.value, "2.12.15")
+crossScalaVersions ++= Seq(scalaVersion.value, "2.12.16")
 ThisBuild / scalafixDependencies += OrganizeImports
 addCompilerPlugin(KindProjector cross CrossVersion.full)
 semanticdbEnabled := true
