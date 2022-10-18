@@ -1,7 +1,7 @@
 import sbt._
 
 object LibraryDependencies {
-  val ScalaCheck = "org.scalacheck" %% "scalacheck" % "1.16.0"
+  val ScalaCheck = "org.scalacheck" %% "scalacheck" % "1.17.0"
   val TypesafeConfig = "com.typesafe" % "config" % "1.4.2"
   val ApacheCommons = "org.apache.commons" % "commons-lang3" % "3.12.0"
   val ScalaTest = "org.scalatest" %% "scalatest" % "3.2.14"
@@ -12,6 +12,6 @@ object LibraryDependencies {
     "com.github.liancheng" %% "organize-imports" % "0.6.0"
   val PureConfig = "com.github.pureconfig" %% "pureconfig" % "0.17.1"
   val ScalaCheckGenRegexp =
-    "io.github.wolfendale" %% "scalacheck-gen-regexp" % "0.1.3"
+    "io.github.wolfendale" %% "scalacheck-gen-regexp" % "1.0.0"
   val NewType = "io.estatico" %% "newtype" % "0.4.4"
 }
