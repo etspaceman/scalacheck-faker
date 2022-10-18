@@ -207,8 +207,8 @@ object internet {
   object Password {
     def passwordSpecialCharacters(implicit
         loader: ResourceLoader
-    ): Seq[String] =
-      loader.loadKey[Seq[String]]("internet.password.special-characters")
+    ): Seq[Char] =
+      loader.loadKey[Seq[Char]]("internet.password.special-characters")
     implicit def passwordArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[Password] =
