@@ -121,13 +121,21 @@ object name {
             Arbitrary
               .arbitrary[FirstName]
               .map(
-                _.value.replaceAll("'", "").replaceAll(" ", "").toLowerCase()
+                _.value
+                  .replaceAll("'", "")
+                  .replaceAll(" ", "")
+                  .replaceAll(".", "")
+                  .toLowerCase()
               )
           lastName <-
             Arbitrary
               .arbitrary[LastName]
               .map(
-                _.value.replaceAll("'", "").replaceAll(" ", "").toLowerCase()
+                _.value
+                  .replaceAll("'", "")
+                  .replaceAll(" ", "")
+                  .replaceAll(".", "")
+                  .toLowerCase()
               )
         } yield s"$firstName.$lastName"
       }.coerce
