@@ -124,7 +124,7 @@ object name {
                 _.value
                   .replaceAll("'", "")
                   .replaceAll(" ", "")
-                  .replaceAll(".", "")
+                  .replaceAll("\\.", "")
                   .toLowerCase()
               )
           lastName <-
@@ -134,7 +134,7 @@ object name {
                 _.value
                   .replaceAll("'", "")
                   .replaceAll(" ", "")
-                  .replaceAll(".", "")
+                  .replaceAll("\\.", "")
                   .toLowerCase()
               )
         } yield s"$firstName.$lastName"
