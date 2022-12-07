@@ -12,6 +12,6 @@ object LibraryDependencies {
     "com.github.liancheng" %% "organize-imports" % "0.6.0"
   val PureConfig = "com.github.pureconfig" %% "pureconfig" % "0.17.1"
   val ScalaCheckGenRegexp =
-    "io.github.wolfendale" %% "scalacheck-gen-regexp" % "1.0.0"
+    "io.github.wolfendale" %% "scalacheck-gen-regexp" % "1.1.0"
   val NewType = "io.estatico" %% "newtype" % "0.4.4"
 }
