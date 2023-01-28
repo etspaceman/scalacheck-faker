@@ -2,8 +2,8 @@ queue_rules:
   - name: default
     conditions:
       - author=scala-steward
-      - status-success=build (2.12.15)
-      - status-success=build (2.13.8)
+      - status-success=build (2.12.17)
+      - status-success=build (2.13.10)
       - status-success=codecov/patch
       - status-success=codecov/project
 
@@ -19,8 +19,8 @@ pull_request_rules:
   - name: merge scala-steward's PRs
     conditions:
       - author=scala-steward
-      - status-success=build (2.12.16)
-      - status-success=build (2.13.8)
+      - status-success=build (2.12.17)
+      - status-success=build (2.13.10)
       - status-success=codecov/patch
       - status-success=codecov/project
     actions:
