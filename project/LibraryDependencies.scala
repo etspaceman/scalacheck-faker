@@ -10,7 +10,7 @@ object LibraryDependencies {
   val KindProjector = "org.typelevel" % "kind-projector" % "0.13.2"
   val OrganizeImports =
     "com.github.liancheng" %% "organize-imports" % "0.6.0"
-  val PureConfig = "com.github.pureconfig" %% "pureconfig" % "0.17.3"
+  val PureConfig = "com.github.pureconfig" %% "pureconfig" % "0.17.4"
   val ScalaCheckGenRegexp =
     "io.github.wolfendale" %% "scalacheck-gen-regexp" % "1.1.0"
   val NewType = "io.estatico" %% "newtype" % "0.4.4"
