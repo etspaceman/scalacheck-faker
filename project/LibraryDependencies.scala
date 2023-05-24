@@ -4,7 +4,7 @@ object LibraryDependencies {
   val ScalaCheck = "org.scalacheck" %% "scalacheck" % "1.17.0"
   val TypesafeConfig = "com.typesafe" % "config" % "1.4.2"
   val ApacheCommons = "org.apache.commons" % "commons-lang3" % "3.12.0"
-  val ScalaTest = "org.scalatest" %% "scalatest" % "3.2.15"
+  val ScalaTest = "org.scalatest" %% "scalatest" % "3.2.16"
   val ScalaTestPlusScalaCheck =
     "org.scalatestplus" %% "scalacheck-1-15" % "3.2.11.0"
   val KindProjector = "org.typelevel" % "kind-projector" % "0.13.2"
