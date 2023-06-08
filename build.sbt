@@ -1,7 +1,7 @@
 import LibraryDependencies._
 import sbtrelease.ReleaseStateTransformations._
 
-val defaultScalaVersion = "2.13.10"
+val defaultScalaVersion = "2.13.11"
 
 organization := "io.github.etspaceman"
 description := "Fake data generation using ScalaCheck Arbitrary instances"
