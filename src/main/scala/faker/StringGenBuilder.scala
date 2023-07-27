@@ -1,8 +1,29 @@
+/*
+ * Copyright (c) 2020 etspaceman
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package faker
 
 import org.scalacheck.Gen
 import pureconfig.ConfigReader
-import pureconfig.generic.semiauto._
+import pureconfig.error.CannotParse
 
 import faker.syntax.string._
 
@@ -15,7 +36,7 @@ private[faker] final case class StringGenBuilder(
 
 object StringGenBuilder {
   implicit val stringGenBuilderConfigReader: ConfigReader[StringGenBuilder] =
-    deriveReader
+    ConfigReader.forProduct1("options")(StringGenBuilder(_))
 }
 
 private[faker] sealed trait StringGenBuilderPart {
@@ -28,7 +49,32 @@ private[faker] sealed trait StringGenBuilderPart {
 
 object StringGenBuilderPart {
   implicit val stringGenBuilderPartConfigReader
-      : ConfigReader[StringGenBuilderPart] = deriveReader
+      : ConfigReader[StringGenBuilderPart] = ConfigReader.fromCursor(c =>
+    for {
+      objC <- c.asObjectCursor
+      tpeC <- objC.atKey("type")
+      tpe <- tpeC.asString
+      res <- tpe match {
+        case "seq-string-part"     => ConfigReader[SeqStringPart].from(c)
+        case "seq-state-zip-part"  => ConfigReader[SeqStateZipPart].from(c)
+        case "seq-state-name-part" => ConfigReader[SeqStateNamePart].from(c)
+        case "seq-state-abbr-and-zip-part" =>
+          ConfigReader[SeqStateAbbrAndZipPart].from(c)
+        case "string-part"          => ConfigReader[StringPart].from(c)
+        case "string-regex-part"    => ConfigReader[StringRegexPart].from(c)
+        case "string-builder-part"  => ConfigReader[StringBuilderPart].from(c)
+        case "default-country-part" => ConfigReader[DefaultCountryPart].from(c)
+        case "country-part"         => ConfigReader[CountryPart].from(c)
+        case x =>
+          ConfigReader.Result.fail(
+            CannotParse(
+              s"StringGenBuilderPart ConfigReader could not parse type field value '$x'",
+              c.origin
+            )
+          )
+      }
+    } yield res
+  )
 }
 
 private[faker] final case class SeqStringPart(
@@ -44,7 +90,9 @@ private[faker] final case class SeqStringPart(
 
 object SeqStringPart {
   implicit val seqStringPartConfigReader: ConfigReader[SeqStringPart] =
-    deriveReader
+    ConfigReader.forProduct3("prefix", "suffix", "value")(
+      SeqStringPart(_, _, _)
+    )
 }
 
 private[faker] final case class SeqStateZipPart(
@@ -60,7 +108,9 @@ private[faker] final case class SeqStateZipPart(
 
 object SeqStateZipPart {
   implicit val seqStateZipPartConfigReader: ConfigReader[SeqStateZipPart] =
-    deriveReader
+    ConfigReader.forProduct3("prefix", "suffix", "value")(
+      SeqStateZipPart(_, _, _)
+    )
 }
 
 private[faker] final case class SeqStateNamePart(
@@ -73,7 +123,9 @@ private[faker] final case class SeqStateNamePart(
 
 object SeqStateNamePart {
   implicit val seqStateNamePartConfigReader: ConfigReader[SeqStateNamePart] =
-    deriveReader
+    ConfigReader.forProduct3("prefix", "suffix", "value")(
+      SeqStateNamePart(_, _, _)
+    )
 }
 
 private[faker] final case class SeqStateAbbrAndZipPart(
@@ -90,7 +142,9 @@ private[faker] final case class SeqStateAbbrAndZipPart(
 object SeqStateAbbrAndZipPart {
   implicit val seqStateAbbrPartConfigReader
       : ConfigReader[SeqStateAbbrAndZipPart] =
-    deriveReader
+    ConfigReader.forProduct3("prefix", "suffix", "value")(
+      SeqStateAbbrAndZipPart(_, _, _)
+    )
 }
 
 private[faker] final case class StringPart(
@@ -102,7 +156,10 @@ private[faker] final case class StringPart(
 }
 
 object StringPart {
-  implicit val stringPartConfigReader: ConfigReader[StringPart] = deriveReader
+  implicit val stringPartConfigReader: ConfigReader[StringPart] =
+    ConfigReader.forProduct3("prefix", "suffix", "value")(
+      StringPart(_, _, _)
+    )
 }
 
 private[faker] final case class StringRegexPart(
@@ -115,7 +172,9 @@ private[faker] final case class StringRegexPart(
 
 object StringRegexPart {
   implicit val stringRegexPartConfigReader: ConfigReader[StringRegexPart] =
-    deriveReader
+    ConfigReader.forProduct3("prefix", "suffix", "value")(
+      StringRegexPart(_, _, _)
+    )
 }
 
 private[faker] final case class StringBuilderPart(
@@ -128,7 +187,9 @@ private[faker] final case class StringBuilderPart(
 
 object StringBuilderPart {
   implicit val stringBuilderPartConfigReader: ConfigReader[StringBuilderPart] =
-    deriveReader
+    ConfigReader.forProduct3("prefix", "suffix", "value")(
+      StringBuilderPart(_, _, _)
+    )
 }
 
 private[faker] final case class DefaultCountryPart(
@@ -142,7 +203,9 @@ private[faker] final case class DefaultCountryPart(
 object DefaultCountryPart {
   implicit val defaultCountryPartConfigReader
       : ConfigReader[DefaultCountryPart] =
-    deriveReader
+    ConfigReader.forProduct3("prefix", "suffix", "value")(
+      DefaultCountryPart(_, _, _)
+    )
 }
 
 private[faker] final case class CountryPart(
@@ -155,7 +218,27 @@ private[faker] final case class CountryPart(
 
 object CountryPart {
   implicit val countryPartConfigReader: ConfigReader[CountryPart] =
-    deriveReader
+    ConfigReader.forProduct3("prefix", "suffix", "value")(
+      CountryPart(_, _, _)
+    )
+}
+
+private[faker] final case class StringGenBuilderWeightedOptionConfig(
+    parts: List[StringGenBuilderPart],
+    weight: Option[Int]
+) {
+  val convert: StringGenBuilderWeightedOption =
+    weight.fold(StringGenBuilderWeightedOption(parts))(x =>
+      StringGenBuilderWeightedOption(parts, x)
+    )
+}
+
+object StringGenBuilderWeightedOptionConfig {
+  implicit val stringGenBuilderWeightedOptionConfig
+      : ConfigReader[StringGenBuilderWeightedOptionConfig] =
+    ConfigReader.forProduct2("parts", "weight")(
+      StringGenBuilderWeightedOptionConfig(_, _)
+    )
 }
 
 private[faker] final case class StringGenBuilderWeightedOption(
@@ -168,5 +251,6 @@ private[faker] final case class StringGenBuilderWeightedOption(
 
 object StringGenBuilderWeightedOption {
   implicit val stringGenBuilderWeightedOptionConfigReader
-      : ConfigReader[StringGenBuilderWeightedOption] = deriveReader
+      : ConfigReader[StringGenBuilderWeightedOption] =
+    ConfigReader[StringGenBuilderWeightedOptionConfig].map(_.convert)
 }

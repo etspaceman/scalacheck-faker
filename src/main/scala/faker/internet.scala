@@ -1,11 +1,30 @@
+/*
+ * Copyright (c) 2020 etspaceman
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package faker
 
 import scala.util.Try
 
 import java.net.IDN
 
-import io.estatico.newtype.macros.newtype
-import io.estatico.newtype.ops.toCoercibleIdOps
 import org.apache.commons.lang3.StringUtils
 import org.scalacheck.{Arbitrary, Gen}
 import pureconfig.ConfigReader
@@ -32,9 +51,9 @@ object internet {
     * @see
     *   <a href="http://uifaces.com/authorized">Authorized UI Faces</a>
     */
-  @newtype final case class Avatar private (value: String)
+  type Avatar = Avatar.Type
 
-  object Avatar {
+  object Avatar extends Newtype[String] { self =>
     def avatars(implicit loader: ResourceLoader): Seq[String] =
       loader.loadKey[Seq[String]]("internet.avatars")
 
@@ -45,12 +64,13 @@ object internet {
         Gen
           .oneOf(avatars)
           .map(x => s"https://s3.amazonaws.com/uifaces/faces/twitter/$x")
-      ).coerce
+          .map(self.apply)
+      )
   }
 
-  @newtype final case class DomainSuffix private (value: String)
+  type DomainSuffix = DomainSuffix.Type
 
-  object DomainSuffix {
+  object DomainSuffix extends Newtype[String] { self =>
     def domainSuffixes(implicit loader: ResourceLoader): Seq[DomainSuffix] =
       loader.loadKey[Seq[DomainSuffix]]("internet.domain-suffixes")
 
@@ -60,12 +80,12 @@ object internet {
       Arbitrary(Gen.oneOf(domainSuffixes))
 
     implicit val domainSuffixConfigReader: ConfigReader[DomainSuffix] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class DomainWord private (value: String)
+  type DomainWord = DomainWord.Type
 
-  object DomainWord {
+  object DomainWord extends Newtype[String] { self =>
     implicit def domainWordArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[DomainWord] =
@@ -77,33 +97,34 @@ object internet {
               ln.value.toLowerCase().replaceAll("'", "").replaceAll(" ", "")
             )
           )
-      ).coerce
+          .map(self.apply)
+      )
   }
 
-  @newtype final case class DomainName private (value: String)
+  type DomainName = DomainName.Type
 
-  object DomainName {
+  object DomainName extends Newtype[String] { self =>
     implicit def domainNameArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[DomainName] =
       Arbitrary {
-        for {
+        (for {
           word <- Arbitrary.arbitrary[DomainWord]
           suffix <- Arbitrary.arbitrary[DomainSuffix]
-        } yield s"${word.value}.${suffix.value}"
-      }.coerce
+        } yield s"${word.value}.${suffix.value}").map(self.apply)
+      }
   }
 
-  @newtype final case class EmailAddress private (value: String)
+  type EmailAddress = EmailAddress.Type
 
-  object EmailAddress {
+  object EmailAddress extends Newtype[String] { self =>
     def freeEmailDomains(implicit loader: ResourceLoader): Seq[String] =
       loader.loadKey[Seq[String]]("internet.free-email-domains")
     implicit def emailAddressArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[EmailAddress] =
       Arbitrary(
-        for {
+        (for {
           localPart <-
             Arbitrary
               .arbitrary[UserName]
@@ -112,8 +133,8 @@ object internet {
             Gen
               .oneOf(freeEmailDomains)
               .map(FakerIDN.toASCII)
-        } yield s"$localPart@$domain"
-      ).coerce
+        } yield s"$localPart@$domain").map(self.apply)
+      )
   }
 
   /** Generates a random image url based on the lorempixel service. All the
@@ -124,9 +145,9 @@ object internet {
     * @see
     *   <a href="http://loremflickr.com/">lorempixel</a>
     */
-  @newtype final case class Image private (value: String)
+  type Image = Image.Type
 
-  object Image {
+  object Image extends Newtype[String] { self =>
     def imageDimensions(implicit loader: ResourceLoader): Seq[String] =
       loader.loadKey[Seq[String]]("internet.image.dimensions")
     def imageCategories(implicit loader: ResourceLoader): Seq[String] =
@@ -135,76 +156,80 @@ object internet {
         loader: ResourceLoader
     ): Arbitrary[Image] =
       Arbitrary {
-        for {
+        (for {
           dimension <- Gen.oneOf(imageDimensions)
           category <- Gen.oneOf(imageCategories)
           split = dimension.split("x").map(_.trim)
-        } yield s"https://loremflickr.com/${split.head}/${split(1)}/$category"
-      }.coerce
+        } yield s"https://loremflickr.com/${split.head}/${split(1)}/$category")
+          .map(self.apply)
+      }
   }
 
-  @newtype final case class IpV4Address private (value: String)
+  type IpV4Address = IpV4Address.Type
 
-  object IpV4Address {
+  object IpV4Address extends Newtype[String] { self =>
     implicit val ipV4AddressArbitrary: Arbitrary[IpV4Address] =
       Arbitrary(
-        for {
+        (for {
           part1 <- Gen.choose(2, 255)
           part2 <- Gen.choose(0, 255)
           part3 <- Gen.choose(0, 255)
           part4 <- Gen.choose(0, 255)
-        } yield s"$part1.$part2.$part3.$part4"
-      ).coerce
+        } yield s"$part1.$part2.$part3.$part4").map(self.apply)
+      )
   }
 
-  @newtype final case class IpV4Cidr private (value: String)
+  type IpV4Cidr = IpV4Cidr.Type
 
-  object IpV4Cidr {
+  object IpV4Cidr extends Newtype[String] { self =>
     implicit val ipV4CidrArbitrary: Arbitrary[IpV4Cidr] =
       Arbitrary(
-        for {
+        (for {
           ipV4Address <- Arbitrary.arbitrary[IpV4Address]
           cidrPart <- Gen.choose(1, 31)
-        } yield s"${ipV4Address.value}/$cidrPart"
-      ).coerce
+        } yield s"${ipV4Address.value}/$cidrPart").map(self.apply)
+      )
   }
 
-  @newtype final case class IpV6Address private (value: String)
+  type IpV6Address = IpV6Address.Type
 
-  object IpV6Address {
+  object IpV6Address extends Newtype[String] { self =>
     def ipV6Char: Gen[String] = Gen.choose(0, 15).map(Integer.toHexString)
     def ipV6Part: Gen[String] = Gen.listOfN(4, ipV6Char).map(_.mkString)
     implicit val ipV6AddressArbitrary: Arbitrary[IpV6Address] = Arbitrary(
-      Gen.listOfN(8, ipV6Part).map(x => x.mkString(":"))
-    ).coerce
+      Gen.listOfN(8, ipV6Part).map(x => x.mkString(":")).map(self.apply)
+    )
   }
 
-  @newtype final case class IpV6Cidr private (value: String)
+  type IpV6Cidr = IpV6Cidr.Type
 
-  object IpV6Cidr {
+  object IpV6Cidr extends Newtype[String] { self =>
     implicit val ipV6CidrArbitrary: Arbitrary[IpV6Cidr] = Arbitrary(
-      for {
+      (for {
         ipv6 <- Arbitrary.arbitrary[IpV6Address]
         cidrPart <- Gen.choose(1, 127)
-      } yield s"${ipv6.value}/$cidrPart"
-    ).coerce
+      } yield s"${ipv6.value}/$cidrPart").map(self.apply)
+    )
   }
 
-  @newtype final case class MacAddress private (value: String)
+  type MacAddress = MacAddress.Type
 
-  object MacAddress {
+  object MacAddress extends Newtype[String] { self =>
     private def macAddressChar: Gen[String] =
       Gen.choose(0, 15).map(Integer.toHexString)
     private def macAddressSection =
       macAddressChar.flatMap(x => macAddressChar.map(y => x + y))
     implicit val macAddressArbitrary: Arbitrary[MacAddress] = Arbitrary(
-      Gen.listOfN(6, macAddressSection).map(x => x.mkString(":"))
-    ).coerce
+      Gen
+        .listOfN(6, macAddressSection)
+        .map(x => x.mkString(":"))
+        .map(self.apply)
+    )
   }
 
-  @newtype final case class Password private (value: String)
+  type Password = Password.Type
 
-  object Password {
+  object Password extends Newtype[String] { self =>
     def passwordSpecialCharacters(implicit
         loader: ResourceLoader
     ): Seq[Char] =
@@ -213,7 +238,7 @@ object internet {
         loader: ResourceLoader
     ): Arbitrary[Password] =
       Arbitrary(
-        for {
+        (for {
           charNum <- Gen.choose(8, 20)
           pass <-
             Gen
@@ -225,19 +250,19 @@ object internet {
                 )
               )
               .map(_.mkString)
-        } yield pass
-      ).coerce
+        } yield pass).map(self.apply)
+      )
   }
 
-  @newtype final case class PrivateIpV4Address private (value: String)
+  type PrivateIpV4Address = PrivateIpV4Address.Type
 
-  object PrivateIpV4Address {
+  object PrivateIpV4Address extends Newtype[String] { self =>
     private val privateFirstParts: Seq[Int] = Seq(10, 127, 169, 192, 172)
     private val privateSecondPartsFor172: Seq[Int] =
       Seq(16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31)
     implicit val privateIpV4AddressArbitrary: Arbitrary[PrivateIpV4Address] =
       Arbitrary(
-        for {
+        (for {
           part1 <- Gen.oneOf(privateFirstParts)
           part2 <- part1 match {
             case 172 => Gen.oneOf(privateSecondPartsFor172)
@@ -247,49 +272,49 @@ object internet {
           }
           part3 <- Gen.choose(0, 255)
           part4 <- Gen.choose(0, 255)
-        } yield s"$part1.$part2.$part3.$part4"
-      ).coerce
+        } yield s"$part1.$part2.$part3.$part4").map(self.apply)
+      )
   }
 
-  @newtype final case class PublicIpV4Address private (value: String)
+  type PublicIpV4Address = PublicIpV4Address.Type
 
-  object PublicIpV4Address {
+  object PublicIpV4Address extends Newtype[String] { self =>
     private val privateFirstParts: Seq[Int] = Seq(10, 127, 169, 192, 172)
     private val publicIpV4FirstPart: Gen[Int] =
       Gen.choose(2, 255).retryUntil(!privateFirstParts.contains(_))
     implicit val publicIpV4AddressArbitrary: Arbitrary[PublicIpV4Address] =
       Arbitrary(
-        for {
+        (for {
           ipAddress <- Arbitrary.arbitrary[IpV4Address]
           origParts = ipAddress.value.split("\\.").toList.map(_.toInt)
           publicFirstPart <- publicIpV4FirstPart
           newParts = publicFirstPart +: origParts.drop(1)
-        } yield newParts.mkString(".")
-      ).coerce
+        } yield newParts.mkString(".")).map(self.apply)
+      )
   }
 
-  @newtype final case class SafeEmailAddress private (value: String)
+  type SafeEmailAddress = SafeEmailAddress.Type
 
-  object SafeEmailAddress {
+  object SafeEmailAddress extends Newtype[String] { self =>
     def safeEmailDomains(implicit loader: ResourceLoader): Seq[String] =
       loader.loadKey[Seq[String]]("internet.safe-email-domains")
     implicit def safeEmailAddressArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[SafeEmailAddress] =
       Arbitrary(
-        for {
+        (for {
           localPart <-
             Arbitrary
               .arbitrary[UserName]
               .map(x => StringUtils.stripAccents(x.value))
           domain <- Gen.oneOf(safeEmailDomains).map(FakerIDN.toASCII)
-        } yield s"$localPart@$domain"
-      ).coerce
+        } yield s"$localPart@$domain").map(self.apply)
+      )
   }
 
-  @newtype final case class Slug private (value: String)
+  type Slug = Slug.Type
 
-  object Slug {
+  object Slug extends Newtype[String] { self =>
     implicit def slugArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[Slug] =
@@ -297,33 +322,35 @@ object internet {
         Gen
           .listOfN(2, Arbitrary.arbitrary[LoremWord])
           .map(x => x.map(_.value).mkString("_"))
-      ).coerce
+          .map(self.apply)
+      )
   }
 
-  @newtype final case class Url private (value: String)
+  type Url = Url.Type
 
-  object Url {
+  object Url extends Newtype[String] { self =>
     implicit def urlArbitrary(implicit loader: ResourceLoader): Arbitrary[Url] =
       Arbitrary(
-        for {
+        (for {
           firstName <- Arbitrary.arbitrary[FirstName]
           firstNameProcessed = firstName.value.toLowerCase().replaceAll("'", "")
           domainWord <- Arbitrary.arbitrary[DomainWord]
           domainSuffix <- Arbitrary.arbitrary[DomainSuffix]
-        } yield s"www.$firstNameProcessed-${domainWord.value}.${domainSuffix.value}"
-      ).coerce
+        } yield s"www.$firstNameProcessed-${domainWord.value}.${domainSuffix.value}")
+          .map(self.apply)
+      )
   }
 
-  @newtype final case class UserAgent private (value: String)
+  type UserAgent = UserAgent.Type
 
-  object UserAgent {
+  object UserAgent extends Newtype[String] { self =>
     def userAgents(loader: ResourceLoader): Map[String, Seq[String]] =
       loader.loadKey[Map[String, Seq[String]]](s"internet.user-agents")
     implicit def userAgentArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[UserAgent] =
       Arbitrary(
-        Gen.oneOf(userAgents(loader).values.flatten)
-      ).coerce
+        Gen.oneOf(userAgents(loader).values.flatten).map(self.apply)
+      )
   }
 }
