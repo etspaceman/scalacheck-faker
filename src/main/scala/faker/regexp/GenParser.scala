@@ -148,22 +148,26 @@ private[faker] object GenParser extends RegexParsers with PackratParsers {
   private[faker] lazy val digit: Parser[RegularExpression] = "\\d" ^^^ DigitChar
   private[faker] lazy val space: Parser[RegularExpression] = "\\s" ^^^ SpaceChar
   private[faker] lazy val any: Parser[RegularExpression] = "." ^^^ AnyChar
-  private[faker] lazy val wordBoundary: Parser[RegularExpression] = "\\b" ^^^ WordBoundary
+  private[faker] lazy val wordBoundary: Parser[RegularExpression] =
+    "\\b" ^^^ WordBoundary
   private[faker] lazy val classes: Parser[RegularExpression] =
     word | digit | space | any | wordBoundary
 
-  private[faker] lazy val negWord: Parser[RegularExpression] = "\\W" ^^^ Negated(WordChar)
-  private[faker] lazy val negDigit: Parser[RegularExpression] = "\\D" ^^^ Negated(DigitChar)
-  private[faker] lazy val negSpace: Parser[RegularExpression] = "\\S" ^^^ Negated(SpaceChar)
+  private[faker] lazy val negWord: Parser[RegularExpression] =
+    "\\W" ^^^ Negated(WordChar)
+  private[faker] lazy val negDigit: Parser[RegularExpression] =
+    "\\D" ^^^ Negated(DigitChar)
+  private[faker] lazy val negSpace: Parser[RegularExpression] =
+    "\\S" ^^^ Negated(SpaceChar)
   private[faker] lazy val negBoundary: Parser[RegularExpression] =
     "\\B" ^^^ Negated(WordBoundary)
   private[faker] lazy val negClasses: Parser[RegularExpression] =
     negWord | negDigit | negSpace | negBoundary
 
-  private[faker] lazy val substitution: Parser[RegularExpression] = "\\" ~> "[1-9]\\d*".r ^^ {
-    index =>
+  private[faker] lazy val substitution: Parser[RegularExpression] =
+    "\\" ~> "[1-9]\\d*".r ^^ { index =>
       Substitution(index.toInt)
-  }
+    }
 
   private[faker] lazy val bos: Parser[RegularExpression] = "^" ^^^ BOS
   private[faker] lazy val eos: Parser[RegularExpression] = "$" ^^^ EOS

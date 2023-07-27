@@ -34,7 +34,8 @@ private[faker] sealed abstract class Group[A] {
 
 private[faker] object Group {
 
-  private[faker] final case class Inclusion[A](values: Set[A]) extends Group[A] {
+  private[faker] final case class Inclusion[A](values: Set[A])
+      extends Group[A] {
 
     override protected lazy val compliment: Group[A] = Exclusion(values)
 
@@ -57,7 +58,8 @@ private[faker] object Group {
       }
   }
 
-  private[faker] final case class Exclusion[A](values: Set[A]) extends Group[A] {
+  private[faker] final case class Exclusion[A](values: Set[A])
+      extends Group[A] {
 
     override protected lazy val compliment: Group[A] = Inclusion(values)
 

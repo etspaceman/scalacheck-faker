@@ -132,7 +132,8 @@ lazy val docs = project
       LinkConfig(sourceLinks =
         Seq(
           SourceLinks(
-            baseUri = "https://github.com/etspaceman/scalacheck-faker/blob/main/",
+            baseUri =
+              "https://github.com/etspaceman/scalacheck-faker/blob/main/",
             suffix = "scala"
           )
         )

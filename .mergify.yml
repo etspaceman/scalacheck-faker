@@ -15,3 +15,11 @@ pull_request_rules:
   - status-success=Build and Test (ubuntu-latest, 2.12, temurin@8)
   actions:
     merge: {}
+- name: Label site PRs
+  conditions:
+  - files~=^site/
+  actions:
+    label:
+      add:
+      - site
+      remove: []

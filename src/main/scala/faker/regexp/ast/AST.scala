@@ -41,24 +41,30 @@ private[faker] case object BOS extends RegularExpression
 private[faker] case object EOS extends RegularExpression
 private[faker] case object WordBoundary extends RegularExpression
 
-private[faker] case class Group(term: RegularExpression) extends RegularExpression
+private[faker] case class Group(term: RegularExpression)
+    extends RegularExpression
 private[faker] case class Substitution(index: Int) extends RegularExpression
-private[faker] case class NonCapturingGroup(term: RegularExpression) extends RegularExpression
+private[faker] case class NonCapturingGroup(term: RegularExpression)
+    extends RegularExpression
 
 private[faker] case class Or(t1: RegularExpression, t2: RegularExpression)
     extends RegularExpression
 private[faker] case class And(t1: RegularExpression, t2: RegularExpression)
     extends RegularExpression
 
-private[faker] case class Negated(term: RegularExpression) extends RegularExpression
+private[faker] case class Negated(term: RegularExpression)
+    extends RegularExpression
 
 private[faker] sealed trait Quantified extends RegularExpression
 private[faker] case class Optional(term: RegularExpression) extends Quantified
 private[faker] case class ZeroOrMore(term: RegularExpression) extends Quantified
 private[faker] case class OneOrMore(term: RegularExpression) extends Quantified
-private[faker] case class Length(term: RegularExpression, min: Int) extends Quantified
-private[faker] case class RangeFrom(term: RegularExpression, min: Int) extends Quantified
-private[faker] case class Range(term: RegularExpression, min: Int, max: Int) extends Quantified
+private[faker] case class Length(term: RegularExpression, min: Int)
+    extends Quantified
+private[faker] case class RangeFrom(term: RegularExpression, min: Int)
+    extends Quantified
+private[faker] case class Range(term: RegularExpression, min: Int, max: Int)
+    extends Quantified
 
 private[faker] object CharacterClass {
 
@@ -75,4 +81,5 @@ private[faker] object CharacterClass {
   private[faker] case object WordBoundary extends Term
 }
 
-private[faker] case class CharacterClass(terms: CharacterClass.Term*) extends RegularExpression
+private[faker] case class CharacterClass(terms: CharacterClass.Term*)
+    extends RegularExpression

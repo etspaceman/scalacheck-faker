@@ -25,6 +25,8 @@ import org.scalacheck.{Arbitrary, Gen}
 
 private[faker] object RegexpGen {
 
-  private[faker] def from(str: String)(implicit ev: Arbitrary[Char]): Gen[String] =
+  private[faker] def from(str: String)(implicit
+      ev: Arbitrary[Char]
+  ): Gen[String] =
     ASTProcessor(GenParser.parse(str))
 }

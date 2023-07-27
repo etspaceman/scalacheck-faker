@@ -72,7 +72,9 @@ private[faker] object ASTProcessor {
   }
 
   // TODO tailrec optimisation
-  private[faker] def apply(re: RegularExpression)(implicit ev: Arbitrary[Char]): Gen[String] =
+  private[faker] def apply(
+      re: RegularExpression
+  )(implicit ev: Arbitrary[Char]): Gen[String] =
     re match {
       case Literal(str) =>
         literal(str)
