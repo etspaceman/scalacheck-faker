@@ -62,6 +62,10 @@ lazy val `scalacheck-faker` = project
     tlJdkRelease := Some(8),
     Test / testOptions ++= {
       List(Tests.Argument(TestFrameworks.MUnit, "+l"))
+    },
+    scalacOptions ++= {
+      if (scalaVersion.value.startsWith("2.13")) Seq("-Xlint:-byname-implicit")
+      else Nil
     }
   )
   .settings(
