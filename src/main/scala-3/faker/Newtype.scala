@@ -21,7 +21,7 @@
 
 package faker
 
-abstract class Newtype[A] { self =>
+private[faker] abstract class Newtype[A] { self =>
   opaque type Type = A
 
   def apply(a: A): Type = a

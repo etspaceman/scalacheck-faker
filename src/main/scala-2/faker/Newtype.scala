@@ -22,7 +22,7 @@
 package faker
 
 @SuppressWarnings(Array("scalafix:DisableSyntax.asInstanceOf"))
-abstract class Newtype[A] { self =>
+private[faker] abstract class Newtype[A] { self =>
   // This encoding originally comes from this library:
   // https://github.com/alexknvl/newtypes#what-does-it-do
   type Base

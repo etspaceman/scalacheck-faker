@@ -21,7 +21,7 @@
 
 package faker.compat
 
-trait LazyListCompat {
+private[faker] trait LazyListCompat {
   type LazyList[A] = Stream[A]
   val LazyList = Stream
 }

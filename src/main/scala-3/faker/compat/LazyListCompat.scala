@@ -21,4 +21,4 @@
 
 package faker.compat
 
-trait LazyListCompat
+private[faker] trait LazyListCompat
