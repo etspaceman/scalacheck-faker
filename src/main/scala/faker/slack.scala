@@ -1,10 +1,28 @@
+/*
+ * Copyright (c) 2020 etspaceman
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package faker
 
-import io.estatico.newtype.macros.newtype
-import io.estatico.newtype.ops.toCoercibleIdOps
 import org.scalacheck.{Arbitrary, Gen}
 import pureconfig.ConfigReader
-import pureconfig.generic.semiauto._
 
 object slack {
   object emoji {
@@ -20,18 +38,19 @@ object slack {
         Arbitrary(Gen.oneOf(slackEmojis))
 
       implicit val slackEmojiConfigReader: ConfigReader[SlackEmoji] =
-        deriveReader
+        ConfigReader.forProduct2("value", "category")(SlackEmoji(_, _))
     }
 
-    @newtype final case class SlackEmojiActivity private (value: String)
+    type SlackEmojiActivity = SlackEmojiActivity.Type
 
-    object SlackEmojiActivity {
+    object SlackEmojiActivity extends Newtype[String] { self =>
       def slackEmojiActivities(implicit
           loader: ResourceLoader
       ): Seq[SlackEmojiActivity] =
         SlackEmoji.slackEmojis
           .filter(_.category == "activity")
-          .map(x => x.value.coerce)
+          .map(x => x.value)
+          .map(self.apply)
 
       implicit def slackEmojiActivityArbitrary(implicit
           loader: ResourceLoader
@@ -40,18 +59,19 @@ object slack {
 
       implicit val slackEmojiActivityConfigReader
           : ConfigReader[SlackEmojiActivity] =
-        ConfigReader[String].coerce
+        ConfigReader[String].map(self.apply)
     }
 
-    @newtype final case class SlackEmojiCelebration private (value: String)
+    type SlackEmojiCelebration = SlackEmojiCelebration.Type
 
-    object SlackEmojiCelebration {
+    object SlackEmojiCelebration extends Newtype[String] { self =>
       def slackEmojiCelebrations(implicit
           loader: ResourceLoader
       ): Seq[SlackEmojiCelebration] =
         SlackEmoji.slackEmojis
           .filter(_.category == "celebration")
-          .map(x => x.value.coerce)
+          .map(x => x.value)
+          .map(self.apply)
 
       implicit def slackEmojiCelebrationArbitrary(implicit
           loader: ResourceLoader
@@ -60,18 +80,19 @@ object slack {
 
       implicit val slackEmojiCelebrationConfigReader
           : ConfigReader[SlackEmojiCelebration] =
-        ConfigReader[String].coerce
+        ConfigReader[String].map(self.apply)
     }
 
-    @newtype final case class SlackEmojiCustom private (value: String)
+    type SlackEmojiCustom = SlackEmojiCustom.Type
 
-    object SlackEmojiCustom {
+    object SlackEmojiCustom extends Newtype[String] { self =>
       def slackEmojiCustom(implicit
           loader: ResourceLoader
       ): Seq[SlackEmojiCustom] =
         SlackEmoji.slackEmojis
           .filter(_.category == "custom")
-          .map(x => x.value.coerce)
+          .map(x => x.value)
+          .map(self.apply)
 
       implicit def slackEmojiCustomArbitrary(implicit
           loader: ResourceLoader
@@ -80,18 +101,19 @@ object slack {
 
       implicit val slackEmojiCustomConfigReader
           : ConfigReader[SlackEmojiCustom] =
-        ConfigReader[String].coerce
+        ConfigReader[String].map(self.apply)
     }
 
-    @newtype final case class SlackEmojiFood private (value: String)
+    type SlackEmojiFood = SlackEmojiFood.Type
 
-    object SlackEmojiFood {
+    object SlackEmojiFood extends Newtype[String] { self =>
       def slackEmojiFoods(implicit
           loader: ResourceLoader
       ): Seq[SlackEmojiFood] =
         SlackEmoji.slackEmojis
           .filter(_.category == "food")
-          .map(x => x.value.coerce)
+          .map(x => x.value)
+          .map(self.apply)
 
       implicit def slackEmojiFoodArbitrary(implicit
           loader: ResourceLoader
@@ -99,18 +121,19 @@ object slack {
         Arbitrary(Gen.oneOf(slackEmojiFoods))
 
       implicit val slackEmojiFoodConfigReader: ConfigReader[SlackEmojiFood] =
-        ConfigReader[String].coerce
+        ConfigReader[String].map(self.apply)
     }
 
-    @newtype final case class SlackEmojiNature private (value: String)
+    type SlackEmojiNature = SlackEmojiNature.Type
 
-    object SlackEmojiNature {
+    object SlackEmojiNature extends Newtype[String] { self =>
       def slackEmojiNature(implicit
           loader: ResourceLoader
       ): Seq[SlackEmojiNature] =
         SlackEmoji.slackEmojis
           .filter(_.category == "nature")
-          .map(x => x.value.coerce)
+          .map(x => x.value)
+          .map(self.apply)
 
       implicit def slackEmojiNatureArbitrary(implicit
           loader: ResourceLoader
@@ -119,18 +142,19 @@ object slack {
 
       implicit val slackEmojiNatureConfigReader
           : ConfigReader[SlackEmojiNature] =
-        ConfigReader[String].coerce
+        ConfigReader[String].map(self.apply)
     }
 
-    @newtype final case class SlackEmojiObject private (value: String)
+    type SlackEmojiObject = SlackEmojiObject.Type
 
-    object SlackEmojiObject {
+    object SlackEmojiObject extends Newtype[String] { self =>
       def slackEmojiObjects(implicit
           loader: ResourceLoader
       ): Seq[SlackEmojiObject] =
         SlackEmoji.slackEmojis
           .filter(_.category == "object")
-          .map(x => x.value.coerce)
+          .map(x => x.value)
+          .map(self.apply)
 
       implicit def slackEmojiObjectArbitrary(implicit
           loader: ResourceLoader
@@ -139,18 +163,19 @@ object slack {
 
       implicit val slackEmojiObjectConfigReader
           : ConfigReader[SlackEmojiObject] =
-        ConfigReader[String].coerce
+        ConfigReader[String].map(self.apply)
     }
 
-    @newtype final case class SlackEmojiPerson private (value: String)
+    type SlackEmojiPerson = SlackEmojiPerson.Type
 
-    object SlackEmojiPerson {
+    object SlackEmojiPerson extends Newtype[String] { self =>
       def slackEmojiPeople(implicit
           loader: ResourceLoader
       ): Seq[SlackEmojiPerson] =
         SlackEmoji.slackEmojis
           .filter(_.category == "person")
-          .map(x => x.value.coerce)
+          .map(x => x.value)
+          .map(self.apply)
 
       implicit def slackEmojiPersonArbitrary(implicit
           loader: ResourceLoader
@@ -159,18 +184,19 @@ object slack {
 
       implicit val slackEmojiPersonConfigReader
           : ConfigReader[SlackEmojiPerson] =
-        ConfigReader[String].coerce
+        ConfigReader[String].map(self.apply)
     }
 
-    @newtype final case class SlackEmojiTravel private (value: String)
+    type SlackEmojiTravel = SlackEmojiTravel.Type
 
-    object SlackEmojiTravel {
+    object SlackEmojiTravel extends Newtype[String] { self =>
       def slackEmojiTravels(implicit
           loader: ResourceLoader
       ): Seq[SlackEmojiTravel] =
         SlackEmoji.slackEmojis
           .filter(_.category == "travel")
-          .map(x => x.value.coerce)
+          .map(x => x.value)
+          .map(self.apply)
 
       implicit def slackEmojiTravelArbitrary(implicit
           loader: ResourceLoader
@@ -179,7 +205,7 @@ object slack {
 
       implicit val slackEmojiTravelConfigReader
           : ConfigReader[SlackEmojiTravel] =
-        ConfigReader[String].coerce
+        ConfigReader[String].map(self.apply)
     }
   }
 }

@@ -1,14 +1,33 @@
+/*
+ * Copyright (c) 2020 etspaceman
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package faker
 
-import io.estatico.newtype.macros.newtype
-import io.estatico.newtype.ops._
 import org.scalacheck.{Arbitrary, Gen}
 import pureconfig.ConfigReader
 
 object job {
-  @newtype final case class JobEducationLevel private (value: String)
+  type JobEducationLevel = JobEducationLevel.Type
 
-  object JobEducationLevel {
+  object JobEducationLevel extends Newtype[String] { self =>
     def jobEducationLevels(implicit
         loader: ResourceLoader
     ): Seq[JobEducationLevel] =
@@ -21,12 +40,12 @@ object job {
 
     implicit val jobEducationLevelConfigReader
         : ConfigReader[JobEducationLevel] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class JobEmploymentType private (value: String)
+  type JobEmploymentType = JobEmploymentType.Type
 
-  object JobEmploymentType {
+  object JobEmploymentType extends Newtype[String] { self =>
     def jobEmploymentTypes(implicit
         loader: ResourceLoader
     ): Seq[JobEmploymentType] =
@@ -39,12 +58,12 @@ object job {
 
     implicit val jobEmploymentTypeConfigReader
         : ConfigReader[JobEmploymentType] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class JobField private (value: String)
+  type JobField = JobField.Type
 
-  object JobField {
+  object JobField extends Newtype[String] { self =>
     def jobFields(implicit loader: ResourceLoader): Seq[JobField] =
       loader.loadKey[Seq[JobField]]("job.fields")
 
@@ -54,12 +73,12 @@ object job {
       Arbitrary(Gen.oneOf(jobFields))
 
     implicit val jobFieldConfigReader: ConfigReader[JobField] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class JobKeySkill private (value: String)
+  type JobKeySkill = JobKeySkill.Type
 
-  object JobKeySkill {
+  object JobKeySkill extends Newtype[String] { self =>
     def jobKeySkills(implicit loader: ResourceLoader): Seq[JobKeySkill] =
       loader.loadKey[Seq[JobKeySkill]]("job.key-skills")
 
@@ -69,12 +88,12 @@ object job {
       Arbitrary(Gen.oneOf(jobKeySkills))
 
     implicit val jobKeySkillConfigReader: ConfigReader[JobKeySkill] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class JobPosition private (value: String)
+  type JobPosition = JobPosition.Type
 
-  object JobPosition {
+  object JobPosition extends Newtype[String] { self =>
     def jobPositions(implicit loader: ResourceLoader): Seq[JobPosition] =
       loader.loadKey[Seq[JobPosition]]("job.positions")
 
@@ -84,12 +103,12 @@ object job {
       Arbitrary(Gen.oneOf(jobPositions))
 
     implicit val jobPositionConfigReader: ConfigReader[JobPosition] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class JobSeniority private (value: String)
+  type JobSeniority = JobSeniority.Type
 
-  object JobSeniority {
+  object JobSeniority extends Newtype[String] { self =>
     def jobSeniority(implicit loader: ResourceLoader): Seq[JobSeniority] =
       loader.loadKey[Seq[JobSeniority]]("job.seniority")
 
@@ -99,12 +118,12 @@ object job {
       Arbitrary(Gen.oneOf(jobSeniority))
 
     implicit val jobSeniorityConfigReader: ConfigReader[JobSeniority] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class JobTitle private (value: String)
+  type JobTitle = JobTitle.Type
 
-  object JobTitle {
+  object JobTitle extends Newtype[String] { self =>
     implicit def jobTitleArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[JobTitle] =
@@ -112,9 +131,10 @@ object job {
         loader
           .loadKey[StringGenBuilder]("job.title-builder")
           .gen
-      ).coerce
+          .map(self.apply)
+      )
 
     implicit val jobTitleConfigReader: ConfigReader[JobTitle] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 }

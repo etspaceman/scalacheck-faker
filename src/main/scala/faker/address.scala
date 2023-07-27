@@ -1,17 +1,34 @@
+/*
+ * Copyright (c) 2020 etspaceman
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package faker
 
-import io.estatico.newtype.macros.newtype
-import io.estatico.newtype.ops._
 import org.scalacheck.{Arbitrary, Gen}
 import pureconfig.ConfigReader
-import pureconfig.generic.semiauto._
 
 import faker.syntax.string._
 
 object address {
-  @newtype final case class BuildingNumber private (value: String)
-
-  object BuildingNumber {
+  type BuildingNumber = BuildingNumber.Type
+  object BuildingNumber extends Newtype[String] { self =>
     implicit def buildingNumberArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[BuildingNumber] =
@@ -23,12 +40,12 @@ object address {
               .map(_.interpolatedGen)
           )
           .flatMap(x => Gen.oneOf(x))
-      ).coerce
+          .map(self.apply)
+      )
   }
 
-  @newtype final case class City private (value: String)
-
-  object City {
+  type City = City.Type
+  object City extends Newtype[String] { self =>
     implicit def cityArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[City] =
@@ -36,16 +53,17 @@ object address {
         loader
           .loadKey[StringGenBuilder]("address.city-builder")
           .gen
-      ).coerce
+          .map(self.apply)
+      )
 
     implicit val cityConfigReader: ConfigReader[City] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
 
   }
 
-  @newtype final case class CityPrefix private (value: String)
+  type CityPrefix = CityPrefix.Type
+  object CityPrefix extends Newtype[String] { self =>
 
-  object CityPrefix {
     def cityPrefixes(implicit loader: ResourceLoader): Seq[CityPrefix] =
       loader.loadKey[Seq[CityPrefix]]("address.city-prefixes")
     implicit def cityPrefixArbitrary(implicit
@@ -54,12 +72,11 @@ object address {
       Arbitrary(Gen.oneOf(cityPrefixes))
 
     implicit val cityPrefixConfigReader: ConfigReader[CityPrefix] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class CitySuffix private (value: String)
-
-  object CitySuffix {
+  type CitySuffix = CitySuffix.Type
+  object CitySuffix extends Newtype[String] { self =>
     def citySuffixes(implicit loader: ResourceLoader): Seq[CitySuffix] =
       loader.loadKey[Seq[CitySuffix]]("address.city-suffixes")
     implicit def citySuffixArbitrary(implicit
@@ -68,7 +85,7 @@ object address {
       Arbitrary(Gen.oneOf(citySuffixes))
 
     implicit val citySuffixConfigReader: ConfigReader[CitySuffix] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
   final case class Country private (code: String, name: String)
@@ -80,7 +97,8 @@ object address {
         loader: ResourceLoader
     ): Arbitrary[Country] = Arbitrary(Gen.oneOf(countries))
 
-    implicit val countryConfigReader: ConfigReader[Country] = deriveReader
+    implicit val countryConfigReader: ConfigReader[Country] =
+      ConfigReader.forProduct2("code", "name")(Country(_, _))
   }
 
   final case class DefaultCountry private (code: String, name: String)
@@ -93,12 +111,11 @@ object address {
     ): Arbitrary[DefaultCountry] = Arbitrary(Gen.oneOf(defaultCountries))
 
     implicit val defaultCountryConfigReader: ConfigReader[DefaultCountry] =
-      deriveReader
+      ConfigReader.forProduct2("code", "name")(DefaultCountry(_, _))
   }
 
-  @newtype final case class FullAddress private (value: String)
-
-  object FullAddress {
+  type FullAddress = FullAddress.Type
+  object FullAddress extends Newtype[String] { self =>
     implicit def fullAddressArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[FullAddress] =
@@ -106,32 +123,34 @@ object address {
         loader
           .loadKey[StringGenBuilder]("address.full-address-builder")
           .gen
-      ).coerce
+          .map(self.apply)
+      )
   }
 
-  @newtype final case class Latitude private (value: String)
+  type Latitude = Latitude.Type
 
-  object Latitude {
+  object Latitude extends Newtype[String] { self =>
     implicit val latitudeArbitrary: Arbitrary[Latitude] = Arbitrary(
       Gen
         .choose[Double](0, 0.99)
         .map(x => "%.8g".format((x * 180) - 90))
-    ).coerce
+        .map(self.apply)
+    )
   }
 
-  @newtype final case class Longitude private (value: String)
-
-  object Longitude {
+  type Longitude = Longitude.Type
+  object Longitude extends Newtype[String] { self =>
     implicit val longitudeArbitrary: Arbitrary[Longitude] = Arbitrary(
       Gen
         .choose[Double](0, 0.99)
         .map(x => "%.8g".format((x * 360) - 180))
-    ).coerce
+        .map(self.apply)
+    )
   }
 
-  @newtype final case class PostalCode private (value: String)
+  type PostalCode = PostalCode.Type
 
-  object PostalCode {
+  object PostalCode extends Newtype[String] { self =>
     implicit def postalCodeArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[PostalCode] =
@@ -139,12 +158,13 @@ object address {
         loader
           .loadKey[StringGenBuilder]("address.postal-code-builder")
           .gen
-      ).coerce
+          .map(self.apply)
+      )
   }
 
-  @newtype final case class SecondaryAddress private (value: String)
+  type SecondaryAddress = SecondaryAddress.Type
 
-  object SecondaryAddress {
+  object SecondaryAddress extends Newtype[String] { self =>
     implicit def secondaryAddressArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[SecondaryAddress] =
@@ -156,13 +176,13 @@ object address {
               .map(_.interpolatedGen)
           )
           .flatMap(x => Gen.oneOf(x))
-          .coerce
+          .map(self.apply)
       )
   }
 
-  @newtype final case class StreetAddress private (value: String)
+  type StreetAddress = StreetAddress.Type
 
-  object StreetAddress {
+  object StreetAddress extends Newtype[String] { self =>
     implicit def streetAddressArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[StreetAddress] =
@@ -170,12 +190,13 @@ object address {
         loader
           .loadKey[StringGenBuilder]("address.street-address-builder")
           .gen
-      ).coerce
+          .map(self.apply)
+      )
   }
 
-  @newtype final case class StreetName private (value: String)
+  type StreetName = StreetName.Type
 
-  object StreetName {
+  object StreetName extends Newtype[String] { self =>
     implicit def streetNameArbitrary(implicit
         loader: ResourceLoader
     ): Arbitrary[StreetName] =
@@ -183,12 +204,13 @@ object address {
         loader
           .loadKey[StringGenBuilder]("address.street-name-builder")
           .gen
-      ).coerce
+          .map(self.apply)
+      )
   }
 
-  @newtype final case class StreetPrefix private (value: String)
+  type StreetPrefix = StreetPrefix.Type
 
-  object StreetPrefix {
+  object StreetPrefix extends Newtype[String] { self =>
     def streetPrefixes(implicit loader: ResourceLoader): Seq[StreetPrefix] =
       loader.loadKey[Seq[StreetPrefix]]("address.street-prefixes")
     implicit def streetPrefixArbitrary(implicit
@@ -196,12 +218,12 @@ object address {
     ): Arbitrary[StreetPrefix] =
       Arbitrary(Gen.oneOf(streetPrefixes))
     implicit val streetPrefixConfigReader: ConfigReader[StreetPrefix] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class StreetSuffix private (value: String)
+  type StreetSuffix = StreetSuffix.Type
 
-  object StreetSuffix {
+  object StreetSuffix extends Newtype[String] { self =>
     def streetSuffixes(implicit loader: ResourceLoader): Seq[StreetSuffix] =
       loader.loadKey[Seq[StreetSuffix]]("address.street-suffixes")
     implicit def streetSuffixArbitrary(implicit
@@ -209,6 +231,6 @@ object address {
     ): Arbitrary[StreetSuffix] =
       Arbitrary(Gen.oneOf(streetSuffixes))
     implicit val streetSuffixConfigReader: ConfigReader[StreetSuffix] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 }

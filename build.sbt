@@ -1,133 +1,147 @@
 import LibraryDependencies._
-import sbtrelease.ReleaseStateTransformations._
+import laika.helium.Helium
+import laika.helium.config.TextLink
+import laika.helium.config.ThemeNavigationSection
+import laika.rewrite.link._
 
-val defaultScalaVersion = "2.13.10"
+val Scala212 = "2.12.18"
+val Scala213 = "2.13.11"
+val Scala3 = "3.3.0"
 
-organization := "io.github.etspaceman"
-description := "Fake data generation using ScalaCheck Arbitrary instances"
-scalaVersion := defaultScalaVersion
-crossScalaVersions := Seq(defaultScalaVersion, "2.12.17")
-ThisBuild / scalafixDependencies += OrganizeImports
-addCompilerPlugin(KindProjector cross CrossVersion.full)
-semanticdbEnabled := true
-semanticdbVersion := scalafixSemanticdb.revision
-credentials ++= (
-  for {
-    username <- Option(System.getenv().get("SONATYPE_USERNAME"))
-    password <- Option(System.getenv().get("SONATYPE_PASSWORD"))
-  } yield Credentials(
-    "Sonatype Nexus Repository Manager",
-    "oss.sonatype.org",
-    username,
-    password
+val allScalaVersions = List(Scala213, Scala3, Scala212)
+
+inThisBuild(
+  Seq(
+    tlVersionIntroduced := Map(
+      "2.13" -> "8.0.0",
+      "2.12" -> "8.0.0",
+      "3" -> "8.0.0"
+    ),
+    tlBaseVersion := "8.0",
+    organization := "io.github.etspaceman",
+    organizationName := "etspaceman",
+    description := "Fake data generation using ScalaCheck Arbitrary instances",
+    startYear := Some(2020),
+    scalaVersion := Scala213,
+    crossScalaVersions := allScalaVersions,
+    semanticdbEnabled := true,
+    semanticdbVersion := scalafixSemanticdb.revision,
+    licenses := Seq(License.MIT),
+    developers := List(tlGitHubDev("etspaceman", "Eric Meisel")),
+    tlCiHeaderCheck := true,
+    tlCiScalafmtCheck := true,
+    tlCiScalafixCheck := true,
+    scmInfo := Some(
+      ScmInfo(
+        url(
+          s"https://github.com/etspaceman/scalacheck-faker"
+        ),
+        s"git@github.com:etspaceman/scalacheck-faker.git"
+      )
+    ),
+    homepage := Some(
+      url("https://github.com/etspaceman/scalacheck-faker")
+    )
   )
-).toSeq
-libraryDependencies ++= Seq(
-  ScalaCheck,
-  TypesafeConfig,
-  PureConfig,
-  ApacheCommons,
-  ScalaCheckGenRegexp,
-  NewType,
-  ScalaTest % Test,
-  ScalaTestPlusScalaCheck % Test
-) ++ (if (ScalaVersionADT.fromString(scalaVersion.value) == `2.13`) Seq.empty
-      else
+)
+
+lazy val `scalacheck-faker` = project
+  .in(file("."))
+  .settings(
+    libraryDependencies ++= Seq(
+      ScalaCheck,
+      TypesafeConfig,
+      PureConfig,
+      ApacheCommons,
+      ScalaParsingCombinators,
+      Munit.core % Test,
+      Munit.scalacheck % Test
+    ),
+    Test / fork := true,
+    testForkedParallel := true,
+    tlJdkRelease := Some(8),
+    Test / testOptions ++= {
+      List(Tests.Argument(TestFrameworks.MUnit, "+l"))
+    },
+    scalacOptions ++= {
+      if (scalaVersion.value.startsWith("2.13")) Seq("-Xlint:-byname-implicit")
+      else Nil
+    }
+  )
+  .settings(
+    addCommandAlias(
+      "cpl",
+      ";+Test / compile"
+    ),
+    addCommandAlias(
+      "fixCheck",
+      ";+Compile / scalafix --check;+Test / scalafix --check"
+    ),
+    addCommandAlias(
+      "fix",
+      ";+Compile / scalafix;+Test / scalafix"
+    ),
+    addCommandAlias(
+      "fmtCheck",
+      ";+Compile / scalafmtCheck;+Test / scalafmtCheck;scalafmtSbtCheck"
+    ),
+    addCommandAlias(
+      "fmt",
+      ";+Compile / scalafmt;+Test / scalafmt;scalafmtSbt"
+    ),
+    addCommandAlias(
+      "pretty",
+      ";githubWorkflowGenerate;headerCreateAll;fix;fmt"
+    ),
+    addCommandAlias(
+      "prettyCheck",
+      ";headerCheckAll;fixCheck;fmtCheck"
+    ),
+    addCommandAlias(
+      "cov",
+      ";clean;coverage;test;coverageReport;coverageOff"
+    )
+  )
+
+lazy val docs = project
+  .in(file("site"))
+  .enablePlugins(TypelevelSitePlugin)
+  .settings(
+    tlSiteHelium := tlSiteHelium.value.site
+      .mainNavigation(appendLinks =
         Seq(
-          compilerPlugin(
-            "org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full
+          ThemeNavigationSection(
+            "Other Faker Implementations",
+            TextLink.external(
+              "https://github.com/DiUS/java-faker",
+              "java-faker"
+            ),
+            TextLink.external(
+              "https://fakerjs.dev/guide/",
+              "faker-js"
+            ),
+            TextLink.external(
+              "https://faker.readthedocs.io/en/master/",
+              "faker-py"
+            ),
+            TextLink.external(
+              "https://github.com/faker-ruby/faker",
+              "faker-ruby"
+            )
           )
-        ))
-scalacOptions ++= (ScalaVersionADT.fromString(scalaVersion.value) match {
-  case `2.12` => ScalacSettings.`2.12`
-  case `2.13` => ScalacSettings.`2.13`
-})
-val mimaVersion: Option[String] = None
-mimaPreviousArtifacts :=
-  mimaVersion.map("io.github.etspaceman" %% "scalacheck-faker" % _).toSet
-console / initialCommands :=
-  """import faker._
-    |import faker.syntax.string._
-    |import faker.syntax.scalacheck._
-    |""".stripMargin
-homepage := Some(url("https://github.com/etspaceman/scalacheck-faker"))
-licenses := Seq(
-  "MIT" -> url("https://github.com/etspaceman/scalacheck-faker/LICENSE")
-)
-scmInfo := Some(
-  ScmInfo(
-    url("https://github.com/etspaceman/scalacheck-faker"),
-    "scm:git:git@github.com:etspaceman/scalacheck-faker.git"
+        )
+      ),
+    tlSiteApiPackage := Some("scalacheck-faker"),
+    laikaConfig := LaikaConfig.defaults.withConfigValue(
+      LinkConfig(sourceLinks =
+        Seq(
+          SourceLinks(
+            baseUri =
+              "https://github.com/etspaceman/scalacheck-faker/blob/main/",
+            suffix = "scala"
+          )
+        )
+      )
+    )
   )
-)
-developers := List(
-  Developer(
-    "etspaceman",
-    "Eric Meisel",
-    "eric.steven.meisel@gmail.com",
-    url("https://github.com/etspaceman")
-  )
-)
-releaseTagName := s"${version.value}"
-releaseVcsSign := true
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
-releaseCrossBuild := true
-publishMavenStyle := true
-Test / publishArtifact := false
-pomIncludeRepository := Function.const(false)
-publishTo := {
-  if (isSnapshot.value) Some(Opts.resolver.sonatypeSnapshots)
-  else Some(Opts.resolver.sonatypeStaging)
-}
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runClean,
-  runTest,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  releaseStepCommandAndRemaining("+publishSigned"),
-  setNextVersion,
-  commitNextVersion,
-  releaseStepCommand("sonatypeReleaseAll"),
-  pushChanges
-)
-
-Compile / console / scalacOptions ~= {
-  _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
-}
-
-Test / fork := true
-testForkedParallel := true
-
-addCommandAlias("cpl", ";+Test / compile")
-addCommandAlias(
-  "fixCheck",
-  ";Compile / scalafix --check ;Test / scalafix --check"
-)
-addCommandAlias("fix", ";Compile / scalafix ;Test / scalafix")
-addCommandAlias(
-  "cov",
-  ";clean;coverage;test;coverageReport"
-)
-addCommandAlias(
-  "validate",
-  ";cov;prettyCheck;mimaReportBinaryIssues"
-)
-addCommandAlias(
-  "fmt",
-  ";scalafmtAll;scalafmtSbt"
-)
-addCommandAlias(
-  "fmtCheck",
-  ";scalafmtCheckAll;scalafmtSbtCheck"
-)
-addCommandAlias(
-  "pretty",
-  ";fix;fmt"
-)
-addCommandAlias(
-  "prettyCheck",
-  ";fixCheck;fmtCheck"
-)
+  .dependsOn(`scalacheck-faker`)

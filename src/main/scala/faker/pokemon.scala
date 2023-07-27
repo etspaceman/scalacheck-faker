@@ -1,14 +1,33 @@
+/*
+ * Copyright (c) 2020 etspaceman
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package faker
 
-import io.estatico.newtype.macros.newtype
-import io.estatico.newtype.ops._
 import org.scalacheck.{Arbitrary, Gen}
 import pureconfig.ConfigReader
 
 object pokemon {
-  @newtype final case class PokemonLocation private (value: String)
+  type PokemonLocation = PokemonLocation.Type
 
-  object PokemonLocation {
+  object PokemonLocation extends Newtype[String] { self =>
     def pokemonLocations(implicit
         loader: ResourceLoader
     ): Seq[PokemonLocation] =
@@ -20,12 +39,12 @@ object pokemon {
       Arbitrary(Gen.oneOf(pokemonLocations))
 
     implicit val pokemonLocationConfigReader: ConfigReader[PokemonLocation] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class PokemonMove private (value: String)
+  type PokemonMove = PokemonMove.Type
 
-  object PokemonMove {
+  object PokemonMove extends Newtype[String] { self =>
     def pokemonMoves(implicit loader: ResourceLoader): Seq[PokemonMove] =
       loader.loadKey[Seq[PokemonMove]]("pokemon.moves")
 
@@ -35,12 +54,12 @@ object pokemon {
       Arbitrary(Gen.oneOf(pokemonMoves))
 
     implicit val pokemonMoveConfigReader: ConfigReader[PokemonMove] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class PokemonName private (value: String)
+  type PokemonName = PokemonName.Type
 
-  object PokemonName {
+  object PokemonName extends Newtype[String] { self =>
     def pokemonNames(implicit loader: ResourceLoader): Seq[PokemonName] =
       loader.loadKey[Seq[PokemonName]]("pokemon.names")
 
@@ -50,7 +69,7 @@ object pokemon {
       Arbitrary(Gen.oneOf(pokemonNames))
 
     implicit val pokemonNameConfigReader: ConfigReader[PokemonName] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
 }

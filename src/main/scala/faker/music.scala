@@ -1,14 +1,33 @@
+/*
+ * Copyright (c) 2020 etspaceman
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package faker
 
-import io.estatico.newtype.macros.newtype
-import io.estatico.newtype.ops.toCoercibleIdOps
 import org.scalacheck.{Arbitrary, Gen}
 import pureconfig.ConfigReader
 
 object music {
-  @newtype final case class MusicAlbum private (value: String)
+  type MusicAlbum = MusicAlbum.Type
 
-  object MusicAlbum {
+  object MusicAlbum extends Newtype[String] { self =>
     def musicAlbums(implicit loader: ResourceLoader): Seq[MusicAlbum] =
       loader.loadKey[Seq[MusicAlbum]]("music.albums")
 
@@ -18,12 +37,12 @@ object music {
       Arbitrary(Gen.oneOf(musicAlbums))
 
     implicit val musicAlbumConfigReader: ConfigReader[MusicAlbum] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class MusicalGenre private (value: String)
+  type MusicalGenre = MusicalGenre.Type
 
-  object MusicalGenre {
+  object MusicalGenre extends Newtype[String] { self =>
     def musicalGenres(implicit loader: ResourceLoader): Seq[MusicalGenre] =
       loader.loadKey[Seq[MusicalGenre]]("music.genres")
 
@@ -33,12 +52,12 @@ object music {
       Arbitrary(Gen.oneOf(musicalGenres))
 
     implicit val musicalGenreConfigReader: ConfigReader[MusicalGenre] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class MusicalInstrument private (value: String)
+  type MusicalInstrument = MusicalInstrument.Type
 
-  object MusicalInstrument {
+  object MusicalInstrument extends Newtype[String] { self =>
     def musicalInstruments(implicit
         loader: ResourceLoader
     ): Seq[MusicalInstrument] =
@@ -51,12 +70,12 @@ object music {
 
     implicit val musicalInstrumentConfigReader
         : ConfigReader[MusicalInstrument] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 
-  @newtype final case class MusicBand private (value: String)
+  type MusicBand = MusicBand.Type
 
-  object MusicBand {
+  object MusicBand extends Newtype[String] { self =>
     def musicBands(implicit loader: ResourceLoader): Seq[MusicBand] =
       loader.loadKey[Seq[MusicBand]]("music.bands")
 
@@ -66,6 +85,6 @@ object music {
       Arbitrary(Gen.oneOf(musicBands))
 
     implicit val musicBandConfigReader: ConfigReader[MusicBand] =
-      ConfigReader[String].coerce
+      ConfigReader[String].map(self.apply)
   }
 }
