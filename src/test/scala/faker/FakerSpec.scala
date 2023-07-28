@@ -29,7 +29,7 @@ import org.scalacheck.Prop._
 
 trait FakerSpec extends munit.ScalaCheckSuite {
   override val scalaCheckTestParameters =
-    super.scalaCheckTestParameters.withMinSuccessfulTests(10)
+    super.scalaCheckTestParameters.withMinSuccessfulTests(10).withWorkers(5)
 
   def locale: Locale
 
