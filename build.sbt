@@ -31,6 +31,7 @@ inThisBuild(
     tlCiHeaderCheck := true,
     tlCiScalafmtCheck := true,
     tlCiScalafixCheck := true,
+    tlCiReleaseBranches := Seq("main"),
     scmInfo := Some(
       ScmInfo(
         url(
