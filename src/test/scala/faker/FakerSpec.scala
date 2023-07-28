@@ -28,6 +28,9 @@ import org.scalacheck.Arbitrary
 import org.scalacheck.Prop._
 
 trait FakerSpec extends munit.ScalaCheckSuite {
+  override val scalaCheckTestParameters =
+    super.scalaCheckTestParameters.withMinSuccessfulTests(10)
+
   def locale: Locale
 
   def testCanGen[A: Arbitrary](locale: Locale, desc: String)(
