@@ -32,6 +32,7 @@ inThisBuild(
     tlCiScalafmtCheck := true,
     tlCiScalafixCheck := true,
     tlCiReleaseBranches := Seq("main"),
+    tlSonatypeUseLegacyHost := true,
     scmInfo := Some(
       ScmInfo(
         url(
