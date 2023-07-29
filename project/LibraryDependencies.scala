@@ -3,11 +3,11 @@ import sbt._
 object LibraryDependencies {
   val ScalaCheck = "org.scalacheck" %% "scalacheck" % "1.17.0"
   val TypesafeConfig = "com.typesafe" % "config" % "1.4.2"
-  val ApacheCommons = "org.apache.commons" % "commons-lang3" % "3.12.0"
+  val ApacheCommons = "org.apache.commons" % "commons-lang3" % "3.13.0"
   val KindProjector = "org.typelevel" % "kind-projector" % "0.13.2"
   val PureConfig = "com.github.pureconfig" %% "pureconfig-core" % "0.17.4"
   val ScalaParsingCombinators =
-    "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1"
+    "org.scala-lang.modules" %% "scala-parser-combinators" % "2.3.0"
 
   object Munit {
     val munitVersion = "1.0.0-M8"
