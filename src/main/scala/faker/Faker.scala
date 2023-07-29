@@ -552,6 +552,13 @@ final class Faker(private[faker] val locale: Locale) {
   def colorName(seed: Seed): String =
     Arbitrary.arbitrary[color.ColorName].one(seed).value
   def colorName(): String = colorName(Seed.random())
+
+  // Aqua Teen Hunger Force
+  def aquaTeenHungerForceCharacter(seed: Seed): String =
+    Arbitrary.arbitrary[aquaTeenHungerForce.Character].one(seed).value
+  def aquaTeenHungerForceCharacter(): String = aquaTeenHungerForceCharacter(
+    Seed.random()
+  )
 }
 
 object Faker {
