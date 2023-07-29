@@ -533,6 +533,11 @@ final class Faker(private[faker] val locale: Locale) {
   def programmingLanguageCreator(): String = programmingLanguageCreator(
     Seed.random()
   )
+
+  // Color
+  def colorName(seed: Seed): String =
+    Arbitrary.arbitrary[color.ColorName].one(seed).value
+  def colorName(): String = colorName(Seed.random())
 }
 
 object Faker {
