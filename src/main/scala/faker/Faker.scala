@@ -512,6 +512,22 @@ final class Faker(private[faker] val locale: Locale) {
   def catRegistry(seed: Seed): String =
     Arbitrary.arbitrary[cat.Registry].one(seed).value
   def catRegistry(): String = catRegistry(Seed.random())
+
+  // Programming Language
+  def programmingLanguageName(seed: Seed): String =
+    Arbitrary
+      .arbitrary[programmingLanguage.ProgrammingLanguageName]
+      .one(seed)
+      .value
+  def programmingLanguageName(): String = programmingLanguageName(Seed.random())
+  def programmingLanguageCreator(seed: Seed): String =
+    Arbitrary
+      .arbitrary[programmingLanguage.ProgrammingLanguageCreator]
+      .one(seed)
+      .value
+  def programmingLanguageCreator(): String = programmingLanguageCreator(
+    Seed.random()
+  )
 }
 
 object Faker {
