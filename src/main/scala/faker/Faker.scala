@@ -563,6 +563,11 @@ final class Faker(private[faker] val locale: Locale) {
   def appAuthor(seed: Seed): String =
     Arbitrary.arbitrary[app.AppAuthor].one(seed).value
   def appAuthor(): String = appAuthor(Seed.random())
+
+  // Artist
+  def artistName(seed: Seed): String =
+    Arbitrary.arbitrary[artist.ArtistName].one(seed).value
+  def artistName(): String = artistName(Seed.random())
 }
 
 object Faker {
