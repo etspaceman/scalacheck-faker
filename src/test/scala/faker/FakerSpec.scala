@@ -379,6 +379,7 @@ trait FakerSpec extends munit.ScalaCheckSuite {
     locale,
     "basketball.BasketballPosition"
   )(x => Some(x.value))
+  testCanGen[color.ColorName](locale, "color.ColorName")(x => Some(x.value))
 
   val faker: Faker = new Faker(locale)
 
@@ -997,6 +998,12 @@ trait FakerSpec extends munit.ScalaCheckSuite {
     s"basketballPosition should return successfully for locale $locale"
   ) {
     val res = faker.basketballPosition()
+    assert(res.nonEmpty, res)
+  }
+  test(
+    s"colorName should return successfully for locale $locale"
+  ) {
+    val res = faker.colorName()
     assert(res.nonEmpty, res)
   }
 }
