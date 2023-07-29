@@ -355,6 +355,14 @@ trait FakerSpec extends munit.ScalaCheckSuite {
     Some(x.value)
   )
   testCanGen[yoda.YodaQuote](locale, "yoda.YodaQuote")(x => Some(x.value))
+  testCanGen[programmingLanguage.ProgrammingLanguageName](
+    locale,
+    "programmingLanguage.ProgrammingLanguageName"
+  )(x => Some(x.value))
+  testCanGen[programmingLanguage.ProgrammingLanguageCreator](
+    locale,
+    "programmingLanguage.ProgrammingLanguageCreator"
+  )(x => Some(x.value))
 
   val faker: Faker = new Faker(locale)
 
@@ -937,6 +945,16 @@ trait FakerSpec extends munit.ScalaCheckSuite {
   }
   test(s"yodaQuote should return successfully for locale $locale") {
     val res = faker.yodaQuote()
+  test(
+    s"programmingLanguageName should return successfully for locale $locale"
+  ) {
+    val res = faker.programmingLanguageName()
+    assert(res.nonEmpty, res)
+  }
+  test(
+    s"programmingLanguageCreator should return successfully for locale $locale"
+  ) {
+    val res = faker.programmingLanguageCreator()
     assert(res.nonEmpty, res)
   }
 }
