@@ -3,6 +3,7 @@ import laika.helium.Helium
 import laika.helium.config.TextLink
 import laika.helium.config.ThemeNavigationSection
 import laika.rewrite.link._
+import org.typelevel.sbt.mergify._
 
 val Scala212 = "2.12.18"
 val Scala213 = "2.13.11"
@@ -33,6 +34,11 @@ inThisBuild(
     tlCiScalafixCheck := true,
     tlCiReleaseBranches := Seq("main"),
     tlSonatypeUseLegacyHost := true,
+    mergifyStewardConfig := Some(
+      MergifyStewardConfig(action =
+        MergifyAction.Merge(method = Some("squash"))
+      )
+    ),
     scmInfo := Some(
       ScmInfo(
         url(
