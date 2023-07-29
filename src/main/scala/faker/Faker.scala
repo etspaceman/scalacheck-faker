@@ -548,7 +548,6 @@ final class Faker(private[faker] val locale: Locale) {
     Arbitrary.arbitrary[basketball.BasketballPosition].one(seed).value
   def basketballPosition(): String = basketballPosition(Seed.random())
 
-
   // Color
   def colorName(seed: Seed): String =
     Arbitrary.arbitrary[color.ColorName].one(seed).value
