@@ -43,7 +43,9 @@ object basketball {
   type BasketballPlayer = BasketballPlayer.Type
 
   object BasketballPlayer extends Newtype[String] { self =>
-    def basketballPlayers(implicit loader: ResourceLoader): Seq[BasketballPlayer] =
+    def basketballPlayers(implicit
+        loader: ResourceLoader
+    ): Seq[BasketballPlayer] =
       loader.loadKey[Seq[BasketballPlayer]]("basketball.players")
 
     implicit def basketballPlayerArbitrary(implicit
@@ -58,7 +60,9 @@ object basketball {
   type BasketballCoach = BasketballCoach.Type
 
   object BasketballCoach extends Newtype[String] { self =>
-    def basketballCoachs(implicit loader: ResourceLoader): Seq[BasketballCoach] =
+    def basketballCoachs(implicit
+        loader: ResourceLoader
+    ): Seq[BasketballCoach] =
       loader.loadKey[Seq[BasketballCoach]]("basketball.coaches")
 
     implicit def basketballCoachArbitrary(implicit
@@ -73,7 +77,9 @@ object basketball {
   type BasketballPosition = BasketballPosition.Type
 
   object BasketballPosition extends Newtype[String] { self =>
-    def basketballPositions(implicit loader: ResourceLoader): Seq[BasketballPosition] =
+    def basketballPositions(implicit
+        loader: ResourceLoader
+    ): Seq[BasketballPosition] =
       loader.loadKey[Seq[BasketballPosition]]("basketball.positions")
 
     implicit def basketballPositionArbitrary(implicit
@@ -81,7 +87,8 @@ object basketball {
     ): Arbitrary[BasketballPosition] =
       Arbitrary(Gen.oneOf(basketballPositions))
 
-    implicit val basketballPositionConfigReader: ConfigReader[BasketballPosition] =
+    implicit val basketballPositionConfigReader
+        : ConfigReader[BasketballPosition] =
       ConfigReader[String].map(self.apply)
   }
 }
