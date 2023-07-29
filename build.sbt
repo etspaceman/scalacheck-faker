@@ -33,6 +33,11 @@ inThisBuild(
     tlCiScalafixCheck := true,
     tlCiReleaseBranches := Seq("main"),
     tlSonatypeUseLegacyHost := true,
+    mergifyStewardConfig := Some(
+      MergifyStewardConfig(action =
+        MergifyAction.Merge(method = Some("squash"))
+      )
+    ),
     scmInfo := Some(
       ScmInfo(
         url(
