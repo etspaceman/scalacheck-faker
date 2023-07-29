@@ -62,7 +62,9 @@ lazy val `scalacheck-faker` = project
       ApacheCommons,
       ScalaParsingCombinators,
       Munit.core % Test,
-      Munit.scalacheck % Test
+      Munit.scalacheck % Test,
+      Munit.catsEffect % Test,
+      Munit.scalacheckEffect % Test
     ),
     Test / fork := true,
     testForkedParallel := true,
