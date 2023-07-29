@@ -553,6 +553,17 @@ final class Faker(private[faker] val locale: Locale) {
     Arbitrary.arbitrary[color.ColorName].one(seed).value
   def colorName(): String = colorName(Seed.random())
 
+  // App
+  def appName(seed: Seed): String =
+    Arbitrary.arbitrary[app.AppName].one(seed).value
+  def appName(): String = appName(Seed.random())
+  def appVersion(seed: Seed): String =
+    Arbitrary.arbitrary[app.AppVersion].one(seed).value
+  def appVersion(): String = appVersion(Seed.random())
+  def appAuthor(seed: Seed): String =
+    Arbitrary.arbitrary[app.AppAuthor].one(seed).value
+  def appAuthor(): String = appAuthor(Seed.random())
+
   // Aqua Teen Hunger Force
   def aquaTeenHungerForceCharacter(seed: Seed): String =
     Arbitrary.arbitrary[aquaTeenHungerForce.Character].one(seed).value
