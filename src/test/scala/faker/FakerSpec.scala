@@ -945,6 +945,8 @@ trait FakerSpec extends munit.ScalaCheckSuite {
   }
   test(s"yodaQuote should return successfully for locale $locale") {
     val res = faker.yodaQuote()
+    assert(res.nonEmpty, res)
+  }
   test(
     s"programmingLanguageName should return successfully for locale $locale"
   ) {
