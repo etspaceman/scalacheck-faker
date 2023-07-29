@@ -383,6 +383,7 @@ trait FakerSpec extends munit.ScalaCheckSuite {
   testCanGen[app.AppName](locale, "app.AppName")(x => Some(x.value))
   testCanGen[app.AppVersion](locale, "app.AppVersion")(x => Some(x.value))
   testCanGen[app.AppAuthor](locale, "app.AppAuthor")(x => Some(x.value))
+  testCanGen[artist.ArtistName](locale, "artist.ArtistName")(x => Some(x.value))
   testCanGen[aquaTeenHungerForce.Character](
     locale,
     "aquaTeenHungerForce.Character"
@@ -1029,6 +1030,12 @@ trait FakerSpec extends munit.ScalaCheckSuite {
     s"appAuthor should return successfully for locale $locale"
   ) {
     val res = faker.appAuthor()
+    assert(res.nonEmpty, res)
+  }
+  test(
+    s"artistName should return successfully for locale $locale"
+  ) {
+    val res = faker.artistName()
     assert(res.nonEmpty, res)
   }
   test(
