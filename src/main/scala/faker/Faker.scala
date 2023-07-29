@@ -513,6 +513,11 @@ final class Faker(private[faker] val locale: Locale) {
     Arbitrary.arbitrary[cat.Registry].one(seed).value
   def catRegistry(): String = catRegistry(Seed.random())
 
+  // Yoda
+  def yodaQuote(seed: Seed): String =
+    Arbitrary.arbitrary[yoda.YodaQuote].one(seed).value
+  def yodaQuote(): String = yodaQuote(Seed.random())
+
   // Programming Language
   def programmingLanguageName(seed: Seed): String =
     Arbitrary
