@@ -354,6 +354,7 @@ trait FakerSpec extends munit.ScalaCheckSuite {
   testCanGen[currency.CurrencySymbol](locale, "currency.CurrencySymbol")(x =>
     Some(x.value)
   )
+  testCanGen[yoda.YodaQuote](locale, "yoda.YodaQuote")(x => Some(x.value))
 
   val faker: Faker = new Faker(locale)
 
@@ -932,6 +933,10 @@ trait FakerSpec extends munit.ScalaCheckSuite {
   }
   test(s"registry should return successfully for locale $locale") {
     val res = faker.catRegistry()
+    assert(res.nonEmpty, res)
+  }
+  test(s"yodaQuote should return successfully for locale $locale") {
+    val res = faker.yodaQuote()
     assert(res.nonEmpty, res)
   }
 }

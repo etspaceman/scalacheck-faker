@@ -512,6 +512,11 @@ final class Faker(private[faker] val locale: Locale) {
   def catRegistry(seed: Seed): String =
     Arbitrary.arbitrary[cat.Registry].one(seed).value
   def catRegistry(): String = catRegistry(Seed.random())
+
+  // Yoda
+  def yodaQuote(seed: Seed): String =
+    Arbitrary.arbitrary[yoda.YodaQuote].one(seed).value
+  def yodaQuote(): String = yodaQuote(Seed.random())
 }
 
 object Faker {
