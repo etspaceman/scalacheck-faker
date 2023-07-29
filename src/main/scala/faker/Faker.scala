@@ -534,6 +534,21 @@ final class Faker(private[faker] val locale: Locale) {
     Seed.random()
   )
 
+  // Basketball
+  def basketballTeam(seed: Seed): String =
+    Arbitrary.arbitrary[basketball.BasketballTeam].one(seed).value
+  def basketballTeam(): String = basketballTeam(Seed.random())
+  def basketballPlayer(seed: Seed): String =
+    Arbitrary.arbitrary[basketball.BasketballPlayer].one(seed).value
+  def basketballPlayer(): String = basketballPlayer(Seed.random())
+  def basketballCoach(seed: Seed): String =
+    Arbitrary.arbitrary[basketball.BasketballCoach].one(seed).value
+  def basketballCoach(): String = basketballCoach(Seed.random())
+  def basketballPosition(seed: Seed): String =
+    Arbitrary.arbitrary[basketball.BasketballPosition].one(seed).value
+  def basketballPosition(): String = basketballPosition(Seed.random())
+
+
   // Color
   def colorName(seed: Seed): String =
     Arbitrary.arbitrary[color.ColorName].one(seed).value

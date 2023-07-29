@@ -363,6 +363,22 @@ trait FakerSpec extends munit.ScalaCheckSuite {
     locale,
     "programmingLanguage.ProgrammingLanguageCreator"
   )(x => Some(x.value))
+  testCanGen[basketball.BasketballPlayer](
+    locale,
+    "basketball.BasketballPlayer"
+  )(x => Some(x.value))
+  testCanGen[basketball.BasketballTeam](
+    locale,
+    "basketball.BasketballTeam"
+  )(x => Some(x.value))
+  testCanGen[basketball.BasketballCoach](
+    locale,
+    "basketball.BasketballCoach"
+  )(x => Some(x.value))
+  testCanGen[basketball.BasketballPosition](
+    locale,
+    "basketball.BasketballPosition"
+  )(x => Some(x.value))
   testCanGen[color.ColorName](locale, "color.ColorName")(x => Some(x.value))
 
   val faker: Faker = new Faker(locale)
@@ -958,6 +974,30 @@ trait FakerSpec extends munit.ScalaCheckSuite {
     s"programmingLanguageCreator should return successfully for locale $locale"
   ) {
     val res = faker.programmingLanguageCreator()
+    assert(res.nonEmpty, res)
+  }
+  test(
+    s"basketballPlayer should return successfully for locale $locale"
+  ) {
+    val res = faker.basketballPlayer()
+    assert(res.nonEmpty, res)
+  }
+  test(
+    s"basketballTeam should return successfully for locale $locale"
+  ) {
+    val res = faker.basketballTeam()
+    assert(res.nonEmpty, res)
+  }
+  test(
+    s"basketballCoach should return successfully for locale $locale"
+  ) {
+    val res = faker.basketballCoach()
+    assert(res.nonEmpty, res)
+  }
+  test(
+    s"basketballPosition should return successfully for locale $locale"
+  ) {
+    val res = faker.basketballPosition()
     assert(res.nonEmpty, res)
   }
   test(
