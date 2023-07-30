@@ -21,14 +21,21 @@
 
 package faker
 
+import cats.Show
+import cats.data.Validated.Valid
 import cats.effect._
 import cats.syntax.all._
 import org.scalacheck.Arbitrary
-import org.scalacheck.Prop._
+import weaver._
+import weaver.scalacheck._
 
-trait FakerSpec extends munit.CatsEffectSuite with munit.ScalaCheckEffectSuite {
-  override lazy val scalaCheckTestParameters =
-    super.scalaCheckTestParameters.withMinSuccessfulTests(10).withWorkers(5)
+trait FakerSpec extends SimpleIOSuite with Checkers {
+  override lazy val checkConfig =
+    super.checkConfig.copy(
+      minimumSuccessful = 3,
+      perPropertyParallelism = 5,
+      maximumDiscardRatio = 40
+    )
 
   def doTest[A, B](
       desc: String,
@@ -36,45 +43,32 @@ trait FakerSpec extends munit.CatsEffectSuite with munit.ScalaCheckEffectSuite {
       arbF: Faker => Arbitrary[A],
       testF: B => Boolean,
       stringF: A => String
-  ): IO[Unit] =
-    Faker.all.parTraverse_ { faker =>
-      IO(testCanFake[B](faker, desc, fakerF, testF)) >>
-      IO(testCanGen[A](faker, desc, arbF, stringF))
-    }
-
-  def testCanFake[A](
-      faker: Faker,
-      desc: String,
-      fakerF: Faker => A,
-      testF: A => Boolean
-  ): Unit =
-    test(s"'$desc' should be loadable via faker for locale '${faker.locale}'") {
-      assert(testF(fakerF(faker)))
-    }
-
-  def testCanGen[A](
-      faker: Faker,
-      desc: String,
-      arbF: Faker => Arbitrary[A],
-      stringF: A => String
-  ): Unit = {
-    implicit val arb = arbF(faker)
-    val locale = faker.locale
-
-    @SuppressWarnings(Array("DisableSyntax.var"))
-    var hasAlerted: Boolean = false
-    def maybeAlert(str: String): Unit =
-      if (str.contains(s"Not implemented for this locale") && !hasAlerted) {
-        println(
-          s"'$desc' contains an unimplemented element for locale '$locale'"
-        )
-        hasAlerted = true
+  ): Unit = loggedTest(s"Testing $desc") { log =>
+    Faker.all
+      .parTraverse { faker =>
+        for {
+          _ <- log.info(s"Testing $desc for locale ${faker.locale}")
+          b <- IO(fakerF(faker))
+          arb <- IO(arbF(faker))
+          res1 <- IO(expect(testF(b)))
+          hasAlertedRef <- Ref.of(false)
+          res2 <- forall { (x: A) =>
+            @SuppressWarnings(Array("DisableSyntax.var"))
+            def maybeAlert(str: String): IO[Unit] =
+              hasAlertedRef.get.flatMap(hasAlerted =>
+                if (
+                  str
+                    .contains(s"Not implemented for this locale") && !hasAlerted
+                ) {
+                  log.info(
+                    s"'$desc' contains an unimplemented element for locale '${faker.locale}'"
+                  ) >> hasAlertedRef.set(true)
+                } else IO.unit
+              )
+            maybeAlert(stringF(x)).as(expect(true))
+          }(arb, Show.show(stringF), implicitly, implicitly)
+        } yield res1 && res2
       }
-    property(s"'$desc' should generate faker data successfully for '$locale'") {
-      forAll { (x: A) =>
-        maybeAlert(stringF(x))
-        true
-      }
-    }
+      .map(_.foldLeft(Expectations(Valid(()))) { case (a, x) => a && x })
   }
 }

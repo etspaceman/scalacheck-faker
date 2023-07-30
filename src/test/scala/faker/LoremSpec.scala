@@ -2,8 +2,8 @@ package faker
 
 import cats.syntax.all._
 
-class LoremSpec extends FakerSpec {
-  List(
+object LoremSpec extends FakerSpec {
+  
     doTest[lorem.LoremCharacters, String](
       "lorem.LoremCharacters",
       _.loremCharacters(),
@@ -13,7 +13,8 @@ class LoremSpec extends FakerSpec {
       },
       _.nonEmpty,
       _.value
-    ),
+    )
+
     doTest[lorem.LoremWord, String](
       "lorem.LoremWord",
       _.loremWord(),
@@ -23,7 +24,8 @@ class LoremSpec extends FakerSpec {
       },
       _.nonEmpty,
       _.value
-    ),
+    )
+
     doTest[lorem.LoremWords, String](
       "lorem.LoremWords",
       _.loremWords(3),
@@ -33,7 +35,8 @@ class LoremSpec extends FakerSpec {
       },
       _.split(" ").length == 3,
       _.value
-    ),
+    )
+
     doTest[lorem.LoremSentence, String](
       "lorem.LoremSentence",
       _.loremSentence(3),
@@ -43,7 +46,8 @@ class LoremSpec extends FakerSpec {
       },
       _.split(" ").length == 3,
       _.value
-    ),
+    )
+
     doTest[lorem.LoremParagraph, String](
       "lorem.LoremParagraph",
       _.loremParagraph(3),
@@ -53,7 +57,8 @@ class LoremSpec extends FakerSpec {
       },
       _.split("\\.").length == 3,
       _.value
-    ),
+    )
+
     doTest[lorem.LoremParagraphs, String](
       "lorem.LoremParagraphs",
       _.loremParagraphs(3),
@@ -64,5 +69,4 @@ class LoremSpec extends FakerSpec {
       _.split("\n").length == 3,
       _.value
     )
-  ).parTraverse_(identity).unsafeRunSync()
 }

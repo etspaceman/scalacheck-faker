@@ -1,0 +1,114 @@
+package faker
+
+import cats.syntax.all._
+
+object CompanySpec extends FakerSpec {
+
+  doTest[company.BS, String](
+    "company.BS",
+    _.bs(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[company.BuzzWord, String](
+    "company.BuzzWord",
+    _.buzzWord(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[company.CatchPhrase, String](
+    "company.CatchPhrase",
+    _.catchPhrase(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[company.CompanyDomainName, String](
+    "company.CompanyDomainName",
+    _.companyDomainName(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[company.CompanyName, String](
+    "company.CompanyName",
+    _.companyName(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[company.CompanySuffix, String](
+    "company.CompanySuffix",
+    _.companySuffix(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[company.CompanyUrl, String](
+    "company.CompanyUrl",
+    _.companyUrl(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[company.Industry, String](
+    "company.Industry",
+    _.industry(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[company.Logo, String](
+    "company.Logo",
+    _.logo(),
+    _ => implicitly,
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[company.Profession, String](
+    "company.Profession",
+    _.profession(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+}
