@@ -23,11 +23,11 @@ package faker
 
 import cats.syntax.all._
 
-object PokemonSpec extends FakerSpec {
+object JobSpec extends FakerSpec {
 
-  doTest[pokemon.PokemonName, String](
-    "pokemon.PokemonName",
-    _.pokemonName(),
+  doTest[job.JobField, String](
+    "job.JobField",
+    _.jobField(),
     faker => {
       implicit val resourceLoader: ResourceLoader = faker.loader
       implicitly
@@ -36,9 +36,9 @@ object PokemonSpec extends FakerSpec {
     _.value
   )
 
-  doTest[pokemon.PokemonLocation, String](
-    "pokemon.PokemonLocation",
-    _.pokemonLocation(),
+   doTest[job.JobSeniority, String](
+    "job.JobSeniority",
+    _.jobSeniority(),
     faker => {
       implicit val resourceLoader: ResourceLoader = faker.loader
       implicitly
@@ -47,9 +47,9 @@ object PokemonSpec extends FakerSpec {
     _.value
   )
 
-  doTest[pokemon.PokemonMove, String](
-    "pokemon.PokemonMove",
-    _.pokemonMove(),
+   doTest[job.JobPosition, String](
+    "job.JobPosition",
+    _.jobPosition(),
     faker => {
       implicit val resourceLoader: ResourceLoader = faker.loader
       implicitly
@@ -57,5 +57,50 @@ object PokemonSpec extends FakerSpec {
     _.nonEmpty,
     _.value
   )
+
+  doTest[job.JobKeySkill, String](
+    "job.JobKeySkill",
+    _.jobKeySkill(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+   doTest[job.JobEmploymentType, String](
+    "job.JobEmploymentType",
+    _.jobEmploymentType(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+   doTest[job.JobEducationLevel, String](
+    "job.JobEducationLevel",
+    _.jobEducationLevel(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+   doTest[job.JobTitle, String](
+    "job.JobTitle",
+    _.jobTitle(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+  
 
 }

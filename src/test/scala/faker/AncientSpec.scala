@@ -23,11 +23,44 @@ package faker
 
 import cats.syntax.all._
 
-object AnimalSpec extends FakerSpec {
+object AncientSpec extends FakerSpec {
 
-  doTest[animal.AnimalName, String](
-    "animal.AnimalName",
-    _.animalName(),
+  doTest[ancient.God, String](
+    "ancient.God",
+    _.god(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[ancient.Primordial, String](
+    "ancient.Primordial",
+    _.primordial(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[ancient.Titan, String](
+    "ancient.Titan",
+    _.titan(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[ancient.Hero, String](
+    "ancient.Hero",
+    _.hero(),
     faker => {
       implicit val resourceLoader: ResourceLoader = faker.loader
       implicitly

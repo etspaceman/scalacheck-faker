@@ -23,11 +23,33 @@ package faker
 
 import cats.syntax.all._
 
-object AnimalSpec extends FakerSpec {
+object CurrencySpec extends FakerSpec {
 
-  doTest[animal.AnimalName, String](
-    "animal.AnimalName",
-    _.animalName(),
+  doTest[currency.CurrencyCode, String](
+    "currency.CurrencyCode",
+    _.currencyCode(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[currency.CurrencyName, String](
+    "currency.CurrencyName",
+    _.currencyName(),
+    faker => {
+      implicit val resourceLoader: ResourceLoader = faker.loader
+      implicitly
+    },
+    _.nonEmpty,
+    _.value
+  )
+
+  doTest[currency.CurrencySymbol, String](
+    "currency.CurrencySymbol",
+    _.currencySymbol(),
     faker => {
       implicit val resourceLoader: ResourceLoader = faker.loader
       implicitly

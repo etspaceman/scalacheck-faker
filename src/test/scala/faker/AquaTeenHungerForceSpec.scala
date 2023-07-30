@@ -23,11 +23,11 @@ package faker
 
 import cats.syntax.all._
 
-object AnimalSpec extends FakerSpec {
+object AquaTeenHungerForceSpec extends FakerSpec {
 
-  doTest[animal.AnimalName, String](
-    "animal.AnimalName",
-    _.animalName(),
+  doTest[aquaTeenHungerForce.Character, String](
+    "aquaTeenHungerForce.Character",
+    _.aquaTeenHungerForceCharacter(),
     faker => {
       implicit val resourceLoader: ResourceLoader = faker.loader
       implicitly
