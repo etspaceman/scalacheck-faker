@@ -29,7 +29,7 @@ import org.scalacheck.rng.Seed
 
 import faker.syntax.scalacheck._
 
-final class Faker(private[faker] val locale: Locale) {
+final class Faker(val locale: Locale) {
 
   implicit val loader: ResourceLoader = new ResourceLoader(locale)
 
@@ -578,9 +578,7 @@ final class Faker(private[faker] val locale: Locale) {
 }
 
 object Faker {
-  // $COVERAGE-OFF$
   val default: Faker = new Faker(SupportedLocales.default)
-
   val ar: Faker = new Faker(SupportedLocales.ar)
   val bg: Faker = new Faker(SupportedLocales.bg)
   val by: Faker = new Faker(SupportedLocales.by)
@@ -636,5 +634,63 @@ object Faker {
   val vi: Faker = new Faker(SupportedLocales.vi)
   val zh_CN: Faker = new Faker(SupportedLocales.zh_CN)
   val zh_TW: Faker = new Faker(SupportedLocales.zh_TW)
-  // $COVERAGE-ON$
+
+  val all = List(
+    default,
+    ar,
+    bg,
+    by,
+    ca,
+    ca_CAT,
+    cs_CZ,
+    da_DK,
+    de,
+    de_AT,
+    de_CH,
+    ee,
+    en,
+    en_US,
+    en_CA,
+    en_GB,
+    en_IND,
+    en_AU,
+    en_MS,
+    en_NEP,
+    en_NG,
+    en_NZ,
+    en_PAK,
+    en_SG,
+    en_UG,
+    en_ZA,
+    es,
+    es_MX,
+    fa,
+    fi_FI,
+    fr,
+    fr_CA,
+    fr_CH,
+    he,
+    hu,
+    hy,
+    id,
+    in_ID,
+    it,
+    ja,
+    ko,
+    lv,
+    nb_NO,
+    nl,
+    pl,
+    pt,
+    pt_BR,
+    ru,
+    sk,
+    sv,
+    th,
+    tr,
+    uk,
+    vi,
+    zh_CN,
+    zh_TW
+  )
 }

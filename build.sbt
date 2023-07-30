@@ -62,10 +62,13 @@ lazy val `scalacheck-faker` = project
       ApacheCommons,
       ScalaParsingCombinators,
       Munit.core % Test,
-      Munit.scalacheck % Test
+      Munit.scalacheck % Test,
+      Munit.catsEffect % Test,
+      Munit.scalacheckEffect % Test,
+      Weaver.cats % Test,
+      Weaver.scalacheck % Test
     ),
     Test / fork := true,
-    testForkedParallel := true,
     tlJdkRelease := Some(8),
     Test / testOptions ++= {
       List(Tests.Argument(TestFrameworks.MUnit, "+l"))

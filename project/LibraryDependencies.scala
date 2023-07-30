@@ -14,5 +14,16 @@ object LibraryDependencies {
     val core = "org.scalameta" %% "munit" % munitVersion
     val scalacheck =
       "org.scalameta" %% "munit-scalacheck" % munitVersion
+    val catsEffect =
+      "org.typelevel" %% "munit-cats-effect" % "2.0.0-M3"
+    val scalacheckEffect =
+      "org.typelevel" %% "scalacheck-effect-munit" % "2.0.0-M2"
+  }
+
+  object Weaver {
+    val weaverVersion = "0.8.3"
+    val cats = "com.disneystreaming" %% "weaver-cats" % weaverVersion
+    val scalacheck =
+      "com.disneystreaming" %% "weaver-scalacheck" % weaverVersion
   }
 }

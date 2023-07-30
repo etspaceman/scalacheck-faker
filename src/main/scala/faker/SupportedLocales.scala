@@ -25,7 +25,6 @@ import java.util.Locale
 
 object SupportedLocales {
   val default: Locale = Locale.getDefault()
-
   val ar: Locale = new Locale("ar")
   val bg: Locale = new Locale("bg")
   val by: Locale = new Locale("by")
@@ -81,4 +80,63 @@ object SupportedLocales {
   val vi: Locale = new Locale("vi")
   val zh_CN: Locale = Locale.CHINA
   val zh_TW: Locale = Locale.TAIWAN
+
+  val all = List(
+    default,
+    ar,
+    bg,
+    by,
+    ca,
+    ca_CAT,
+    cs_CZ,
+    da_DK,
+    de,
+    de_AT,
+    de_CH,
+    ee,
+    en,
+    en_US,
+    en_CA,
+    en_GB,
+    en_IND,
+    en_AU,
+    en_MS,
+    en_NEP,
+    en_NG,
+    en_NZ,
+    en_PAK,
+    en_SG,
+    en_UG,
+    en_ZA,
+    es,
+    es_MX,
+    fa,
+    fi_FI,
+    fr,
+    fr_CA,
+    fr_CH,
+    he,
+    hu,
+    hy,
+    id,
+    in_ID,
+    it,
+    ja,
+    ko,
+    lv,
+    nb_NO,
+    nl,
+    pl,
+    pt,
+    pt_BR,
+    ru,
+    sk,
+    sv,
+    th,
+    tr,
+    uk,
+    vi,
+    zh_CN,
+    zh_TW
+  )
 }
