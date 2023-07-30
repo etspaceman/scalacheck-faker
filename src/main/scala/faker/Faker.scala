@@ -575,6 +575,23 @@ final class Faker(val locale: Locale) {
   def aquaTeenHungerForceCharacter(): String = aquaTeenHungerForceCharacter(
     Seed.random()
   )
+
+  // Back To The Future
+  def backToTheFutureCharacter(seed: Seed): String =
+    Arbitrary.arbitrary[backToTheFuture.Character].one(seed).value
+  def backToTheFutureCharacter(): String = backToTheFutureCharacter(
+    Seed.random()
+  )
+  def backToTheFutureQuote(seed: Seed): String =
+    Arbitrary.arbitrary[backToTheFuture.Quote].one(seed).value
+  def backToTheFutureQuote(): String = backToTheFutureQuote(
+    Seed.random()
+  )
+  def backToTheFutureDate(seed: Seed): Instant =
+    Arbitrary.arbitrary[backToTheFuture.Date].one(seed).value
+  def backToTheFutureDate(): Instant = backToTheFutureDate(
+    Seed.random()
+  )
 }
 
 object Faker {
