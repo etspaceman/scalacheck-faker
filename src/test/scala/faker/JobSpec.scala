@@ -36,7 +36,7 @@ object JobSpec extends FakerSpec {
     _.value
   )
 
-   doTest[job.JobSeniority, String](
+  doTest[job.JobSeniority, String](
     "job.JobSeniority",
     _.jobSeniority(),
     faker => {
@@ -47,7 +47,7 @@ object JobSpec extends FakerSpec {
     _.value
   )
 
-   doTest[job.JobPosition, String](
+  doTest[job.JobPosition, String](
     "job.JobPosition",
     _.jobPosition(),
     faker => {
@@ -69,7 +69,7 @@ object JobSpec extends FakerSpec {
     _.value
   )
 
-   doTest[job.JobEmploymentType, String](
+  doTest[job.JobEmploymentType, String](
     "job.JobEmploymentType",
     _.jobEmploymentType(),
     faker => {
@@ -80,7 +80,7 @@ object JobSpec extends FakerSpec {
     _.value
   )
 
-   doTest[job.JobEducationLevel, String](
+  doTest[job.JobEducationLevel, String](
     "job.JobEducationLevel",
     _.jobEducationLevel(),
     faker => {
@@ -91,7 +91,7 @@ object JobSpec extends FakerSpec {
     _.value
   )
 
-   doTest[job.JobTitle, String](
+  doTest[job.JobTitle, String](
     "job.JobTitle",
     _.jobTitle(),
     faker => {
@@ -101,6 +101,5 @@ object JobSpec extends FakerSpec {
     _.nonEmpty,
     _.value
   )
-  
 
 }
