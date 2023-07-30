@@ -21,7 +21,6 @@
 
 package faker
 
-import java.time.{Instant, LocalDateTime, OffsetDateTime, ZonedDateTime}
 import java.util.Locale
 
 import org.scalacheck.Arbitrary
@@ -59,82 +58,12 @@ trait FakerSpecOld extends munit.ScalaCheckSuite {
   )
   testCanGen[ancient.Titan](locale, "ancient.Titan")(x => Some(x.value))
   testCanGen[ancient.Hero](locale, "ancient.Hero")(x => Some(x.value))
-  testCanGen[animal.AnimalName](locale, "animal.AnimalName")(x => Some(x.value))
   testCanGen[aviation.Aircraft](locale, "aviation.Aircraft")(x => Some(x.value))
   testCanGen[aviation.Airport](locale, "aviation.Airport")(x => Some(x.value))
   testCanGen[aviation.Metar](locale, "aviation.Metar")(x => Some(x.value))
   testCanGen[cat.Name](locale, "cat.Name")(x => Some(x.value))
   testCanGen[cat.Breed](locale, "cat.Breed")(x => Some(x.value))
   testCanGen[cat.Registry](locale, "cat.Registry")(x => Some(x.value))
-  testCanGen[phone.PhoneNumber](locale, "phone.PhoneNumber")(x => Some(x.value))
-  testCanGen[phone.CellPhoneNumber](locale, "phone.CellPhoneNumber")(x =>
-    Some(x.value)
-  )
-  testCanGen[pokemon.PokemonName](locale, "pokemon.PokemonName")(x =>
-    Some(x.value)
-  )
-  testCanGen[pokemon.PokemonLocation](locale, "pokemon.PokemonLocation")(x =>
-    Some(x.value)
-  )
-  testCanGen[pokemon.PokemonMove](locale, "pokemon.PokemonMove")(x =>
-    Some(x.value)
-  )
-  
-  testCanGen[zelda.ZeldaCharacter](locale, "zelda.ZeldaCharacter")(x =>
-    Some(x.value)
-  )
-  testCanGen[zelda.ZeldaGame](locale, "zelda.ZeldaGame")(x => Some(x.value))
-  testCanGen[zelda.ZeldaItem](locale, "zelda.ZeldaItem")(x => Some(x.value))
-  testCanGen[zelda.ZeldaLocation](locale, "zelda.ZeldaLocation")(x =>
-    Some(x.value)
-  )
-  testCanGen[slack.emoji.SlackEmoji](locale, "slack.emoji.SlackEmoji")(x =>
-    Some(x.value)
-  )
-  testCanGen[slack.emoji.SlackEmojiActivity](
-    locale,
-    "slack.emoji.SlackEmojiActivity"
-  )(x => Some(x.value))
-  testCanGen[slack.emoji.SlackEmojiCelebration](
-    locale,
-    "slack.emoji.SlackEmojiCelebration"
-  )(x => Some(x.value))
-  testCanGen[slack.emoji.SlackEmojiCustom](
-    locale,
-    "slack.emoji.SlackEmojiCustom"
-  )(x => Some(x.value))
-  testCanGen[slack.emoji.SlackEmojiFood](
-    locale,
-    "slack.emoji.SlackEmojiFood"
-  )(x => Some(x.value))
-  testCanGen[slack.emoji.SlackEmojiNature](
-    locale,
-    "slack.emoji.SlackEmojiNature"
-  )(x => Some(x.value))
-  testCanGen[slack.emoji.SlackEmojiObject](
-    locale,
-    "slack.emoji.SlackEmojiObject"
-  )(x => Some(x.value))
-  testCanGen[slack.emoji.SlackEmojiPerson](
-    locale,
-    "slack.emoji.SlackEmojiPerson"
-  )(x => Some(x.value))
-  testCanGen[slack.emoji.SlackEmojiTravel](
-    locale,
-    "slack.emoji.SlackEmojiTravel"
-  )(x => Some(x.value))
-  testCanGen[weather.WeatherDescription](
-    locale,
-    "weather.WeatherDescription"
-  )(x => Some(x.value))
-  testCanGen[weather.TemperatureCelsius](
-    locale,
-    "weather.TemperatureCelsius"
-  )(x => Some(x.value))
-  testCanGen[weather.TemperatureFahrenheit](
-    locale,
-    "weather.TemperatureFahrenheit"
-  )(x => Some(x.value))
   testCanGen[music.MusicAlbum](locale, "music.MusicAlbum")(x => Some(x.value))
   testCanGen[music.MusicalGenre](locale, "music.MusicalGenre")(x =>
     Some(x.value)
@@ -204,107 +133,6 @@ trait FakerSpecOld extends munit.ScalaCheckSuite {
 
   val faker: Faker = new Faker(locale)
 
-  
-  test(s"phoneNumber should return successfully for locale $locale") {
-    val res = faker.phoneNumber()
-    assert(res.nonEmpty, res)
-  }
-  test(s"cellPhoneNumber should return successfully for locale $locale") {
-    val res = faker.cellPhoneNumber()
-    assert(res.nonEmpty, res)
-  }
-  test(s"pokemonName should return successfully for locale $locale") {
-    val res = faker.pokemonName()
-    assert(res.nonEmpty, res)
-  }
-  test(s"pokemonLocation should return successfully for locale $locale") {
-    val res = faker.pokemonLocation()
-    assert(res.nonEmpty, res)
-  }
-  test(s"pokemonMove should return successfully for locale $locale") {
-    val res = faker.pokemonMove()
-    assert(res.nonEmpty, res)
-  }
-  test(s"animalName should return successfully for locale $locale") {
-    val res = faker.animalName()
-    assert(res.nonEmpty, res)
-  }
-  test(s"genderType should return successfully for locale $locale") {
-    val res = faker.genderType()
-    assert(res.nonEmpty, res)
-  }
-  test(s"genderBinaryType should return successfully for locale $locale") {
-    val res = faker.genderBinaryType()
-    assert(res.nonEmpty, res)
-  }
-  test(s"genderShortBinaryType should return successfully for locale $locale") {
-    val res = faker.genderShortBinaryType()
-    assert(res.nonEmpty, res)
-  }
-  test(s"zeldaCharacter should return successfully for locale $locale") {
-    val res = faker.zeldaCharacter()
-    assert(res.nonEmpty, res)
-  }
-  test(s"zeldaGame should return successfully for locale $locale") {
-    val res = faker.zeldaGame()
-    assert(res.nonEmpty, res)
-  }
-  test(s"zeldaItem should return successfully for locale $locale") {
-    val res = faker.zeldaItem()
-    assert(res.nonEmpty, res)
-  }
-  test(s"zeldaLocation should return successfully for locale $locale") {
-    val res = faker.zeldaLocation()
-    assert(res.nonEmpty, res)
-  }
-  test(s"slackEmoji should return successfully for locale $locale") {
-    val res = faker.slackEmoji()
-    assert(res.nonEmpty, res)
-  }
-  test(s"slackEmojiActivity should return successfully for locale $locale") {
-    val res = faker.slackEmojiActivity()
-    assert(res.nonEmpty, res)
-  }
-  test(s"slackEmojiCelebration should return successfully for locale $locale") {
-    val res = faker.slackEmojiCelebration()
-    assert(res.nonEmpty, res)
-  }
-  test(s"slackEmojiCustom should return successfully for locale $locale") {
-    val res = faker.slackEmojiCustom()
-    assert(res.nonEmpty, res)
-  }
-  test(s"slackEmojiFood should return successfully for locale $locale") {
-    val res = faker.slackEmojiFood()
-    assert(res.nonEmpty, res)
-  }
-  test(s"slackEmojiNature should return successfully for locale $locale") {
-    val res = faker.slackEmojiNature()
-    assert(res.nonEmpty, res)
-  }
-  test(s"slackEmojiObject should return successfully for locale $locale") {
-    val res = faker.slackEmojiObject()
-    assert(res.nonEmpty, res)
-  }
-  test(s"slackEmojiPerson should return successfully for locale $locale") {
-    val res = faker.slackEmojiPerson()
-    assert(res.nonEmpty, res)
-  }
-  test(s"slackEmojiTravel should return successfully for locale $locale") {
-    val res = faker.slackEmojiTravel()
-    assert(res.nonEmpty, res)
-  }
-  test(s"weatherDescription should return successfully for locale $locale") {
-    val res = faker.weatherDescription()
-    assert(res.nonEmpty, res)
-  }
-  test(s"temperatureCelsius should return successfully for locale $locale") {
-    val res = faker.temperatureCelsius()
-    assert(res.nonEmpty, res)
-  }
-  test(s"temperatureFahrenheit should return successfully for locale $locale") {
-    val res = faker.temperatureFahrenheit()
-    assert(res.nonEmpty, res)
-  }
   test(s"musicAlbum should return successfully for locale $locale") {
     val res = faker.musicAlbum()
     assert(res.nonEmpty, res)
