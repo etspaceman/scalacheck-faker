@@ -69,6 +69,5 @@ trait FakerSpec extends SimpleIOSuite with Checkers {
         } yield res1 && res2
       }
       .map(_.foldLeft(Expectations(Valid(()))) { case (a, x) => a && x })
-    }
   }
 }
