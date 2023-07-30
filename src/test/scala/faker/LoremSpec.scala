@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object LoremSpec extends FakerSpec {
 
   doTest[lorem.LoremCharacters, String](

@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object JobSpec extends FakerSpec {
 
   doTest[job.JobField, String](

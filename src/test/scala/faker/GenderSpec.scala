@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object GenderSpec extends FakerSpec {
 
   doTest[gender.GenderType, String](

@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object WeatherSpec extends FakerSpec {
 
   doTest[weather.WeatherDescription, String](

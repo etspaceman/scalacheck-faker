@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object ColorSpec extends FakerSpec {
 
   doTest[color.ColorName, String](

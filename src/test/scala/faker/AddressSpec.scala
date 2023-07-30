@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object AddressSpec extends FakerSpec {
 
   doTest[address.BuildingNumber, String](

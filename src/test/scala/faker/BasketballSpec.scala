@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object BasketballSpec extends FakerSpec {
 
   doTest[basketball.BasketballPlayer, String](

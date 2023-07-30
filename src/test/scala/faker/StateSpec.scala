@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 import faker.syntax.scalacheck._
 
 object StatesSpec extends FakerSpec {

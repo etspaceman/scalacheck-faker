@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object CatSpec extends FakerSpec {
 
   doTest[cat.Name, String](

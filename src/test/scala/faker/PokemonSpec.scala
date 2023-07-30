@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object PokemonSpec extends FakerSpec {
 
   doTest[pokemon.PokemonName, String](

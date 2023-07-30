@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object AquaTeenHungerForceSpec extends FakerSpec {
 
   doTest[aquaTeenHungerForce.Character, String](

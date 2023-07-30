@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object YodaSpec extends FakerSpec {
 
   doTest[yoda.YodaQuote, String](

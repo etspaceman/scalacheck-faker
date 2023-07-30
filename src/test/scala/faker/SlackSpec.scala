@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object SlackSpec extends FakerSpec {
 
   doTest[slack.emoji.SlackEmoji, String](

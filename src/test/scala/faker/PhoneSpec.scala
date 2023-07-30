@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object PhoneSpec extends FakerSpec {
 
   doTest[phone.PhoneNumber, String](

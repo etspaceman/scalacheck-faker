@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object AviationSpec extends FakerSpec {
 
   doTest[aviation.Aircraft, String](

@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object MusicSpec extends FakerSpec {
 
   doTest[music.MusicAlbum, String](

@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object ZeldaSpec extends FakerSpec {
 
   doTest[zelda.ZeldaCharacter, String](

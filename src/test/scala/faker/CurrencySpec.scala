@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object CurrencySpec extends FakerSpec {
 
   doTest[currency.CurrencyCode, String](

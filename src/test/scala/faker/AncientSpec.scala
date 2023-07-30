@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object AncientSpec extends FakerSpec {
 
   doTest[ancient.God, String](

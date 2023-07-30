@@ -21,8 +21,6 @@
 
 package faker
 
-import cats.syntax.all._
-
 object InternetSpec extends FakerSpec {
 
   doTest[internet.Avatar, String](
