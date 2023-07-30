@@ -69,7 +69,6 @@ lazy val `scalacheck-faker` = project
       Weaver.scalacheck % Test
     ),
     Test / fork := true,
-    Test / testForkedParallel := true,
     tlJdkRelease := Some(8),
     Test / testOptions ++= {
       List(Tests.Argument(TestFrameworks.MUnit, "+l"))

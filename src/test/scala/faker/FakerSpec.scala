@@ -33,7 +33,6 @@ trait FakerSpec extends SimpleIOSuite with Checkers {
   override lazy val checkConfig =
     super.checkConfig.copy(
       minimumSuccessful = 3,
-      perPropertyParallelism = 5,
       maximumDiscardRatio = 40
     )
 
