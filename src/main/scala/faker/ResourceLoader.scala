@@ -67,7 +67,7 @@ final class ResourceLoader(private[faker] val locale: Locale) {
     case _ => defaultConfig
   }
 
-  @SuppressWarnings(Array("scalafix:DisableSyntax.noAsInstanceOf"))
+  @SuppressWarnings(Array("scalafix:DisableSyntax.asInstanceOf"))
   def loadKey[A: ClassTag](key: String)(implicit
       CR: ConfigReader[A]
   ): A =
