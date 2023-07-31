@@ -31,6 +31,10 @@ inThisBuild(
     tlCiHeaderCheck := true,
     tlCiScalafmtCheck := true,
     tlCiScalafixCheck := true,
+    githubWorkflowJavaVersions := Seq(
+      JavaSpec.temurin("8"),
+      JavaSpec.temurin("17")
+    ),
     tlCiReleaseBranches := Seq("main"),
     tlSonatypeUseLegacyHost := true,
     mergifyStewardConfig := Some(
