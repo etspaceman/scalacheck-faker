@@ -30,12 +30,6 @@ import weaver._
 import weaver.scalacheck._
 
 trait FakerSpec extends SimpleIOSuite with Checkers {
-  override lazy val checkConfig =
-    super.checkConfig.copy(
-      minimumSuccessful = 3,
-      maximumDiscardRatio = 40
-    )
-
   def doTest[A, B](
       desc: String,
       fakerF: Faker => B,

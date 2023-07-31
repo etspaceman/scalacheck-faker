@@ -21,6 +21,7 @@
 
 package faker
 
+import scala.collection.concurrent
 import scala.reflect.ClassTag
 
 import java.util.Locale
@@ -28,6 +29,9 @@ import java.util.Locale
 import pureconfig._
 
 final class ResourceLoader(private[faker] val locale: Locale) {
+  private[faker] val cache: concurrent.Map[String, Any] =
+    concurrent.TrieMap.empty
+
   private val country: Option[String] = {
     val cty = Option(locale.getCountry)
     if (cty.exists(_.isEmpty)) None else cty
@@ -58,21 +62,19 @@ final class ResourceLoader(private[faker] val locale: Locale) {
         .withFallback(langConf.optional)
         .withFallback(defaultConfig)
     case (Some(langConf), _) => langConf.optional.withFallback(defaultConfig)
-    // $COVERAGE-OFF$
     case (_, Some(localeConf)) =>
       localeConf.optional.withFallback(defaultConfig)
     case _ => defaultConfig
-    // $COVERAGE-ON$
   }
 
+  @SuppressWarnings(Array("scalafix:DisableSyntax.noAsInstanceOf"))
   def loadKey[A: ClassTag](key: String)(implicit
       CR: ConfigReader[A]
   ): A =
-    conf.at(key).loadOrThrow[A]
+    cache.getOrElseUpdate(key, conf.at(key).loadOrThrow[A]).asInstanceOf[A]
 }
 
 object ResourceLoader {
-  // $COVERAGE-OFF$
   val default: ResourceLoader = new ResourceLoader(SupportedLocales.default)
 
   val ar: ResourceLoader = new ResourceLoader(SupportedLocales.ar)
@@ -134,5 +136,4 @@ object ResourceLoader {
   object Implicits {
     implicit val defaultResourceLoader: ResourceLoader = default
   }
-  // $COVERAGE-ON$
 }
