@@ -1,8 +1,8 @@
 import LibraryDependencies._
+import laika.config._
 import laika.helium.Helium
 import laika.helium.config.TextLink
 import laika.helium.config.ThemeNavigationSection
-import laika.rewrite.link._
 
 val Scala212 = "2.12.18"
 val Scala213 = "2.13.12"
@@ -146,13 +146,10 @@ lazy val docs = project
       ),
     tlSiteApiPackage := Some("scalacheck-faker"),
     laikaConfig := LaikaConfig.defaults.withConfigValue(
-      LinkConfig(sourceLinks =
-        Seq(
-          SourceLinks(
-            baseUri =
-              "https://github.com/etspaceman/scalacheck-faker/blob/main/",
-            suffix = "scala"
-          )
+      LinkConfig.empty.addSourceLinks(
+        SourceLinks(
+          baseUri = "https://github.com/etspaceman/scalacheck-faker/blob/main/",
+          suffix = "scala"
         )
       )
     )
