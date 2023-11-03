@@ -37,8 +37,9 @@ inThisBuild(
     tlCiReleaseBranches := Seq("main"),
     tlSonatypeUseLegacyHost := true,
     mergifyStewardConfig := Some(
-      MergifyStewardConfig(action =
-        MergifyAction.Merge(method = Some("squash"))
+      MergifyStewardConfig(
+        action = MergifyAction.Merge(method = Some("squash")),
+        author = "etspaceman-scala-steward-app[bot]"
       )
     ),
     scmInfo := Some(
