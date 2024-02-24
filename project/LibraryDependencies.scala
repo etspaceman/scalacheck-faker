@@ -4,7 +4,7 @@ object LibraryDependencies {
   val ScalaCheck = "org.scalacheck" %% "scalacheck" % "1.17.0"
   val TypesafeConfig = "com.typesafe" % "config" % "1.4.3"
   val ApacheCommons = "org.apache.commons" % "commons-lang3" % "3.14.0"
-  val KindProjector = "org.typelevel" % "kind-projector" % "0.13.2"
+  val KindProjector = "org.typelevel" % "kind-projector" % "0.13.3"
   val PureConfig = "com.github.pureconfig" %% "pureconfig-core" % "0.17.4"
   val ScalaParsingCombinators =
     "org.scala-lang.modules" %% "scala-parser-combinators" % "2.3.0"
