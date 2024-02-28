@@ -4,13 +4,13 @@ object LibraryDependencies {
   val ScalaCheck = "org.scalacheck" %% "scalacheck" % "1.17.0"
   val TypesafeConfig = "com.typesafe" % "config" % "1.4.3"
   val ApacheCommons = "org.apache.commons" % "commons-lang3" % "3.14.0"
-  val KindProjector = "org.typelevel" % "kind-projector" % "0.13.2"
+  val KindProjector = "org.typelevel" % "kind-projector" % "0.13.3"
   val PureConfig = "com.github.pureconfig" %% "pureconfig-core" % "0.17.4"
   val ScalaParsingCombinators =
     "org.scala-lang.modules" %% "scala-parser-combinators" % "2.3.0"
 
   object Munit {
-    val munitVersion = "1.0.0-M10"
+    val munitVersion = "1.0.0-M11"
     val core = "org.scalameta" %% "munit" % munitVersion
     val scalacheck =
       "org.scalameta" %% "munit-scalacheck" % munitVersion
@@ -21,7 +21,7 @@ object LibraryDependencies {
   }
 
   object Weaver {
-    val weaverVersion = "0.8.3"
+    val weaverVersion = "0.8.4"
     val cats = "com.disneystreaming" %% "weaver-cats" % weaverVersion
     val scalacheck =
       "com.disneystreaming" %% "weaver-scalacheck" % weaverVersion
