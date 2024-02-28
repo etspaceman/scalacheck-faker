@@ -21,7 +21,7 @@ object LibraryDependencies {
   }
 
   object Weaver {
-    val weaverVersion = "0.8.3"
+    val weaverVersion = "0.8.4"
     val cats = "com.disneystreaming" %% "weaver-cats" % weaverVersion
     val scalacheck =
       "com.disneystreaming" %% "weaver-scalacheck" % weaverVersion
