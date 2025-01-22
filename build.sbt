@@ -5,7 +5,7 @@ import laika.helium.config.TextLink
 import laika.helium.config.ThemeNavigationSection
 
 val Scala212 = "2.12.20"
-val Scala213 = "2.13.15"
+val Scala213 = "2.13.16"
 val Scala3 = "3.3.4"
 
 val allScalaVersions = List(Scala213, Scala3, Scala212)
@@ -74,9 +74,8 @@ lazy val `scalacheck-faker` = project
     ),
     Test / fork := true,
     tlJdkRelease := Some(8),
-    Test / testOptions ++= {
-      List(Tests.Argument(TestFrameworks.MUnit, "+l"))
-    },
+    Test / testOptions ++=
+      List(Tests.Argument(TestFrameworks.MUnit, "+l")),
     scalacOptions ++= {
       if (scalaVersion.value.startsWith("2.13")) Seq("-Xlint:-byname-implicit")
       else Nil
