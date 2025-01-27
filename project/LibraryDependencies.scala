@@ -10,7 +10,7 @@ object LibraryDependencies {
     "org.scala-lang.modules" %% "scala-parser-combinators" % "2.4.0"
 
   object Munit {
-    val core = "org.scalameta" %% "munit" % "1.0.4"
+    val core = "org.scalameta" %% "munit" % "1.1.0"
     val scalacheck =
       "org.scalameta" %% "munit-scalacheck" % "1.1.0"
     val catsEffect =
