@@ -20,9 +20,9 @@ object LibraryDependencies {
   }
 
   object Weaver {
-    val weaverVersion = "0.8.4"
-    val cats = "com.disneystreaming" %% "weaver-cats" % weaverVersion
+    val weaverVersion = "0.9.0"
+    val cats = "org.typelevel" %% "weaver-cats" % weaverVersion
     val scalacheck =
-      "com.disneystreaming" %% "weaver-scalacheck" % weaverVersion
+      "org.typelevel" %% "weaver-scalacheck" % weaverVersion
   }
 }
