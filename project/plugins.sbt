@@ -1,5 +1,5 @@
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.5.4")
-addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.14.2")
+addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.14.3")
 addSbtPlugin("org.typelevel" % "sbt-typelevel" % "0.7.7")
 addSbtPlugin("org.typelevel" % "sbt-typelevel-site" % "0.7.7")
 addSbtPlugin("org.typelevel" % "sbt-typelevel-mergify" % "0.7.7")
