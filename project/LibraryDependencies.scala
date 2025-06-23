@@ -20,7 +20,7 @@ object LibraryDependencies {
   }
 
   object Weaver {
-    val weaverVersion = "0.9.0"
+    val weaverVersion = "0.9.1"
     val cats = "org.typelevel" %% "weaver-cats" % weaverVersion
     val scalacheck =
       "org.typelevel" %% "weaver-scalacheck" % weaverVersion
