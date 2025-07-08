@@ -35,7 +35,6 @@ inThisBuild(
       JavaSpec.temurin("17")
     ),
     tlCiReleaseBranches := Seq("main"),
-    tlSonatypeUseLegacyHost := true,
     mergifyStewardConfig := Some(
       MergifyStewardConfig(
         action = MergifyAction.Merge(method = Some("squash")),
