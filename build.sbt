@@ -15,7 +15,7 @@ inThisBuild(
       "2.13" -> "8.0.0",
       "3" -> "8.0.0"
     ),
-    tlBaseVersion := "8.0",
+    tlBaseVersion := "9.0",
     organization := "io.github.etspaceman",
     organizationName := "etspaceman",
     description := "Fake data generation using ScalaCheck Arbitrary instances",
