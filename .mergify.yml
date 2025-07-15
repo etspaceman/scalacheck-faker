@@ -12,7 +12,6 @@ pull_request_rules:
   - body~=labels:.*early-semver-patch
   - status-success=Test (ubuntu-22.04, 2.13, temurin@17)
   - status-success=Test (ubuntu-22.04, 3, temurin@17)
-  - status-success=Test (ubuntu-22.04, 2.12, temurin@17)
   actions:
     merge:
       method: squash
