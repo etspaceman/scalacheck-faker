@@ -1,7 +1,7 @@
 import sbt._
 
 object LibraryDependencies {
-  val ScalaCheck = "org.scalacheck" %% "scalacheck" % "1.18.1"
+  val ScalaCheck = "org.scalacheck" %% "scalacheck" % "1.19.0"
   val TypesafeConfig = "com.typesafe" % "config" % "1.4.5"
   val ApacheCommons = "org.apache.commons" % "commons-lang3" % "3.18.0"
   val KindProjector = "org.typelevel" % "kind-projector" % "0.13.3"
