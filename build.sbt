@@ -4,7 +4,7 @@ import laika.helium.Helium
 import laika.helium.config.TextLink
 import laika.helium.config.ThemeNavigationSection
 
-val Scala213 = "2.13.16"
+val Scala213 = "2.13.17"
 val Scala3 = "3.3.6"
 
 val allScalaVersions = List(Scala213, Scala3)
