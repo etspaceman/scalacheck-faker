@@ -50,7 +50,7 @@ object StateLike {
           case "prefecture" => ConfigReader[Prefecture].from(c)
           case "republic"   => ConfigReader[Republic].from(c)
           case "county"     => ConfigReader[County].from(c)
-          case x =>
+          case x            =>
             ConfigReader.Result.fail(
               CannotParse(
                 s"StateLike ConfigReader could not parse type field value '$x'",

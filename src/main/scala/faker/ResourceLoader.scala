@@ -61,7 +61,7 @@ final class ResourceLoader(private[faker] val locale: Locale) {
       localeConf.optional
         .withFallback(langConf.optional)
         .withFallback(defaultConfig)
-    case (Some(langConf), _) => langConf.optional.withFallback(defaultConfig)
+    case (Some(langConf), _)   => langConf.optional.withFallback(defaultConfig)
     case (_, Some(localeConf)) =>
       localeConf.optional.withFallback(defaultConfig)
     case _ => defaultConfig

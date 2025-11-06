@@ -65,7 +65,7 @@ object StringGenBuilderPart {
         case "string-builder-part"  => ConfigReader[StringBuilderPart].from(c)
         case "default-country-part" => ConfigReader[DefaultCountryPart].from(c)
         case "country-part"         => ConfigReader[CountryPart].from(c)
-        case x =>
+        case x                      =>
           ConfigReader.Result.fail(
             CannotParse(
               s"StringGenBuilderPart ConfigReader could not parse type field value '$x'",
