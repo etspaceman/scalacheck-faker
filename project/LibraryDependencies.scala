@@ -16,7 +16,7 @@ object LibraryDependencies {
     val catsEffect =
       "org.typelevel" %% "munit-cats-effect" % "2.1.0"
     val scalacheckEffect =
-      "org.typelevel" %% "scalacheck-effect-munit" % "2.0.0-M2"
+      "org.typelevel" %% "scalacheck-effect-munit" % "2.1.0"
   }
 
   object Weaver {
