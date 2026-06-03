@@ -7,3 +7,5 @@ target/
 .bloop/
 null/
 **/metals.sbt
+.sdkmanrc
+*.DS_Store

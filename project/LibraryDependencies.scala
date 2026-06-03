@@ -10,7 +10,7 @@ object LibraryDependencies {
     "org.scala-lang.modules" %% "scala-parser-combinators" % "2.4.0"
 
   object Munit {
-    val core = "org.scalameta" %% "munit" % "1.3.0"
+    val core = "org.scalameta" %% "munit" % "1.3.2"
     val scalacheck =
       "org.scalameta" %% "munit-scalacheck" % "1.3.0"
     val catsEffect =
@@ -20,7 +20,7 @@ object LibraryDependencies {
   }
 
   object Weaver {
-    val weaverVersion = "0.12.0"
+    val weaverVersion = "0.13.0"
     val cats = "org.typelevel" %% "weaver-cats" % weaverVersion
     val scalacheck =
       "org.typelevel" %% "weaver-scalacheck" % weaverVersion
