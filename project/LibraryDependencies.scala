@@ -7,7 +7,7 @@ object LibraryDependencies {
   val KindProjector = "org.typelevel" % "kind-projector" % "0.13.4"
   val PureConfig = "com.github.pureconfig" %% "pureconfig-core" % "0.17.10"
   val ScalaParsingCombinators =
-    "org.scala-lang.modules" %% "scala-parser-combinators" % "2.4.0"
+    "org.scala-lang.modules" %% "scala-parser-combinators" % "2.5.0"
 
   object Munit {
     val core = "org.scalameta" %% "munit" % "1.3.6"
