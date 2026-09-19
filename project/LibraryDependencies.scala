@@ -14,7 +14,7 @@ object LibraryDependencies {
     val scalacheck =
       "org.scalameta" %% "munit-scalacheck" % "1.3.0"
     val catsEffect =
-      "org.typelevel" %% "munit-cats-effect" % "2.2.0"
+      "org.typelevel" %% "munit-cats-effect" % "2.2.1"
     val scalacheckEffect =
       "org.typelevel" %% "scalacheck-effect-munit" % "2.1.0"
   }
